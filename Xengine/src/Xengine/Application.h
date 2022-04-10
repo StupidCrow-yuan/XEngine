@@ -6,6 +6,7 @@
 #define XENGINE_APPLICATION_H
 
 #include "Core.h"
+#include "Events/Event.h"
 
 namespace XEngine {
     class Application {

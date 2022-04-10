@@ -4,6 +4,8 @@
 
 #include "Application.h"
 #include "iostream"
+#include "Xengine/Log.h"
+#include "Xengine/Events/ApplicationEvent.h"
 
 namespace XEngine {
     Application::Application()
@@ -16,6 +18,15 @@ namespace XEngine {
 
     void Application::Run()
     {
+        WindowResizeEvent e(1280, 720);
+        if (e.IsInCategory(EventCategoryApplication))
+        {
+            XE_TRACE(e);
+        }
+        if (e.IsInCategory(EventCategoryInput))
+        {
+            XE_TRACE(e);
+        }
         while (true)
         {
 //            std::cout << "run application!" << std::endl;

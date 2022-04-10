@@ -5,5 +5,3 @@ foreach( DIR ${CMAKE_CURRENT_LIST_DIR} )
 endforeach()
 
 target_sources(${EXE_NAME} PRIVATE ${SOURCE_FILES})
-
-target_include_directories(${PROJECT_NAME} PUBLIC ../thirdparty/spdlog/include)
