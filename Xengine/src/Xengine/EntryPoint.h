@@ -11,6 +11,11 @@ extern XEngine::Application* XEngine::CreateApplication();
 
 int main()
 {
+    XEngine::Log::Init();
+    XE_CORE_WARN("Initialized Log");
+    int a = 5;
+    XE_CORE_INFO("Hello! val = {0}", a);
+
     auto app = XEngine::CreateApplication();
     app->Run();
     delete app;

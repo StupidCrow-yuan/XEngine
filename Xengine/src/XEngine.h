@@ -7,6 +7,7 @@
 
 // For use by XEngine application
 #include "XEngine/Application.h"
+#include "Xengine/Log.h"
 
 // entry point
 #include "XEngine/EntryPoint.h"

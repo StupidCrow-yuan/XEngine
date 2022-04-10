@@ -2,7 +2,7 @@
 // Created by yuan on 4/9/22.
 //
 
-#include "../../XEngine/src/XEngine.h"
+#include "XEngine.h"
 
 class Sandbox : public XEngine::Application
 {

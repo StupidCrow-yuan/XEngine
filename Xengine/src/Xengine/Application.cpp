@@ -18,7 +18,7 @@ namespace XEngine {
     {
         while (true)
         {
-            std::cout << "run application!" << std::endl;
+//            std::cout << "run application!" << std::endl;
         }
     }
 
