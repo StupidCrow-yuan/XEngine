@@ -6,7 +6,6 @@
 #define XENGINEMAIN_MOUSEEVENT_H
 
 #include "Event.h"
-#include <sstream>
 
 namespace XEngine {
     class MouseMovedEvent : public Event

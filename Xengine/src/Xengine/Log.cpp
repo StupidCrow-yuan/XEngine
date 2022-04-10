@@ -2,6 +2,7 @@
 // Created by yuan on 4/10/22.
 //
 
+#include "xepch.h"
 #include "Log.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 

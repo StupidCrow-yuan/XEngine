@@ -6,7 +6,6 @@
 #define XENGINEMAIN_APPLICATIONEVENT_H
 
 #include "Event.h"
-#include <sstream>
 
 namespace XEngine {
     class WindowResizeEvent : public Event

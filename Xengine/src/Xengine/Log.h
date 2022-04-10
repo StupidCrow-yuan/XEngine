@@ -5,7 +5,6 @@
 #ifndef XENGINEMAIN_LOG_H
 #define XENGINEMAIN_LOG_H
 
-#include <memory>
 #include "Core.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"

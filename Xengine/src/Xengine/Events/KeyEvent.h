@@ -6,7 +6,6 @@
 #define XENGINEMAIN_KEYEVENT_H
 
 #include "Event.h"
-#include <sstream>
 
 namespace XEngine {
     class KeyEvent : public Event

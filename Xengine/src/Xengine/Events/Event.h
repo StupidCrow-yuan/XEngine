@@ -5,9 +5,8 @@
 #ifndef XENGINEMAIN_EVENT_H
 #define XENGINEMAIN_EVENT_H
 
+#include "xepch.h"
 #include "Xengine/Core.h"
-#include <string>
-#include <functional>
 
 namespace XEngine {
 
