@@ -4,12 +4,13 @@
 
 #include "Application.h"
 #include "xepch.h"
-#include "Xengine/Log.h"
 #include "Xengine/Events/ApplicationEvent.h"
+#include <GLFW/glfw3.h>
 
 namespace XEngine {
     Application::Application()
     {
+        m_Window = std::unique_ptr<Window>(Window::Create());
     }
 
     Application::~Application()
@@ -19,17 +20,12 @@ namespace XEngine {
     void Application::Run()
     {
         WindowResizeEvent e(1280, 720);
-        if (e.IsInCategory(EventCategoryApplication))
+        while (m_Running)
         {
             XE_TRACE(e);
-        }
-        if (e.IsInCategory(EventCategoryInput))
-        {
-            XE_TRACE(e);
-        }
-        while (true)
-        {
-//            std::cout << "run application!" << std::endl;
+            glClearColor(1, 0, 1, 1);
+            glClear(GL_COLOR_BUFFER_BIT);
+            m_Window->OnUpdate();
         }
     }
 

@@ -6,7 +6,4 @@ endforeach()
 
 target_sources(${EXE_NAME} PRIVATE ${SOURCE_FILES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ../thirdparty/spdlog/include ../thirdparty/glfw/include)
-
-target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARY} glfw)
-target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+add_subdirectory(Windows)
