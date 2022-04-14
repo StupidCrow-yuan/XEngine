@@ -2,6 +2,7 @@
 // Created by yuan on 4/13/22.
 //
 
+#include <glad/glad.h>
 #include "xepch.h"
 #include "WindowsWindow.h"
 #include "Xengine/Events/ApplicationEvent.h"
@@ -49,6 +50,8 @@ namespace XEngine {
 
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_data.Title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(m_Window);
+        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        XE_CORE_ASSERT(status, "Failed to initialize GLAD!");
         glfwSetWindowUserPointer(m_Window, &m_data);
         SetVSync(true);
 
