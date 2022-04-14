@@ -6,9 +6,11 @@
 #define XENGINE_APPLICATION_H
 
 #include "Core.h"
-#include "Events/Event.h"
-#include "Xengine/Events/ApplicationEvent.h"
 #include "Window.h"
+
+#include "Xengine/LayerStack.h"
+#include "Xengine/Events/Event.h"
+#include "Xengine/Events/ApplicationEvent.h"
 
 namespace XEngine {
     class Application {
@@ -18,10 +20,13 @@ namespace XEngine {
         void Run();
 
         void OnEvent(Event& e);
+        void PushLayer(Layer* layer);
+        void PushOverlay(Layer* layer);
     private:
         bool OnWindowClose(WindowCloseEvent& e);
         std::unique_ptr<Window> m_Window;
         bool m_Running = true;
+        LayerStack m_LayerStack;
     };
 
     Application* CreateApplication();

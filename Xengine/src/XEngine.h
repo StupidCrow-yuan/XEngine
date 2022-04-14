@@ -7,6 +7,7 @@
 
 // For use by XEngine application
 #include "XEngine/Application.h"
+#include "Xengine/Layer.h"
 #include "Xengine/Log.h"
 
 // entry point
