@@ -22,6 +22,7 @@ namespace XEngine {
 
     class KeyPressedEvent : public KeyEvent
     {
+    public:
         KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
         inline  int GetRepeatCount() const { return m_RepeatCount; }
