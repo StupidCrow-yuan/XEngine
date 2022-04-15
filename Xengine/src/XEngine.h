@@ -9,6 +9,7 @@
 #include "XEngine/Application.h"
 #include "Xengine/Layer.h"
 #include "Xengine/Log.h"
+#include "Xengine/ImGui/ImGuiLayer.h"
 
 // entry point
 #include "XEngine/EntryPoint.h"

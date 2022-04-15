@@ -5,6 +5,3 @@ foreach( DIR ${CMAKE_CURRENT_LIST_DIR} )
 endforeach()
 
 target_sources(${EXE_NAME} PRIVATE ${SOURCE_FILES})
-
-add_subdirectory(Windows)
-add_subdirectory(OpenGL)

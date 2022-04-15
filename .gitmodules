@@ -4,3 +4,6 @@
 [submodule "Xengine/thirdparty/glfw"]
 	path = Xengine/thirdparty/glfw
 	url = git@github.com:glfw/glfw.git
+[submodule "Xengine/thirdparty/imgui"]
+	path = Xengine/thirdparty/imgui
+	url = git@github.com:ocornut/imgui.git
