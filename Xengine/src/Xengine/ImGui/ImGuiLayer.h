@@ -6,6 +6,9 @@
 #define XENGINEMAIN_IMGUILAYER_H
 
 #include "Xengine/Layer.h"
+#include "Xengine/Events/ApplicationEvent.h"
+#include "Xengine/Events/KeyEvent.h"
+#include "Xengine/Events/MouseEvent.h"
 
 namespace XEngine {
     class ImGuiLayer : public Layer {
@@ -18,6 +21,15 @@ namespace XEngine {
         void OnUpdate();
         void OnEvent(Event &event);
 
+    private:
+        bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
+        bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
+        bool OnMouseMovedEvent(MouseMovedEvent& e);
+        bool OnMouseScrolledEvent(MouseScrolledEvent& e);
+        bool OnKeyPressedEvent(KeyPressedEvent& e);
+        bool OnKeyReleasedEvent(KeyReleasedEvent& e);
+        bool OnKeyTypedEvent(KeyTypedEvent& e);
+        bool OnWindowResizeEvent(WindowResizeEvent& e);
     private:
         float m_Time = 0.0f;
     };
