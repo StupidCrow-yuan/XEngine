@@ -29,9 +29,11 @@ namespace XEngine {
         ImGuiIO& io = ImGui::GetIO();
         io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+#if defined(__APPLE__)
+        // On Apple, The window size is reported in Low DPI, even when running in high DPI mode
         //Handle cases of screen coordinates != from framebuffer coordinates (e.g. retina displays), we need to reset the framebufferSize
         io.DisplayFramebufferScale = ImVec2(2, 2);
-
+#endif
         // TEMPORARY: should eventually use XEngine key codes
         io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
         io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
