@@ -53,7 +53,7 @@ namespace XEngine {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #ifdef __APPLE__
         XE_CORE_INFO("I'm apple machine");
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_FALSE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_data.Title.c_str(), nullptr, nullptr);

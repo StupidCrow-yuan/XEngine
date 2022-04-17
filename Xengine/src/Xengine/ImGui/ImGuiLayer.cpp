@@ -29,6 +29,8 @@ namespace XEngine {
         ImGuiIO& io = ImGui::GetIO();
         io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+        //Handle cases of screen coordinates != from framebuffer coordinates (e.g. retina displays), we need to reset the framebufferSize
+        io.DisplayFramebufferScale = ImVec2(2, 2);
 
         // TEMPORARY: should eventually use XEngine key codes
         io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
@@ -75,8 +77,6 @@ namespace XEngine {
 
         static bool show = true;
         ImGui::ShowDemoWindow(&show);
-//        ImGui::SetWindowSize(ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight()));
-
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
@@ -97,7 +97,6 @@ namespace XEngine {
     bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e) {
         ImGuiIO& io = ImGui::GetIO();
         io.MouseDown[e.GetMouseButton()] = true;
-        XE_TRACE("key pressed event");
         return false;
     }
 
