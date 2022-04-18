@@ -5,6 +5,7 @@
 #include "Application.h"
 #include "xepch.h"
 #include <glad/glad.h>
+#include "Input.h"
 
 namespace XEngine {
 
@@ -65,6 +66,9 @@ namespace XEngine {
             {
                 layer->OnUpdate();
             }
+
+            auto[x, y] = Input::GetMousePosition();
+            XE_TRACE("mouse pos x and y {0}, {1}", x, y);
 
             m_Window->OnUpdate();
         }
