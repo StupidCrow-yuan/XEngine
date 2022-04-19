@@ -9,6 +9,11 @@
 #include "XEngine/Application.h"
 #include "Xengine/Layer.h"
 #include "Xengine/Log.h"
+
+#include "Xengine/Input.h"
+#include "Xengine/KeyCodes.h"
+#include "Xengine/MouseButtonCodes.h"
+
 #include "Xengine/ImGui/ImGuiLayer.h"
 
 // entry point

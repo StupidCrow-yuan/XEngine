@@ -14,12 +14,23 @@ public:
 
     void OnUpdate() override
     {
-        XE_INFO("ExampleLayer::Update");
+        if (XEngine::Input::IsKeyPressed(XE_KEY_TAB))
+        {
+            XE_TRACE("Tab Key is pressed(poll)!");
+        }
     }
 
     void OnEvent(XEngine::Event& event) override
     {
-        XE_TRACE("{0}", event);
+        if (event.GetEventType() == XEngine::EventType::KeyPressed)
+        {
+            XEngine::KeyPressedEvent& e = (XEngine::KeyPressedEvent&)event;
+            if (e.GetKeyCode() == XE_KEY_TAB)
+            {
+                XE_TRACE("Tab Key is pressed (event)!");
+                XE_TRACE("{0}", (char)e.GetKeyCode());
+            }
+        }
     }
 };
 
