@@ -4,7 +4,6 @@
 
 #include "XEngine.h"
 
-
 class ExampleLayer : public XEngine::Layer
 {
 public:

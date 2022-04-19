@@ -7,3 +7,6 @@
 [submodule "Xengine/thirdparty/imgui"]
 	path = Xengine/thirdparty/imgui
 	url = git@github.com:ocornut/imgui.git
+[submodule "Xengine/thirdparty/glm"]
+	path = Xengine/thirdparty/glm
+	url = git@github.com:g-truc/glm.git

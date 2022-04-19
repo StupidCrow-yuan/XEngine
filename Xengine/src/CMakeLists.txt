@@ -6,10 +6,12 @@ endforeach()
 
 target_sources(${EXE_NAME} PRIVATE ${SOURCE_FILES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ../thirdparty/spdlog/include ../thirdparty/glfw/include ../thirdparty/glad/include ../thirdparty/imgui)
+target_include_directories(${PROJECT_NAME} PUBLIC ../thirdparty/spdlog/include ../thirdparty/glfw/include ../thirdparty/glad/include ../thirdparty/imgui ../thirdparty/glm)
 
 target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARY} glfw)
 
 target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 
 target_link_libraries(${PROJECT_NAME} ${IMGUI_LIBRARY} imgui)
+
+target_link_libraries(${PROJECT_NAME} ${GLM_LIBRARY} glm)
