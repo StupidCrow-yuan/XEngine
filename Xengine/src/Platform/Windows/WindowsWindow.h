@@ -7,6 +7,7 @@
 
 #include "Xengine/Window.h"
 #include <GLFW/glfw3.h>
+#include "Renderer/GraphicsContext.h"
 
 namespace XEngine {
     class WindowsWindow : public Window {
@@ -30,6 +31,7 @@ namespace XEngine {
         virtual void Shutdown();
     private:
         GLFWwindow* m_Window;
+        GraphicsContext* m_context;
 
         struct WindowData
         {
