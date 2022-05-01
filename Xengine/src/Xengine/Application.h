@@ -11,6 +11,7 @@
 #include "Xengine/LayerStack.h"
 #include "Xengine/Events/Event.h"
 #include "Xengine/Events/ApplicationEvent.h"
+#include "Xengine/ImGui/ImGuiLayer.h"
 
 namespace XEngine {
     class Application {
@@ -32,6 +33,7 @@ namespace XEngine {
         std::unique_ptr<Window> m_Window;
         bool m_Running = true;
         LayerStack m_LayerStack;
+        ImGuiLayer* m_ImGuiLayer;
     private:
         static Application* s_Instance;
     };

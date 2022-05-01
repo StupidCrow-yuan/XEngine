@@ -3,6 +3,7 @@
 //
 
 #include "XEngine.h"
+#include "imgui.h"
 
 class ExampleLayer : public XEngine::Layer
 {
@@ -17,6 +18,13 @@ public:
         {
             XE_TRACE("Tab Key is pressed(poll)!");
         }
+    }
+
+    virtual void OnImGuiRender() override
+    {
+        ImGui::Begin("Test");
+        ImGui::Text("hello world!");
+        ImGui::End();
     }
 
     void OnEvent(XEngine::Event& event) override
@@ -39,7 +47,6 @@ public:
     Sandbox()
     {
         PushLayer(new ExampleLayer);
-        PushOverlay(new XEngine::ImGuiLayer());
     }
 
     ~Sandbox()
