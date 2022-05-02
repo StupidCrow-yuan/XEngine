@@ -12,6 +12,7 @@
 #include "Xengine/Events/Event.h"
 #include "Xengine/Events/ApplicationEvent.h"
 #include "Xengine/ImGui/ImGuiLayer.h"
+#include "Renderer/Shader.h"
 
 namespace XEngine {
     class Application {
@@ -34,6 +35,8 @@ namespace XEngine {
         bool m_Running = true;
         LayerStack m_LayerStack;
         ImGuiLayer* m_ImGuiLayer;
+        unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+        std::unique_ptr<Shader> m_Shader;
     private:
         static Application* s_Instance;
     };
