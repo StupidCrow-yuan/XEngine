@@ -66,11 +66,6 @@ namespace XEngine {
         m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
     }
 
-    Application::~Application()
-    {
-        m_Shader->UnBind();//todo
-    }
-
     void Application::PushLayer(Layer *layer)
     {
         m_LayerStack.PushLayer(layer);
