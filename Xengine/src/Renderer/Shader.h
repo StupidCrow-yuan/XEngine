@@ -6,6 +6,7 @@
 #define XENGINEMAIN_SHADER_H
 
 #include <string>
+#include <glm/glm.hpp>
 
 namespace XEngine {
     class Shader {
@@ -15,6 +16,7 @@ namespace XEngine {
         void Bind() const;
         void UnBind() const;
 
+        void UnloadUniformMat4(const std::string& name, const glm::mat4& matrix);
     private:
         uint32_t m_RendererID;
     };
