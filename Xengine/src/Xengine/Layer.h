@@ -7,6 +7,7 @@
 
 #include "Xengine/Core.h"
 #include "Xengine/Events/Event.h"
+#include "Xengine/Core/Timestep.h"
 
 namespace XEngine {
     class Layer {
@@ -16,7 +17,7 @@ namespace XEngine {
 
         virtual void OnAttach() {}
         virtual void OnDetach() {}
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(Timestep ts) {}
         virtual void OnImGuiRender() {}
         virtual void OnEvent(Event& event) {}
 

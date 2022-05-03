@@ -11,14 +11,12 @@
 #include "Xengine/LayerStack.h"
 #include "Xengine/Events/Event.h"
 #include "Xengine/Events/ApplicationEvent.h"
+#include "Xengine/Core/Timestep.h"
 #include "Xengine/ImGui/ImGuiLayer.h"
-#include "Renderer/Shader.h"
-#include "Renderer/Buffer.h"
-#include "Renderer/VertexArray.h"
-#include "Renderer/OrthographicCamera.h"
 
 namespace XEngine {
-    class Application {
+    class Application
+    {
     public:
         Application();
         virtual ~Application() = default;
@@ -38,11 +36,7 @@ namespace XEngine {
         bool m_Running = true;
         LayerStack m_LayerStack;
         ImGuiLayer* m_ImGuiLayer;
-        std::shared_ptr<Shader> m_Shader;
-        std::shared_ptr<VertexArray> m_VertexArray;
-        std::shared_ptr<Shader> m_BlueShader;
-        std::shared_ptr<VertexArray> m_SquareVA;
-        OrthographicCamera m_Camera;
+        float m_LastFrameTime = 0.0f;
     private:
         static Application* s_Instance;
     };

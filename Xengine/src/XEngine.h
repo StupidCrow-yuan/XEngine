@@ -10,11 +10,21 @@
 #include "Xengine/Layer.h"
 #include "Xengine/Log.h"
 
+#include "Xengine/Core/Timestep.h"
+
 #include "Xengine/Input.h"
 #include "Xengine/KeyCodes.h"
 #include "Xengine/MouseButtonCodes.h"
 
 #include "Xengine/ImGui/ImGuiLayer.h"
+
+//--------Renderer---------
+#include "Renderer/Renderer.h"
+#include "Renderer/RenderCommand.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/Shader.h"
+#include "Renderer/VertexArray.h"
+#include "Renderer/OrthographicCamera.h"
 
 // entry point
 #include "XEngine/EntryPoint.h"
