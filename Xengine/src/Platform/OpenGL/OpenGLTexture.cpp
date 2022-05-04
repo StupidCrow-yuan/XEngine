@@ -36,13 +36,13 @@ namespace XEngine {
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-        glTexImage2D(GL_TEXTURE_2D, 1, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        //修复加载纹理黑屏问题，需要将多级渐远纹理值设置为0而非1
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 
-//        glBindTexture(GL_TEXTURE_2D, 0);
+        glBindTexture(GL_TEXTURE_2D, 0);
 
 //        glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);// glCreateTextures是OpenGL 4.5+ 的规范定义的API
 //        glTextureStorage2D(m_RendererID, 1, GL_RGB8, m_Width, m_Height);
@@ -60,8 +60,6 @@ namespace XEngine {
 
     void OpenGLTexture2D::Bind(uint32_t slot) const
     {
-//        glBindTextureUnit(slot, m_RendererID);
-//        glBindTexture(GL_TEXTURE_2D, m_RendererID);
         glActiveTexture(GL_TEXTURE0 + slot);
         glBindTexture(GL_TEXTURE_2D, m_RendererID);
     }
