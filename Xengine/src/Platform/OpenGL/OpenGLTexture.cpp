@@ -39,7 +39,6 @@ namespace XEngine {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-        //修复加载纹理黑屏问题，需要将多级渐远纹理值设置为0而非1
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 
         glBindTexture(GL_TEXTURE_2D, 0);
