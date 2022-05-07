@@ -153,6 +153,7 @@ public:
         m_TextureShader.reset(XEngine::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
         m_Texture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/container.jpeg");
+        m_alphaTexture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/ChernoLogo.png");
 
         std::dynamic_pointer_cast<XEngine::OpenGLShader>(m_TextureShader)->Bind();
         std::dynamic_pointer_cast<XEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -201,8 +202,11 @@ public:
         m_Texture->Bind();
         XEngine::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+        m_alphaTexture->Bind();
+        XEngine::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
         //Triangle
-                XEngine::Renderer::Submit(m_Shader, m_VertexArray);
+//                XEngine::Renderer::Submit(m_Shader, m_VertexArray);
 
         XEngine::Renderer::EndScene();
     }
@@ -225,7 +229,7 @@ private:
     XEngine::Ref<XEngine::Shader> m_FlatColorShader, m_TextureShader;
     XEngine::Ref<XEngine::VertexArray> m_SquareVA;
 
-    XEngine::Ref<XEngine::Texture2D> m_Texture;
+    XEngine::Ref<XEngine::Texture2D> m_Texture, m_alphaTexture;
 
     XEngine::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;
