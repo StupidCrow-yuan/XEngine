@@ -120,7 +120,6 @@ public:
 
         m_FlatColorShader.reset(XEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 
-        XE_CORE_ERROR("path:{0}", CPP_SRC_DIR);
         m_TextureShader.reset(XEngine::Shader::Create(CPP_SRC_DIR"Sandbox/assets/shaders/Texture.glsl"));
 
         m_Texture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/Checkerboard.png");

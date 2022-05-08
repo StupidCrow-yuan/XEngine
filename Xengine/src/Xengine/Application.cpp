@@ -43,7 +43,7 @@ namespace XEngine {
         EventDispatcher dispatcher(e);
         dispatcher.DisPatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-        XE_CORE_TRACE("{0}", e);
+//        XE_CORE_TRACE("{0}", e);
         for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
         {
             (*--it)->OnEvent(e);
