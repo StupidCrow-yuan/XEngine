@@ -145,14 +145,13 @@ public:
 
 			void main()
 			{
-				vec4 tex = texture(u_Texture, v_TexCoord);
-                color = vec4(tex.r, tex.g, tex.b, 1.0);
+				color = texture(u_Texture, v_TexCoord);
 			}
 		)";
 
         m_TextureShader.reset(XEngine::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
-        m_Texture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/container.jpeg");
+        m_Texture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/Checkerboard.png");
         m_alphaTexture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/ChernoLogo.png");
 
         std::dynamic_pointer_cast<XEngine::OpenGLShader>(m_TextureShader)->Bind();
