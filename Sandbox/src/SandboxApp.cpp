@@ -88,7 +88,7 @@ public:
 			}
 		)";
 
-        m_Shader.reset(XEngine::Shader::Create(vertexSrc, fragmentSrc));
+        m_Shader = XEngine::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
         std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -118,15 +118,16 @@ public:
 			}
 		)";
 
-        m_FlatColorShader.reset(XEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+        m_FlatColorShader = XEngine::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
-        m_TextureShader.reset(XEngine::Shader::Create(CPP_SRC_DIR"Sandbox/assets/shaders/Texture.glsl"));
+        auto textureShader = m_ShaderLibrary.Load(CPP_SRC_DIR"Sandbox/assets/shaders/Texture.glsl");
+        
 
         m_Texture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/Checkerboard.png");
         m_alphaTexture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/ChernoLogo.png");
 
-        std::dynamic_pointer_cast<XEngine::OpenGLShader>(m_TextureShader)->Bind();
-        std::dynamic_pointer_cast<XEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+        std::dynamic_pointer_cast<XEngine::OpenGLShader>(textureShader)->Bind();
+        std::dynamic_pointer_cast<XEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
     }
 
     void OnUpdate(XEngine::Timestep ts) override
@@ -169,11 +170,13 @@ public:
             }
         }
 
+        auto textureShader = m_ShaderLibrary.Get("Texture");
+        
         m_Texture->Bind();
-        XEngine::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+        XEngine::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         m_alphaTexture->Bind();
-        XEngine::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+        XEngine::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         //Triangle
 //                XEngine::Renderer::Submit(m_Shader, m_VertexArray);
@@ -193,10 +196,11 @@ public:
     }
 
 private:
+    XEngine::ShaderLibrary m_ShaderLibrary;
     XEngine::Ref<XEngine::Shader> m_Shader;
     XEngine::Ref<XEngine::VertexArray> m_VertexArray;
 
-    XEngine::Ref<XEngine::Shader> m_FlatColorShader, m_TextureShader;
+    XEngine::Ref<XEngine::Shader> m_FlatColorShader;
     XEngine::Ref<XEngine::VertexArray> m_SquareVA;
 
     XEngine::Ref<XEngine::Texture2D> m_Texture, m_alphaTexture;
