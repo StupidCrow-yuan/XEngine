@@ -43,8 +43,8 @@ namespace XEngine {
             {
                 m_CameraRotation -= m_CameraTranslationSpeed * ts;
             }
-            m_Camera.SetRotation(m_CameraRotation);
         }
+        m_Camera.SetRotation(m_CameraRotation);//need to call SetRotation to RecalculateViewMatrix
         m_Camera.SetPosition(m_CameraPostion);
         m_CameraTranslationSpeed = m_ZoomLevel;
     }
