@@ -19,29 +19,29 @@ namespace XEngine {
     {
         if (Input::IsKeyPressed(XE_KEY_A))
         {
-            m_CameraPostion.x -= m_CameraTranslationSpeed * ts;
+            m_CameraPostion.x += m_CameraTranslationSpeed * ts;
         } else if (Input::IsKeyPressed(XE_KEY_D))
         {
-            m_CameraPostion.x += m_CameraTranslationSpeed * ts;
+            m_CameraPostion.x -= m_CameraTranslationSpeed * ts;
         }
 
         if (Input::IsKeyPressed(XE_KEY_W))
         {
-            m_CameraPostion.y += m_CameraTranslationSpeed * ts;
+            m_CameraPostion.y -= m_CameraTranslationSpeed * ts;
         } else if (Input::IsKeyPressed(XE_KEY_S))
         {
-            m_CameraPostion.y -= m_CameraTranslationSpeed * ts;
+            m_CameraPostion.y += m_CameraTranslationSpeed * ts;
         }
 
         if (m_Rotation)
         {
             if (Input::IsKeyPressed(XE_KEY_Q))
             {
-                m_CameraRotation += m_CameraTranslationSpeed * ts;
+                m_CameraRotation -= m_CameraTranslationSpeed * ts;
             }
             if (Input::IsKeyPressed(XE_KEY_E))
             {
-                m_CameraRotation -= m_CameraTranslationSpeed * ts;
+                m_CameraRotation += m_CameraTranslationSpeed * ts;
             }
         }
         m_Camera.SetRotation(m_CameraRotation);//need to call SetRotation to RecalculateViewMatrix
