@@ -1,12 +1,16 @@
 [submodule "Xengine/thirdparty/spdlog"]
 	path = Xengine/thirdparty/spdlog
 	url = git@github.com:gabime/spdlog.git
+	branch = v1.x
 [submodule "Xengine/thirdparty/glfw"]
 	path = Xengine/thirdparty/glfw
 	url = git@github.com:glfw/glfw.git
+	branch = master
 [submodule "Xengine/thirdparty/imgui"]
 	path = Xengine/thirdparty/imgui
 	url = git@github.com:ocornut/imgui.git
+	branch = docking
 [submodule "Xengine/thirdparty/glm"]
 	path = Xengine/thirdparty/glm
 	url = git@github.com:g-truc/glm.git
+	branch = master
