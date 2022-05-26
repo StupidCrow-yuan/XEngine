@@ -5,10 +5,10 @@
 #ifndef XENGINE_APPLICATION_H
 #define XENGINE_APPLICATION_H
 
-#include "Core.h"
-#include "Window.h"
+#include "Core/Core.h"
+#include "Core/Window.h"
 
-#include "Xengine/LayerStack.h"
+#include "Xengine/Core/LayerStack.h"
 #include "Xengine/Events/Event.h"
 #include "Xengine/Events/ApplicationEvent.h"
 #include "Xengine/Core/Timestep.h"

@@ -5,7 +5,7 @@
 #ifndef XENGINEMAIN_WINDOWSWINDOW_H
 #define XENGINEMAIN_WINDOWSWINDOW_H
 
-#include "Xengine/Window.h"
+#include "Xengine/Core/Window.h"
 #include <GLFW/glfw3.h>
 #include "Renderer/GraphicsContext.h"
 

@@ -7,15 +7,15 @@
 
 // For use by XEngine application
 #include "XEngine/Application.h"
-#include "Xengine/Layer.h"
-#include "Xengine/Log.h"
+#include "Xengine/Core/Layer.h"
+#include "Xengine/Core/Log.h"
 
 #include "Xengine/Core/Timestep.h"
 
 #include "Xengine/Input.h"
-#include "Xengine/KeyCodes.h"
-#include "Xengine/MouseButtonCodes.h"
-#include "Xengine/OrthographicCameraController.h"
+#include "Xengine/Core/KeyCodes.h"
+#include "Xengine/Core/MouseButtonCodes.h"
+#include "Xengine/Renderer/OrthographicCameraController.h"
 
 #include "Xengine/ImGui/ImGuiLayer.h"
 
@@ -29,6 +29,6 @@
 #include "Renderer/OrthographicCamera.h"
 
 // entry point
-#include "XEngine/EntryPoint.h"
+#include "XEngine/Core/EntryPoint.h"
 
 #endif //XENGINE_XENGINE_H

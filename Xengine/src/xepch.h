@@ -18,7 +18,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Xengine/Log.h"
+#include "Xengine/Core/Log.h"
 
 #ifdef XE_PLATFORM_WINDOWS
 #include <Windows.h>

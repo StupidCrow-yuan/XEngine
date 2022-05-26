@@ -5,8 +5,6 @@
 #ifndef XENGINE_ENTRYPOINT_H
 #define XENGINE_ENTRYPOINT_H
 
-#include "Application.h"
-
 extern XEngine::Application* XEngine::CreateApplication();
 
 int main()

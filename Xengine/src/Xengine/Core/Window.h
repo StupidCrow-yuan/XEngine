@@ -6,7 +6,7 @@
 #define XENGINEMAIN_WINDOW_H
 
 #include "xepch.h"
-#include "Xengine/Core.h"
+#include "Xengine/Core/Core.h"
 #include "Xengine/Events/Event.h"
 
 namespace XEngine {

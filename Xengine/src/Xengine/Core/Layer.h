@@ -5,7 +5,7 @@
 #ifndef XENGINEMAIN_LAYER_H
 #define XENGINEMAIN_LAYER_H
 
-#include "Xengine/Core.h"
+#include "Xengine/Core/Core.h"
 #include "Xengine/Events/Event.h"
 #include "Xengine/Core/Timestep.h"
 
