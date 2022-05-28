@@ -58,7 +58,7 @@ namespace XEngine {
 
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_data.Title.c_str(), nullptr, nullptr);
 
-        m_context = new OpenGLContext(m_Window);
+        m_context = CreateScope<OpenGLContext>(m_Window);
         m_context->Init();
 
         glfwSetWindowUserPointer(m_Window, &m_data);
