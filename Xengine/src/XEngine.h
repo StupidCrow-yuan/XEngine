@@ -28,7 +28,4 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/OrthographicCamera.h"
 
-// entry point
-#include "XEngine/Core/EntryPoint.h"
-
 #endif //XENGINE_XENGINE_H
