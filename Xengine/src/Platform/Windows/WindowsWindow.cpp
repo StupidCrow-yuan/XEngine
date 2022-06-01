@@ -10,7 +10,7 @@
 #include "Xengine/Events/KeyEvent.h"
 
 namespace XEngine {
-    static bool s_GLFWInitialized = false;
+    static uint8_t s_GLFWWindowCount = 0;
 
     static void GLFWErrorCallback(int error, const char* description)
     {
@@ -40,12 +40,12 @@ namespace XEngine {
 
         XE_CORE_INFO("Create Window {0}, {1}, {2}", props.Title, props.Width, props.Height);
 
-        if (!s_GLFWInitialized)
+        if (s_GLFWWindowCount == 0)
         {
+            XE_CORE_INFO("Initalizing GLFW");
             int success = glfwInit();
             XE_CORE_ASSERT(success, "Could not initialize GLFW!");
             glfwSetErrorCallback(GLFWErrorCallback);
-            s_GLFWInitialized = true;
         }
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -57,6 +57,7 @@ namespace XEngine {
 #endif
 
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_data.Title.c_str(), nullptr, nullptr);
+        ++s_GLFWWindowCount;
 
         m_context = CreateScope<OpenGLContext>(m_Window);
         m_context->Init();
@@ -157,6 +158,12 @@ namespace XEngine {
     void WindowsWindow::Shutdown()
     {
         glfwDestroyWindow(m_Window);
+
+        if (--s_GLFWWindowCount == 0)
+        {
+            XE_CORE_INFO("Terminating GLFW");
+            glfwTerminate();
+        }
     }
 
     void WindowsWindow::OnUpdate()
