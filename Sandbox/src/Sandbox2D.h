@@ -27,6 +27,8 @@ private:
     XEngine::Ref<XEngine::VertexArray> m_SquareVA;
     XEngine::Ref<XEngine::Shader> m_FlatColorShader;
 
+    XEngine::Ref<XEngine::Texture2D> m_CheckboardTexture;
+
     glm::vec4 m_SquareColor = {0.9f, 0.3f, 0.8f, 1.0f};
 };
 
