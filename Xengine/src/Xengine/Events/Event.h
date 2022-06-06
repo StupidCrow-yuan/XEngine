@@ -36,7 +36,8 @@ namespace XEngine {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-    class Event {
+    class Event
+    {
     public:
         bool Handled = false;
 

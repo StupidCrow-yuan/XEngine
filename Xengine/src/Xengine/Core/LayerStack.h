@@ -11,7 +11,7 @@
 namespace XEngine {
     class LayerStack : public Layer {
     public:
-        LayerStack();
+        LayerStack() = default;
         ~LayerStack();
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* overlay);

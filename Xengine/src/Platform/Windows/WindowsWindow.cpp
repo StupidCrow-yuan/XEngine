@@ -17,9 +17,9 @@ namespace XEngine {
         XE_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
     }
 
-    Window* Window::Create(const WindowProps &props)
+    Scope<Window> Window::Create(const WindowProps &props)
     {
-        return new WindowsWindow(props);
+        return CreateScope<WindowsWindow>(props);
     }
 
     WindowsWindow::WindowsWindow(const WindowProps &props)
@@ -59,7 +59,7 @@ namespace XEngine {
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_data.Title.c_str(), nullptr, nullptr);
         ++s_GLFWWindowCount;
 
-        m_context = CreateScope<OpenGLContext>(m_Window);
+        m_context = GraphicsContext::Create(m_Window);
         m_context->Init();
 
         glfwSetWindowUserPointer(m_Window, &m_data);
@@ -158,8 +158,8 @@ namespace XEngine {
     void WindowsWindow::Shutdown()
     {
         glfwDestroyWindow(m_Window);
-
-        if (--s_GLFWWindowCount == 0)
+        --s_GLFWWindowCount;
+        if (s_GLFWWindowCount == 0)
         {
             XE_CORE_INFO("Terminating GLFW");
             glfwTerminate();

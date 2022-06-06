@@ -3,7 +3,7 @@
 //
 
 #include "XEngine.h"
-#include "imgui.h"
+#include <imgui.h>
 #include "Xengine/Core/EntryPoint.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Platform/OpenGL/OpenGLShader.h"
@@ -23,8 +23,7 @@ public:
                 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
         };
 
-        XEngine::Ref<XEngine::VertexBuffer> vertexBuffer;
-        vertexBuffer.reset(XEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
+        XEngine::Ref<XEngine::VertexBuffer> vertexBuffer = XEngine::VertexBuffer::Create(vertices, sizeof(vertices));
         XEngine::BufferLayout layout = {
                 { XEngine::ShaderDataType::Float3, "a_Position" },
                 { XEngine::ShaderDataType::Float4, "a_Color" }
@@ -33,8 +32,7 @@ public:
         m_VertexArray->AddVertexBuffer(vertexBuffer);
 
         uint32_t indices[3] = { 0, 1, 2 };
-        XEngine::Ref<XEngine::IndexBuffer> indexBuffer;
-        indexBuffer.reset(XEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+        XEngine::Ref<XEngine::IndexBuffer> indexBuffer = XEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
         m_VertexArray->SetIndexBuffer(indexBuffer);
 
         m_SquareVA = XEngine::VertexArray::Create();
@@ -46,8 +44,7 @@ public:
                 -0.5f,  0.5f, 0.0f,0.0f, 1.0f,
         };
 
-        XEngine::Ref<XEngine::VertexBuffer> squareVB;
-        squareVB.reset(XEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+        XEngine::Ref<XEngine::VertexBuffer> squareVB = XEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
         squareVB->SetLayout({
                                     { XEngine::ShaderDataType::Float3, "a_Position" },
                                     { XEngine::ShaderDataType::Float2, "a_TexCoord" }
@@ -55,8 +52,7 @@ public:
         m_SquareVA->AddVertexBuffer(squareVB);
 
         uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-        XEngine::Ref<XEngine::IndexBuffer> squareIB;
-        squareIB.reset(XEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+        XEngine::Ref<XEngine::IndexBuffer> squareIB = XEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
         m_SquareVA->SetIndexBuffer(squareIB);
 
         std::string vertexSrc = R"(
@@ -128,8 +124,8 @@ public:
         m_Texture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/Checkerboard.png");
         m_alphaTexture = XEngine::Texture2D::Create(CPP_SRC_DIR"Sandbox/assets/textures/ChernoLogo.png");
 
-        std::dynamic_pointer_cast<XEngine::OpenGLShader>(textureShader)->Bind();
-        std::dynamic_pointer_cast<XEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+        textureShader->Bind();
+        textureShader->SetInt("u_Texture", 0);
     }
 
     void OnUpdate(XEngine::Timestep ts) override
@@ -145,8 +141,8 @@ public:
 
         glm::mat4 scale = glm::scale(glm::mat4(1.0), glm::vec3(0.1));
 
-        std::dynamic_pointer_cast<XEngine::OpenGLShader>(m_FlatColorShader)->Bind();
-        std::dynamic_pointer_cast<XEngine::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+        m_FlatColorShader->Bind();
+        m_FlatColorShader->SetFloat3("u_Color", m_SquareColor);
 
         for (int y = 0; y < 20; y++)
         {

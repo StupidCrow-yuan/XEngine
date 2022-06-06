@@ -4,11 +4,11 @@
 
 #include "xepch.h"
 #include "Log.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace XEngine {
-    std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
-    std::shared_ptr<spdlog::logger> Log::s_CoreClientLogger;
+    Ref<spdlog::logger> Log::s_CoreLogger;
+    Ref<spdlog::logger> Log::s_CoreClientLogger;
 
     void Log::Init()
     {

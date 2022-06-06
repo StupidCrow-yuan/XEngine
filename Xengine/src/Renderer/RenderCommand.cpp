@@ -7,5 +7,5 @@
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 
 namespace XEngine {
-    Scope<RendererAPI> RenderCommand::s_RendererAPI = CreateScope<OpenGLRendererAPI>();
+    Scope<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::Create();
 }

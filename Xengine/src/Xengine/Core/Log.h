@@ -6,19 +6,19 @@
 #define XENGINEMAIN_LOG_H
 
 #include "Core.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/fmt/ostr.h"
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
 namespace XEngine {
     class Log {
     public:
         static void Init();
 
-        inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-        inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_CoreClientLogger; }
+        inline static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
+        inline static Ref<spdlog::logger>& GetClientLogger() { return s_CoreClientLogger; }
     private:
-        static std::shared_ptr<spdlog::logger> s_CoreLogger;
-        static std::shared_ptr<spdlog::logger> s_CoreClientLogger;
+        static Ref<spdlog::logger> s_CoreLogger;
+        static Ref<spdlog::logger> s_CoreClientLogger;
     };
 }
 

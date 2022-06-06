@@ -34,7 +34,7 @@ namespace XEngine {
     class WindowCloseEvent : public Event
     {
     public:
-        WindowCloseEvent() {}
+        WindowCloseEvent() = default;
 
         EVENT_CLASS_TYPE(WindowClose)
 
@@ -44,7 +44,7 @@ namespace XEngine {
     class AppTickEvent : public Event
     {
     public:
-        AppTickEvent() {}
+        AppTickEvent() = default;
 
         EVENT_CLASS_TYPE(AppTick)
 
@@ -54,7 +54,7 @@ namespace XEngine {
     class AppUpdateEvent : public Event
     {
     public:
-        AppUpdateEvent() {}
+        AppUpdateEvent() = default;
 
         EVENT_CLASS_TYPE(AppUpdate)
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -63,7 +63,7 @@ namespace XEngine {
     class AppRenderEvent : public Event
     {
     public:
-        AppRenderEvent() {}
+        AppRenderEvent() = default;
 
         EVENT_CLASS_TYPE(AppRender)
         EVENT_CLASS_CATEGORY(EventCategoryApplication)

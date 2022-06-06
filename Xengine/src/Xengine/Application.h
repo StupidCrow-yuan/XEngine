@@ -19,7 +19,7 @@ namespace XEngine {
     {
     public:
         Application();
-        virtual ~Application() = default;
+        virtual ~Application();
         void Run();
 
         void OnEvent(Event& e);
@@ -34,7 +34,7 @@ namespace XEngine {
         bool OnWindowClose(WindowCloseEvent& e);
         bool OnWindowResize(WindowResizeEvent& e);
     private:
-        std::unique_ptr<Window> m_Window;
+        Scope<Window> m_Window;
         bool m_Running = true;
         LayerStack m_LayerStack;
         ImGuiLayer* m_ImGuiLayer;
