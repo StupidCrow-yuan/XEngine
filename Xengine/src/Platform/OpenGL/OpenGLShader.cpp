@@ -28,6 +28,7 @@ namespace XEngine {
 
     OpenGLShader::OpenGLShader(const std::string &filepath)
     {
+        XE_PROFILE_FUNCTION();
         std::string source = ReadFile(filepath);
         auto shaderSources = PreProcess(source);
         Compile(shaderSources);
@@ -42,6 +43,7 @@ namespace XEngine {
 
     OpenGLShader::OpenGLShader(const std::string& name, const std::string &vertexSrc, const std::string &fragmentSrc) : m_Name(name)
     {
+        XE_PROFILE_FUNCTION();
         std::unordered_map<GLenum, std::string> sources;
         sources[GL_VERTEX_SHADER] = vertexSrc;
         sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -50,36 +52,43 @@ namespace XEngine {
 
     OpenGLShader::~OpenGLShader()
     {
+        XE_PROFILE_FUNCTION();
         glDeleteProgram(m_RendererID);
     }
 
     void OpenGLShader::Bind() const
     {
+        XE_PROFILE_FUNCTION();
         glUseProgram(m_RendererID);
     }
 
     void OpenGLShader::UnBind() const
     {
+        XE_PROFILE_FUNCTION();
         glUseProgram(m_RendererID);
     }
 
     void OpenGLShader::SetInt(const std::string &name, int value)
     {
+        XE_PROFILE_FUNCTION();
         UploadUniformInt(name, value);
     }
 
     void OpenGLShader::SetFloat3(const std::string &name, const glm::vec3 &value)
     {
+        XE_PROFILE_FUNCTION();
         UploadUniformFloat3(name, value);
     }
 
     void OpenGLShader::SetFloat4(const std::string &name, const glm::vec4 &value)
     {
+        XE_PROFILE_FUNCTION();
         UploadUniformFloat4(name, value);
     }
 
     void OpenGLShader::SetMat4(const std::string &name, const glm::mat4 &value)
     {
+        XE_PROFILE_FUNCTION();
         UploadUniformMat4(name, value);
     }
 
@@ -127,6 +136,7 @@ namespace XEngine {
 
     std::string OpenGLShader::ReadFile(const std::string &filepath)
     {
+        XE_PROFILE_FUNCTION();
         std::string result;
         std::ifstream in(filepath, std::ios::in | std::ios::binary);
         if (in)
@@ -155,6 +165,7 @@ namespace XEngine {
 
     std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
     {
+        XE_PROFILE_FUNCTION();
         std::unordered_map<GLenum, std::string> shaderSources;
 
         const char* typeToken = "#type";
@@ -180,6 +191,7 @@ namespace XEngine {
 
     void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string> &shaderSources)
     {
+        XE_PROFILE_FUNCTION();
         GLuint program = glCreateProgram();
         XE_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
         std::array<GLenum, 2> glShaderIDs;

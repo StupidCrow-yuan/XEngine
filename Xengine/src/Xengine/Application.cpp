@@ -17,6 +17,7 @@ namespace XEngine {
 
     Application::Application()
     {
+        XE_PROFILE_FUNCTION();
         XE_CORE_ASSERT(!s_Instance, "Application already exists!");
         s_Instance = this;
         m_Window = Window::Create();
@@ -30,26 +31,31 @@ namespace XEngine {
 
     Application::~Application()
     {
+        XE_PROFILE_FUNCTION();
         Renderer::ShutDown();
     }
 
     void Application::PushLayer(Layer *layer)
     {
+        XE_PROFILE_FUNCTION();
         m_LayerStack.PushLayer(layer);
+        layer->OnAttach();
     }
 
     void Application::PushOverlay(Layer *layer)
     {
+        XE_PROFILE_FUNCTION();
         m_LayerStack.PushOverlay(layer);
+        layer->OnAttach();
     }
 
     void Application::OnEvent(Event &e)
     {
+        XE_PROFILE_FUNCTION();
         EventDispatcher dispatcher(e);
         dispatcher.DisPatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
         dispatcher.DisPatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
-        
-//        XE_CORE_TRACE("{0}", e);
+
         for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
         {
             (*--it)->OnEvent(e);
@@ -62,9 +68,11 @@ namespace XEngine {
 
     void Application::Run()
     {
+        XE_PROFILE_FUNCTION();
         WindowResizeEvent e(1280, 720);
         while (m_Running)
         {
+            XE_PROFILE_SCOPE("RunLoop");
             float time = (float)glfwGetTime();
             Timestep timestep = time - m_LastFrameTime;
             m_LastFrameTime = time;
@@ -73,13 +81,17 @@ namespace XEngine {
             {
                 for (Layer* layer : m_LayerStack)
                 {
+                    XE_PROFILE_SCOPE("LayerStack OnUpdate");
                     layer->OnUpdate(timestep);
                 }
             }
 
             m_ImGuiLayer->Begin();
-            for (Layer* layer : m_LayerStack)
-                layer->OnImGuiRender();
+            {
+                XE_PROFILE_SCOPE("LayerStack OnImGuiRender");
+                for (Layer* layer : m_LayerStack)
+                    layer->OnImGuiRender();
+            }
             m_ImGuiLayer->End();
 
             m_Window->OnUpdate();
@@ -94,6 +106,7 @@ namespace XEngine {
 
     bool Application::OnWindowResize(WindowResizeEvent &e)
     {
+        XE_PROFILE_FUNCTION();
         if (e.GetWidth() == 0 || e.GetHeight() == 0)
         {
             m_Minimized = true;

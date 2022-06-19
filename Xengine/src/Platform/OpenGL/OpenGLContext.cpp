@@ -17,6 +17,7 @@ namespace XEngine {
 
     void OpenGLContext::Init()
     {
+        XE_PROFILE_FUNCTION();
         glfwMakeContextCurrent(m_WindowHandle);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         XE_CORE_ASSERT(status, "Failed to initialize glad!");
@@ -38,6 +39,7 @@ namespace XEngine {
 
     void OpenGLContext::SwapBuffers()
     {
+        XE_PROFILE_FUNCTION();
         glfwSwapBuffers(m_WindowHandle);
     }
 }

@@ -20,6 +20,8 @@
 
 #include "Xengine/Core/Log.h"
 
+#include "Xengine/Debug/Instrumentor.h"
+
 #ifdef XE_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif

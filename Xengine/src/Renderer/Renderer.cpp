@@ -13,6 +13,7 @@ namespace XEngine {
 
     void Renderer::Init()
     {
+        XE_PROFILE_FUNCTION();
         RenderCommand::Init();
         Renderer2D::Init();
     }

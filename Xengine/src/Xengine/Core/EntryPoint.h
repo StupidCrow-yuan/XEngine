@@ -10,13 +10,18 @@ extern XEngine::Application* XEngine::CreateApplication();
 int main()
 {
     XEngine::Log::Init();
-    XE_CORE_WARN("Initialized Log");
-    int a = 5;
-    XE_CORE_INFO("Hello! val = {0}", a);
 
+    XE_PROFILE_BEGIN_SESSION("Startup", CPP_SRC_DIR"Sandbox/XEngineProfile-Startup.json");
     auto app = XEngine::CreateApplication();
+    XE_PROFILE_END_SESSION();
+    
+    XE_PROFILE_BEGIN_SESSION("Runtime", "XEngineProfile-Runtime.json");
     app->Run();
+    XE_PROFILE_END_SESSION();
+    
+    XE_PROFILE_BEGIN_SESSION("Startup", "XEngineProfile-Shutdown.json");
     delete app;
+    XE_PROFILE_END_SESSION();
 }
 
 #endif //XENGINE_ENTRYPOINT_H

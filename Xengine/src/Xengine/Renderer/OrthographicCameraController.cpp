@@ -17,6 +17,7 @@ namespace XEngine {
 
     void OrthographicCameraController::OnUpdate(Timestep ts)
     {
+        XE_PROFILE_FUNCTION();
         if (Input::IsKeyPressed(XE_KEY_A))
         {
             m_CameraPostion.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
@@ -59,6 +60,7 @@ namespace XEngine {
 
     void OrthographicCameraController::OnEvent(Event &e)
     {
+        XE_PROFILE_FUNCTION();
         EventDispatcher dispatcher(e);
         dispatcher.DisPatch<MouseScrolledEvent>(XE_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
         dispatcher.DisPatch<WindowResizeEvent>(XE_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
@@ -66,6 +68,7 @@ namespace XEngine {
 
     bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent &e)
     {
+        XE_PROFILE_FUNCTION();
         m_ZoomLevel -= e.GetYOffset() * 0.25f;
         m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
         m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
@@ -74,6 +77,7 @@ namespace XEngine {
 
     bool OrthographicCameraController::OnWindowResized(WindowResizeEvent &e)
     {
+        XE_PROFILE_FUNCTION();
         m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
         m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
         return false;
