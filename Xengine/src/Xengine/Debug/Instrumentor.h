@@ -130,10 +130,31 @@ namespace XEngine {
 
 #define XE_PROFILE 1
 #if XE_PROFILE
+    // Resolve which function signature macro will be used. Note that this only
+    // is resolved when the (pre)compiler starts, so the syntax highlighting
+    // could mark the wrong one in your editor!
+    #if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600)) || defined(__ghs__)
+        #define XE_FUNC_SIG __PRETTY_FUNCTION__
+    #elif defined(__DMC__) && (__DMC__ >= 0x810)
+        #define XE_FUNC_SIG __PRETTY_FUNCTION__
+    #elif defined(__FUNCSIG__)
+        #define XE_FUNC_SIG __FUNCSIG__
+    #elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)) || (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
+        #define XE_FUNC_SIG __FUNCTION__
+    #elif defined(__BORLANDC__) && (__BORLANDC__ >= 0x550)
+        #define XE_FUNC_SIG __FUNC__
+    #elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901)
+        #define XE_FUNC_SIG __func__
+    #elif defined(__cplusplus) && (__cplusplus >= 201103)
+        #define XE_FUNC_SIG __func__
+    #else
+        #define XE_FUNC_SIG "XE_FUNC_SIG unknown!"
+    #endif
+
     #define XE_PROFILE_BEGIN_SESSION(name, filepath) ::XEngine::Instrumentor::Get().BeginSession(name, filepath)
     #define XE_PROFILE_END_SESSION() ::XEngine::Instrumentor::Get().EndSession()
     #define XE_PROFILE_SCOPE(name) ::XEngine::InstrumentationTimer time##__LINE__(name)
-    #define XE_PROFILE_FUNCTION() XE_PROFILE_SCOPE(__FUNCTION__)
+    #define XE_PROFILE_FUNCTION() XE_PROFILE_SCOPE(XE_FUNC_SIG)
 #else
     #define XE_PROFILE_BEGIN_SESSION(name, filepath)
 	#define XE_PROFILE_END_SESSION()
