@@ -9,6 +9,8 @@
 #include "Xengine/Events/MouseEvent.h"
 #include "Xengine/Events/KeyEvent.h"
 
+#include "Renderer/Renderer.h"
+
 namespace XEngine {
     static uint8_t s_GLFWWindowCount = 0;
 
@@ -62,6 +64,10 @@ namespace XEngine {
 
         {
             XE_PROFILE_SCOPE("glfwCreateWindow");
+#if defined(XE_DEBUG)
+            if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+                            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
             m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_data.Title.c_str(), nullptr, nullptr);
             ++s_GLFWWindowCount;
         }

@@ -70,7 +70,7 @@
 
 #ifdef XE_ENABLE_ASSERTS
 #define XE_ASSERT(x, ...) { if(!(x)) { XE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define XE_CORE_ASSERT(x, ...) { if(!(x)) { XE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define XE_CORE_ASSERT(x, ...) { if(!(x)) { XE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debug_break(); } }
 #else
 #define XE_ASSERT(x, ...)
 #define XE_CORE_ASSERT(x, ...)
