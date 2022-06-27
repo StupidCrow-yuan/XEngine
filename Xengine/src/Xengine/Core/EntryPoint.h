@@ -15,11 +15,11 @@ int main()
     auto app = XEngine::CreateApplication();
     XE_PROFILE_END_SESSION();
     
-    XE_PROFILE_BEGIN_SESSION("Runtime", "XEngineProfile-Runtime.json");
+    XE_PROFILE_BEGIN_SESSION("Runtime", CPP_SRC_DIR"Sandbox/XEngineProfile-Runtime.json");
     app->Run();
     XE_PROFILE_END_SESSION();
     
-    XE_PROFILE_BEGIN_SESSION("Startup", "XEngineProfile-Shutdown.json");
+    XE_PROFILE_BEGIN_SESSION("Startup", CPP_SRC_DIR"Sandbox/XEngineProfile-Shutdown.json");
     delete app;
     XE_PROFILE_END_SESSION();
 }

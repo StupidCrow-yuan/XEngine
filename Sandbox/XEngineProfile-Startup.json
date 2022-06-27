@@ -1,1 +1,294 @@
-{"otherData": {},"traceEvents":[{"cat":"function","dur":72865,"name":"glfwInit","ph":"X","pid":0,"tid":3477021222,"ts":38071695422},{"cat":"function","dur":206675,"name":"glfwCreateWindow","ph":"X","pid":0,"tid":3477021222,"ts":38077052957},{"cat":"function","dur":518,"name":"virtual void XEngine::OpenGLContext::Init()","ph":"X","pid":0,"tid":3477021222,"ts":38077259676},{"cat":"function","dur":11,"name":"virtual void XEngine::WindowsWindow::SetVSync(bool)","ph":"X","pid":0,"tid":3477021222,"ts":38077260204},{"cat":"function","dur":5565463,"name":"virtual void XEngine::WindowsWindow::Init(const XEngine::WindowProps &)","ph":"X","pid":0,"tid":3477021222,"ts":38071694759},{"cat":"function","dur":5565469,"name":"XEngine::WindowsWindow::WindowsWindow(const XEngine::WindowProps &)","ph":"X","pid":0,"tid":3477021222,"ts":38071694759},{"cat":"function","dur":3,"name":"virtual void XEngine::OpenGLRendererAPI::Init()","ph":"X","pid":0,"tid":3477021222,"ts":38077260240},{"cat":"function","dur":3,"name":"XEngine::OpenGLVertexArray::OpenGLVertexArray()","ph":"X","pid":0,"tid":3477021222,"ts":38077260252},{"cat":"function","dur":14,"name":"XEngine::OpenGLVertexBuffer::OpenGLVertexBuffer(float *, uint32_t)","ph":"X","pid":0,"tid":3477021222,"ts":38077260262},{"cat":"function","dur":0,"name":"virtual void XEngine::OpenGLVertexBuffer::Bind() const","ph":"X","pid":0,"tid":3477021222,"ts":38077260291},{"cat":"function","dur":16,"name":"virtual void XEngine::OpenGLVertexArray::AddVertexBuffer(const Ref<XEngine::VertexBuffer> &)","ph":"X","pid":0,"tid":3477021222,"ts":38077260285},{"cat":"function","dur":3,"name":"XEngine::OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t *, uint32_t)","ph":"X","pid":0,"tid":3477021222,"ts":38077260307},{"cat":"function","dur":1,"name":"virtual void XEngine::OpenGLIndexBuffer::Bind() const","ph":"X","pid":0,"tid":3477021222,"ts":38077260316},{"cat":"function","dur":6,"name":"virtual void XEngine::OpenGLVertexArray::SetIndexBuffer(const Ref<XEngine::IndexBuffer> &)","ph":"X","pid":0,"tid":3477021222,"ts":38077260316},{"cat":"function","dur":7,"name":"XEngine::OpenGLTexture2D::OpenGLTexture2D(uint32_t, uint32_t)","ph":"X","pid":0,"tid":3477021222,"ts":38077260328},{"cat":"function","dur":75,"name":"virtual void XEngine::OpenGLTexture2D::SetData(void *, uint32_t)","ph":"X","pid":0,"tid":3477021222,"ts":38077260344},{"cat":"function","dur":263,"name":"std::string XEngine::OpenGLShader::ReadFile(const std::string &)","ph":"X","pid":0,"tid":3477021222,"ts":38077260449},{"cat":"function","dur":4,"name":"std::unordered_map<GLenum, std::string> XEngine::OpenGLShader::PreProcess(const std::string &)","ph":"X","pid":0,"tid":3477021222,"ts":38077260726},{"cat":"function","dur":10876,"name":"void XEngine::OpenGLShader::Compile(const std::unordered_map<GLenum, std::string> &)","ph":"X","pid":0,"tid":3477021222,"ts":38077260737},{"cat":"function","dur":11195,"name":"XEngine::OpenGLShader::OpenGLShader(const std::string &)","ph":"X","pid":0,"tid":3477021222,"ts":38077260449},{"cat":"function","dur":2,"name":"virtual void XEngine::OpenGLShader::Bind() const","ph":"X","pid":0,"tid":3477021222,"ts":38077271653},{"cat":"function","dur":5,"name":"virtual void XEngine::OpenGLShader::SetInt(const std::string &, int)","ph":"X","pid":0,"tid":3477021222,"ts":38077271661},{"cat":"function","dur":11424,"name":"static void XEngine::Renderer2D::Init()","ph":"X","pid":0,"tid":3477021222,"ts":38077260249},{"cat":"function","dur":11439,"name":"static void XEngine::Renderer::Init()","ph":"X","pid":0,"tid":3477021222,"ts":38077260239},{"cat":"function","dur":380,"name":"virtual void XEngine::ImGuiLayer::OnAttach()","ph":"X","pid":0,"tid":3477021222,"ts":38077271699},{"cat":"function","dur":393,"name":"void XEngine::Application::PushOverlay(XEngine::Layer *)","ph":"X","pid":0,"tid":3477021222,"ts":38077271697},{"cat":"function","dur":5577338,"name":"XEngine::Application::Application()","ph":"X","pid":0,"tid":3477021222,"ts":38071694758},{"cat":"function","dur":1,"name":"XEngine::OrthographicCamera::OrthographicCamera(float, float, float, float)","ph":"X","pid":0,"tid":3477021222,"ts":38077272104},{"cat":"function","dur":334,"name":"stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std:string&)","ph":"X","pid":0,"tid":3477021222,"ts":38077272126},{"cat":"function","dur":436,"name":"XEngine::OpenGLTexture2D::OpenGLTexture2D(const std::string &)","ph":"X","pid":0,"tid":3477021222,"ts":38077272126},{"cat":"function","dur":447,"name":"virtual void Sandbox2D::OnAttach()","ph":"X","pid":0,"tid":3477021222,"ts":38077272124},{"cat":"function","dur":451,"name":"void XEngine::Application::PushLayer(XEngine::Layer *)","ph":"X","pid":0,"tid":3477021222,"ts":38077272124}]}
+{
+    "otherData": {},
+    "traceEvents": [
+        {},
+        {
+            "cat": "function",
+            "dur": 79853,
+            "name": "glfwInit",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44245955884
+        },
+        {
+            "cat": "function",
+            "dur": 105745,
+            "name": "glfwCreateWindow",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44246035786
+        },
+        {
+            "cat": "function",
+            "dur": 534,
+            "name": "virtual void XEngine::OpenGLContext::Init()",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44246141580
+        },
+        {
+            "cat": "function",
+            "dur": 12,
+            "name": "virtual void XEngine::WindowsWindow::SetVSync(bool)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44246142126
+        },
+        {
+            "cat": "function",
+            "dur": 188626,
+            "name": "virtual void XEngine::WindowsWindow::Init(const XEngine::WindowProps &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44245953519
+        },
+        {
+            "cat": "function",
+            "dur": 188645,
+            "name": "XEngine::WindowsWindow::WindowsWindow(const XEngine::WindowProps &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44245953506
+        },
+        {
+            "cat": "function",
+            "dur": 2377903,
+            "name": "virtual void XEngine::OpenGLRendererAPI::Init()",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44246142165
+        },
+        {
+            "cat": "function",
+            "dur": 4,
+            "name": "XEngine::OpenGLVertexArray::OpenGLVertexArray()",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520213
+        },
+        {
+            "cat": "function",
+            "dur": 37,
+            "name": "XEngine::OpenGLVertexBuffer::OpenGLVertexBuffer(float *, uint32_t)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520241
+        },
+        {
+            "cat": "function",
+            "dur": 1,
+            "name": "virtual void XEngine::OpenGLVertexBuffer::Bind() const",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520339
+        },
+        {
+            "cat": "function",
+            "dur": 48,
+            "name": "virtual void XEngine::OpenGLVertexArray::AddVertexBuffer(const Ref<XEngine::VertexBuffer> &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520320
+        },
+        {
+            "cat": "function",
+            "dur": 11,
+            "name": "XEngine::OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t *, uint32_t)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520409
+        },
+        {
+            "cat": "function",
+            "dur": 0,
+            "name": "virtual void XEngine::OpenGLIndexBuffer::Bind() const",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520451
+        },
+        {
+            "cat": "function",
+            "dur": 18,
+            "name": "virtual void XEngine::OpenGLVertexArray::SetIndexBuffer(const Ref<XEngine::IndexBuffer> &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520450
+        },
+        {
+            "cat": "function",
+            "dur": 22,
+            "name": "XEngine::OpenGLTexture2D::OpenGLTexture2D(uint32_t, uint32_t)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520486
+        },
+        {
+            "cat": "function",
+            "dur": 211,
+            "name": "virtual void XEngine::OpenGLTexture2D::SetData(void *, uint32_t)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520527
+        },
+        {
+            "cat": "function",
+            "dur": 1238,
+            "name": "std::string XEngine::OpenGLShader::ReadFile(const std::string &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520783
+        },
+        {
+            "cat": "function",
+            "dur": 12,
+            "name": "std::unordered_map<GLenum, std::string> XEngine::OpenGLShader::PreProcess(const std::string &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248522079
+        },
+        {
+            "cat": "function",
+            "dur": 2051,
+            "name": "void XEngine::OpenGLShader::Compile(const std::unordered_map<GLenum, std::string> &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248522108
+        },
+        {
+            "cat": "function",
+            "dur": 3439,
+            "name": "XEngine::OpenGLShader::OpenGLShader(const std::string &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520783
+        },
+        {
+            "cat": "function",
+            "dur": 4,
+            "name": "virtual void XEngine::OpenGLShader::Bind() const",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248524236
+        },
+        {
+            "cat": "function",
+            "dur": 7,
+            "name": "virtual void XEngine::OpenGLShader::SetInt(const std::string &, int)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248524247
+        },
+        {
+            "cat": "function",
+            "dur": 4061,
+            "name": "static void XEngine::Renderer2D::Init()",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248520200
+        },
+        {
+            "cat": "function",
+            "dur": 2382108,
+            "name": "static void XEngine::Renderer::Init()",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44246142159
+        },
+        {
+            "cat": "function",
+            "dur": 727,
+            "name": "virtual void XEngine::ImGuiLayer::OnAttach()",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248524312
+        },
+        {
+            "cat": "function",
+            "dur": 751,
+            "name": "void XEngine::Application::PushOverlay(XEngine::Layer *)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248524309
+        },
+        {
+            "cat": "function",
+            "dur": 2571587,
+            "name": "XEngine::Application::Application()",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44245953481
+        },
+        {
+            "cat": "function",
+            "dur": 2,
+            "name": "XEngine::OrthographicCamera::OrthographicCamera(float, float, float, float)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248525078
+        },
+        {
+            "cat": "function",
+            "dur": 631,
+            "name": "stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std:string&)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248525110
+        },
+        {
+            "cat": "function",
+            "dur": 781,
+            "name": "XEngine::OpenGLTexture2D::OpenGLTexture2D(const std::string &)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248525110
+        },
+        {
+            "cat": "function",
+            "dur": 798,
+            "name": "virtual void Sandbox2D::OnAttach()",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248525109
+        },
+        {
+            "cat": "function",
+            "dur": 809,
+            "name": "void XEngine::Application::PushLayer(XEngine::Layer *)",
+            "ph": "X",
+            "pid": 0,
+            "tid": 0x100628580,
+            "ts": 44248525107
+        }
+    ]
+}
