@@ -15,7 +15,7 @@
 
 #include "Xengine/Input.h"
 #include "Xengine/Core/KeyCodes.h"
-#include "Xengine/Core/MouseButtonCodes.h"
+#include "Xengine/Core/MouseCodes.h"
 #include "Xengine/Renderer/OrthographicCameraController.h"
 
 #include "Xengine/ImGui/ImGuiLayer.h"
