@@ -7,7 +7,7 @@
 
 extern XEngine::Application* XEngine::CreateApplication();
 
-int main()
+int main(int argc, char** argv)
 {
     XEngine::Log::Init();
 

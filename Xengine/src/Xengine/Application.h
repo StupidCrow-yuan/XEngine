@@ -14,6 +14,8 @@
 #include "Xengine/Core/Timestep.h"
 #include "Xengine/ImGui/ImGuiLayer.h"
 
+int main(int argc, char** argv);
+
 namespace XEngine {
     class Application
     {
@@ -42,6 +44,7 @@ namespace XEngine {
         float m_Minimized = false;
     private:
         static Application* s_Instance;
+        friend int ::main(int argc, char** argv);
     };
 
     // To be defined in CLIENT
