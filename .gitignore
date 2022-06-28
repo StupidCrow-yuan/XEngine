@@ -2,3 +2,5 @@
 cmake-build-debug
 .DS_store
 build
+*.log
+Sandbox/*.json
