@@ -5,7 +5,7 @@
 #include "xepch.h"
 #include "OrthographicCameraController.h"
 
-#include "Xengine/Input.h"
+#include "Xengine/Core/Input.h"
 #include "Xengine/Core/KeyCodes.h"
 
 namespace XEngine {

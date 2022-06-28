@@ -5,7 +5,7 @@
 #ifndef XENGINEMAIN_WINDOWSINPUT_H
 #define XENGINEMAIN_WINDOWSINPUT_H
 
-#include "Xengine/Input.h"
+#include "Xengine/Core/Input.h"
 
 namespace XEngine {
     class WindowsInput : public Input {

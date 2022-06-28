@@ -13,7 +13,7 @@
 
 #include "Xengine/Core/Timestep.h"
 
-#include "Xengine/Input.h"
+#include "Xengine/Core/Input.h"
 #include "Xengine/Core/KeyCodes.h"
 #include "Xengine/Core/MouseCodes.h"
 #include "Xengine/Renderer/OrthographicCameraController.h"

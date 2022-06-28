@@ -6,7 +6,7 @@
 #define XENGINEMAIN_MOUSEEVENT_H
 
 #include "Event.h"
-#include "Xengine/Input.h"
+#include "Xengine/Core/Input.h"
 
 namespace XEngine {
     class MouseMovedEvent : public Event
