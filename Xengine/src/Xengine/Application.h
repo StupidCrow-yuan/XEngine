@@ -20,7 +20,6 @@ namespace XEngine {
     public:
         Application();
         virtual ~Application();
-        void Run();
 
         void OnEvent(Event& e);
         void PushLayer(Layer* layer);
@@ -31,6 +30,7 @@ namespace XEngine {
         inline static Application& Get() { return *s_Instance; }
 
     private:
+        void Run();
         bool OnWindowClose(WindowCloseEvent& e);
         bool OnWindowResize(WindowResizeEvent& e);
     private:
@@ -44,6 +44,7 @@ namespace XEngine {
         static Application* s_Instance;
     };
 
+    // To be defined in CLIENT
     Application* CreateApplication();
 }
 
