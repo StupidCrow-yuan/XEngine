@@ -14,8 +14,8 @@ namespace XEngine {
     public:
         static void Init();
 
-        inline static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-        inline static Ref<spdlog::logger>& GetClientLogger() { return s_CoreClientLogger; }
+        static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
+        static Ref<spdlog::logger>& GetClientLogger() { return s_CoreClientLogger; }
     private:
         static Ref<spdlog::logger> s_CoreLogger;
         static Ref<spdlog::logger> s_CoreClientLogger;
