@@ -70,7 +70,7 @@ void Sandbox2D::OnImGuiRender()
 {
     XE_PROFILE_FUNCTION();
     // Note: Switch this to true to enable dockspace
-    static bool dockingEnabled = true;
+    static bool dockingEnabled = false;
     if (dockingEnabled)
     {
         static bool dockspaceOpen = true;
