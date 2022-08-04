@@ -110,6 +110,8 @@ namespace XEngine {
     void Renderer2D::ShutDown()
     {
         XE_PROFILE_FUNCTION();
+
+        delete [] s_Data.QuadVertexBufferBase;
     }
 
     void Renderer2D::BeginScene(const OrthographicCamera &camera)
