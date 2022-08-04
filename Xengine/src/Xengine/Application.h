@@ -5,7 +5,7 @@
 #ifndef XENGINE_APPLICATION_H
 #define XENGINE_APPLICATION_H
 
-#include "Core/Core.h"
+#include "Core/Base.h"
 #include "Core/Window.h"
 
 #include "Xengine/Core/LayerStack.h"

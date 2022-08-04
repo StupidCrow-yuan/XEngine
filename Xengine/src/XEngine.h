@@ -6,7 +6,7 @@
 #define XENGINE_XENGINE_H
 
 // For use by XEngine application
-#include "Xengine/Core/Core.h"
+#include "Xengine/Core/Base.h"
 #include "XEngine/Application.h"
 #include "Xengine/Core/Layer.h"
 #include "Xengine/Core/Log.h"

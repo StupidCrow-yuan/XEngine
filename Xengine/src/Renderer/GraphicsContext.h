@@ -5,7 +5,7 @@
 #ifndef XENGINEMAIN_GRAPHICSCONTEXT_H
 #define XENGINEMAIN_GRAPHICSCONTEXT_H
 
-#include "Xengine/Core/Core.h"
+#include "Xengine/Core/Base.h"
 
 namespace XEngine {
     class GraphicsContext

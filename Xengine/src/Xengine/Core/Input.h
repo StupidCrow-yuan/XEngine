@@ -6,7 +6,7 @@
 #define XENGINEMAIN_INPUT_H
 
 #include "xepch.h"
-#include "Xengine/Core/Core.h"
+#include "Xengine/Core/Base.h"
 #include "Xengine/Core/KeyCodes.h"
 #include "Xengine/Core/MouseCodes.h"
 

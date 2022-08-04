@@ -5,7 +5,7 @@
 #ifndef XENGINEMAIN_LAYERSTACK_H
 #define XENGINEMAIN_LAYERSTACK_H
 
-#include "Xengine/Core/Core.h"
+#include "Xengine/Core/Base.h"
 #include "Layer.h"
 
 namespace XEngine {
