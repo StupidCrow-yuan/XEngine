@@ -49,6 +49,11 @@ namespace XEngine {
         layer->OnAttach();
     }
 
+    void Application::Close()
+    {
+        m_Running = false;
+    }
+
     void Application::OnEvent(Event &e)
     {
         XE_PROFILE_FUNCTION();
