@@ -6,6 +6,7 @@
 #define XENGINEMAIN_SANDBOX2D_H
 
 #include "XEngine.h"
+#include "Xengine/Renderer/Framebuffer.h"
 
 class Sandbox2D : public XEngine::Layer
 {
@@ -26,6 +27,7 @@ private:
     //temp
     XEngine::Ref<XEngine::VertexArray> m_SquareVA;
     XEngine::Ref<XEngine::Shader> m_FlatColorShader;
+    XEngine::Ref<XEngine::Framebuffer> m_Framebuffer;
 
     XEngine::Ref<XEngine::Texture2D> m_CheckboardTexture;
 
