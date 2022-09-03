@@ -25,10 +25,12 @@ namespace XEngine {
         Bool
     };
 
+    // 正常的函数在多个cpp里会出现重定义，但是这里有static就不一样了，每一个函数都是该cpp的namespace范围里适用的
     static uint32_t ShaderDataTypeSize(ShaderDataType type)
     {
         switch (type)
         {
+            // 32位机和64位机上int和float都是4个字节, 只有long和指针是4和8个字节的区别
             case ShaderDataType::Float: return 4;
             case ShaderDataType::Float2: return 4 * 2;
             case ShaderDataType::Float3: return 4 * 3;
@@ -130,6 +132,7 @@ namespace XEngine {
         virtual const BufferLayout& GetLayout() const = 0;
         virtual void SetLayout(const BufferLayout& layout) = 0;
 
+        // 注意这个static函数是在基类声明的, 会根据当前Renderer::GetAPI()返回VertexBuffer的派生类对象
         static Ref<VertexBuffer> Create(uint32_t size);
         static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
     };

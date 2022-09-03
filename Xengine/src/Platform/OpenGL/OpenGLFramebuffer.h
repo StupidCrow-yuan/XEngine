@@ -20,6 +20,8 @@ namespace XEngine
         virtual void Bind() override;
         virtual void Unbind() override;
 
+        virtual void ReadPixel(const std::string& path) override;
+
         virtual uint32_t GetColorAttachmentRendererID() const override { return m_ColorAttachment; };
 
         virtual const FramebufferSpecification& GetSpecification() const override { return m_Specification; }

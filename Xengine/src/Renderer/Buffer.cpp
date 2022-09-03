@@ -19,6 +19,7 @@ namespace XEngine {
         return nullptr;
     }
 
+    //注意申明为static的函数，在定义的时候不需要写static关键字
     Ref<VertexBuffer> VertexBuffer::Create(float *vertices, uint32_t size)
     {
         switch (Renderer::GetAPI())

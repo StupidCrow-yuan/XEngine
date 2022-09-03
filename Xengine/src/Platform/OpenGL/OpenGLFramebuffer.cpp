@@ -7,6 +7,9 @@
 
 #include <glad/glad.h>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+
 namespace XEngine
 {
     OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification &spec)
@@ -17,7 +20,7 @@ namespace XEngine
 
     OpenGLFramebuffer::~OpenGLFramebuffer()
     {
-        glDeleteBuffers(1, &m_RendererID);
+        glDeleteFramebuffers(1, &m_RendererID);
     }
 
     void OpenGLFramebuffer::Invalidate()
@@ -30,18 +33,23 @@ namespace XEngine
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Specification.Width, m_Specification.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+        //将当前颜色附加到当前绑定的帧缓冲对象
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ColorAttachment, 0);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-        glGenTextures(1, &m_DepthAttachment);
-        glBindTexture(GL_TEXTURE_2D, m_DepthAttachment);
-        glTexImage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+        //深度缓冲
+        glGenRenderbuffers(1, &m_DepthAttachment);
+        glBindRenderbuffer(GL_RENDERBUFFER, m_DepthAttachment);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height);
 
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_DepthAttachment, 0);
+        //将渲染缓冲对象附加到帧缓冲的深度和模板附件上
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_DepthAttachment);
+        glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+        if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            XE_CORE_ERROR("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
 
         XE_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is incomplete!");
-
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     void OpenGLFramebuffer::Bind()
@@ -52,5 +60,15 @@ namespace XEngine
     void OpenGLFramebuffer::Unbind()
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void OpenGLFramebuffer::ReadPixel(const std::string& path) {
+        unsigned char* data = new unsigned char[m_Specification.Width * m_Specification.Height * 4];
+        memset(data, 0, m_Specification.Width * m_Specification.Height * 4);
+        glReadPixels(0, 0,m_Specification.Width, m_Specification.Height, GL_RGBA, GL_UNSIGNED_BYTE,  data);
+        stbi_write_png(path.c_str(), m_Specification.Width, m_Specification.Height, 4, data, m_Specification.Width * 4);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        delete[] data;
     }
 }
