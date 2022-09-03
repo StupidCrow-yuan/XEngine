@@ -70,8 +70,8 @@ void Sandbox2D::OnUpdate(XEngine::Timestep ts)
         XEngine::Renderer2D::EndScene();
         m_Framebuffer->Unbind();
 
-        std::string path = "/Users/user/Desktop/xxw.png";
-        m_Framebuffer->ReadPixel(path);
+//        std::string path = "/Users/user/Desktop/xxw.png";
+//        m_Framebuffer->ReadPixel(path);
 //        printf("\n");
     }
 
@@ -81,7 +81,7 @@ void Sandbox2D::OnImGuiRender()
 {
     XE_PROFILE_FUNCTION();
     // Note: Switch this to true to enable dockspace
-    static bool dockingEnabled = false;
+    static bool dockingEnabled = true;
     if (dockingEnabled)
     {
         static bool dockspaceOpen = true;
@@ -153,7 +153,7 @@ void Sandbox2D::OnImGuiRender()
         ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
         uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-//        ImGui::Image((void *)textureID, ImVec2{1280, 720});
+        ImGui::Image((void *)textureID, ImVec2{1280, 720});
 
         ImGui::End();
 
