@@ -38,7 +38,7 @@ void Sandbox2D::OnUpdate(XEngine::Timestep ts)
     {
         XE_PROFILE_SCOPE("Renderer Prep");
         m_Framebuffer->Bind();
-        XEngine::RenderCommand::SetClearColor({0.1f, 1.0f, 0.1f, 1.0f});
+        XEngine::RenderCommand::SetClearColor({0.1f, 0.0f, 0.1f, 1.0f});
         XEngine::RenderCommand::Clear();
     }
 
@@ -163,7 +163,7 @@ void Sandbox2D::OnImGuiRender()
     {
         ImGui::Begin("Settings");
 
-        XEngine::RenderCommand::SetClearColor({1.0f, 0.1f, 0.1f, 1.0f});
+        XEngine::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
         XEngine::RenderCommand::Clear();
 
         auto stats = XEngine::Renderer2D::GetStats();
@@ -176,7 +176,7 @@ void Sandbox2D::OnImGuiRender()
         ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 //        uint32_t textureID = m_CheckboardTexture->GetRendererID();
         uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-//        ImGui::Image((void *)textureID, ImVec2{1280, 720});
+        ImGui::Image((void *)textureID, ImVec2{1280, 720});
 
         ImGui::End();
     }
