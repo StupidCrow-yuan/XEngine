@@ -37,27 +37,27 @@ void Sandbox2D::OnUpdate(XEngine::Timestep ts)
     XEngine::Renderer2D::ResetStats();
     {
         XE_PROFILE_SCOPE("Renderer Prep");
-//        m_Framebuffer->Bind();
-        XEngine::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+        m_Framebuffer->Bind();
+        XEngine::RenderCommand::SetClearColor({0.1f, 1.0f, 0.1f, 1.0f});
         XEngine::RenderCommand::Clear();
     }
 
     {
         static float rotation = 0.0f;
         rotation += ts * 50.0f;
-        
+
         XE_PROFILE_SCOPE("Renderer Draw");
         XEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
-        
+
         XEngine::Renderer2D::DrawRotatedQuad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, -45.0f, { 0.8f, 0.2f, 0.3f, 1.0f });
         XEngine::Renderer2D::DrawQuad({-1.0, 0.0f}, {0.8f, 0.8f}, { 0.8f, 0.2f, 0.3f, 1.0f });
         XEngine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, m_SquareColor);
 
         XEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_CheckboardTexture, 10.0f);
         XEngine::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, m_CheckboardTexture, 20.0f);
-        
+
         XEngine::Renderer2D::EndScene();
-        
+
         XEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
         for (float y = -5.0f; y < 5.0f; y += 0.5f)
         {
@@ -68,7 +68,11 @@ void Sandbox2D::OnUpdate(XEngine::Timestep ts)
             }
         }
         XEngine::Renderer2D::EndScene();
-//        m_Framebuffer->Unbind();
+        m_Framebuffer->Unbind();
+
+//        std::string path = "/Users/user/Desktop/xxw.png";
+//        m_Framebuffer->ReadPixel(path);
+//        printf("\n");
     }
 
 }
@@ -149,7 +153,7 @@ void Sandbox2D::OnImGuiRender()
         ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
         uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-        ImGui::Image((void *)textureID, ImVec2{1280, 720});
+//        ImGui::Image((void *)textureID, ImVec2{1280, 720});
 
         ImGui::End();
 
@@ -159,6 +163,9 @@ void Sandbox2D::OnImGuiRender()
     {
         ImGui::Begin("Settings");
 
+        XEngine::RenderCommand::SetClearColor({1.0f, 0.1f, 0.1f, 1.0f});
+        XEngine::RenderCommand::Clear();
+
         auto stats = XEngine::Renderer2D::GetStats();
         ImGui::Text("Renderer2D Stats:");
         ImGui::Text("Draw Calls: %d", stats.DrawCalls);
@@ -167,8 +174,8 @@ void Sandbox2D::OnImGuiRender()
         ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
         ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-
 //        uint32_t textureID = m_CheckboardTexture->GetRendererID();
+        uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 //        ImGui::Image((void *)textureID, ImVec2{1280, 720});
 
         ImGui::End();
