@@ -70,8 +70,8 @@ void Sandbox2D::OnUpdate(XEngine::Timestep ts)
         XEngine::Renderer2D::EndScene();
         m_Framebuffer->Unbind();
 
-//        std::string path = "/Users/user/Desktop/xxw.png";
-//        m_Framebuffer->ReadPixel(path);
+        std::string path = "/Users/user/Desktop/xxw.png";
+        m_Framebuffer->ReadPixel(path);
 //        printf("\n");
     }
 
