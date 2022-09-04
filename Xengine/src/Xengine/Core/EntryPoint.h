@@ -19,7 +19,7 @@ int main(int argc, char** argv)
     app->Run();
     XE_PROFILE_END_SESSION();
     
-    XE_PROFILE_BEGIN_SESSION("Startup", CPP_SRC_DIR"Sandbox/XEngineProfile-Shutdown.json");
+    XE_PROFILE_BEGIN_SESSION("Shutdown", CPP_SRC_DIR"Sandbox/XEngineProfile-Shutdown.json");
     delete app;
     XE_PROFILE_END_SESSION();
 }
