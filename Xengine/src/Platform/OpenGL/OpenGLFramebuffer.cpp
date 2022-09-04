@@ -37,19 +37,17 @@ namespace XEngine
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ColorAttachment, 0);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-        //深度缓冲
-        glGenRenderbuffers(1, &m_DepthAttachment);
-        glBindRenderbuffer(GL_RENDERBUFFER, m_DepthAttachment);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height);
-
-        //将渲染缓冲对象附加到帧缓冲的深度和模板附件上
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_DepthAttachment);
-        glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-        if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-            XE_CORE_ERROR("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
+//        //深度缓冲
+//        glGenRenderbuffers(1, &m_DepthAttachment);
+//        glBindRenderbuffer(GL_RENDERBUFFER, m_DepthAttachment);
+//        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height);
+//
+//        //将渲染缓冲对象附加到帧缓冲的深度和模板附件上
+//        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_DepthAttachment);
+//        glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
         XE_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is incomplete!");
+
     }
 
     void OpenGLFramebuffer::Bind()
@@ -63,6 +61,7 @@ namespace XEngine
     }
 
     void OpenGLFramebuffer::ReadPixel(const std::string& path) {
+        this->Bind();//readPixels之前重新绑定一下当前缓冲纹理
         unsigned char* data = new unsigned char[m_Specification.Width * m_Specification.Height * 4];
         memset(data, 0, m_Specification.Width * m_Specification.Height * 4);
         glReadPixels(0, 0,m_Specification.Width, m_Specification.Height, GL_RGBA, GL_UNSIGNED_BYTE,  data);

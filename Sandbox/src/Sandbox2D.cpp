@@ -38,7 +38,7 @@ void Sandbox2D::OnUpdate(XEngine::Timestep ts)
     {
         XE_PROFILE_SCOPE("Renderer Prep");
         m_Framebuffer->Bind();
-        XEngine::RenderCommand::SetClearColor({0.1f, 0.0f, 0.1f, 1.0f});
+        XEngine::RenderCommand::SetClearColor({0.1f, 0.0f, 1.0f, 1.0f});
         XEngine::RenderCommand::Clear();
     }
 
@@ -53,25 +53,25 @@ void Sandbox2D::OnUpdate(XEngine::Timestep ts)
         XEngine::Renderer2D::DrawQuad({-1.0, 0.0f}, {0.8f, 0.8f}, { 0.8f, 0.2f, 0.3f, 1.0f });
         XEngine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, m_SquareColor);
 
-        XEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_CheckboardTexture, 10.0f);
+        XEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 1.0f, 1.0f }, m_CheckboardTexture, 10.0f);
         XEngine::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, m_CheckboardTexture, 20.0f);
 
         XEngine::Renderer2D::EndScene();
 
-        XEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
-        for (float y = -5.0f; y < 5.0f; y += 0.5f)
-        {
-            for (float x = -5.0f; x < 5.0f; x += 0.5f)
-            {
-                glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f};
-                XEngine::Renderer2D::DrawQuad({x, y}, {0.450, 0.45f}, color);
-            }
-        }
-        XEngine::Renderer2D::EndScene();
+//        XEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
+//        for (float y = -5.0f; y < 5.0f; y += 0.5f)
+//        {
+//            for (float x = -5.0f; x < 5.0f; x += 0.5f)
+//            {
+//                glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f};
+//                XEngine::Renderer2D::DrawQuad({x, y}, {0.450, 0.45f}, color);
+//            }
+//        }
+//        XEngine::Renderer2D::EndScene();
         m_Framebuffer->Unbind();
 
 //        std::string path = "/Users/user/Desktop/xxw.png";
-//        m_Framebuffer->ReadPixel(path);
+//        m_Framebuffer->ReadPixel(path);//readPixels操作，测试缓存纹理是否正确绘制
 //        printf("\n");
     }
 
@@ -163,7 +163,7 @@ void Sandbox2D::OnImGuiRender()
     {
         ImGui::Begin("Settings");
 
-        XEngine::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+        XEngine::RenderCommand::SetClearColor({0.1f, 1.1f, 0.1f, 1.0f});
         XEngine::RenderCommand::Clear();
 
         auto stats = XEngine::Renderer2D::GetStats();
