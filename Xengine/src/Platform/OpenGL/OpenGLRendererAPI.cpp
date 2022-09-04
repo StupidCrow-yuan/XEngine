@@ -53,7 +53,7 @@ namespace XEngine {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_DEPTH_TEST);//关闭深度测试，确保绘制方式是按画家算法即先画不透明物体，且由近到远开始绘制；在画透明物体，又远到近绘制
     }
 
     void OpenGLRendererAPI::SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
