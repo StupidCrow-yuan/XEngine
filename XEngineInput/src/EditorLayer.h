@@ -26,6 +26,8 @@ namespace XEngine
     private:
         XEngine::OrthographicCameraController m_CameraController;
 
+        bool m_ViewportFocused = false;
+        bool m_ViewportHovered = false;
         glm::vec2 m_ViewportSize = {0.0f, 0.0f};
         //temp
         Ref<VertexArray> m_SquareVA;
