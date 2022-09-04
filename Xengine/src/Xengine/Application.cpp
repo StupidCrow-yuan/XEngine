@@ -23,7 +23,7 @@ namespace XEngine {
         m_Window = Window::Create();
         m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-        Renderer::Init();
+        Renderer::Init(m_Window.get()->GetWidth(), m_Window.get()->GetHeight());
 
         m_ImGuiLayer = new ImGuiLayer();
         PushOverlay(m_ImGuiLayer);

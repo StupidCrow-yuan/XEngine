@@ -45,10 +45,16 @@ namespace XEngine {
     };
 
     static Renderer2DData s_Data;
+    uint32_t Renderer2D::Width = 0;
+    uint32_t Renderer2D::Height = 0;
 
-    void Renderer2D::Init()
+    void Renderer2D::Init(uint32_t width, uint32_t height)
     {
         XE_PROFILE_FUNCTION();
+
+        Width = width;
+        Height = height;
+
         s_Data.QuadVertexArray = VertexArray::Create();
 
         s_Data.QuadVertexBuffer = VertexBuffer::Create(s_Data.MaxVertices * sizeof(QuadVertex));
@@ -146,6 +152,7 @@ namespace XEngine {
         for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
             s_Data.TextureSlots[i]->Bind(i);
 
+        RenderCommand::SetViewport(0, 0, Width, Height);//在不同的窗口上绘制之前的都需要手动调用一次viewport，否则会导致画面比例不对，只能绘制一部分内容
         RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
         s_Data.Stats.DrawCalls++;
     }

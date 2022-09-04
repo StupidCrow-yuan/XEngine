@@ -13,7 +13,7 @@ namespace XEngine {
     class Renderer2D
     {
     public:
-        static void Init();
+        static void Init(uint32_t width, uint32_t height);
         static void ShutDown();
 
         static void BeginScene(const OrthographicCamera& camera);
@@ -44,6 +44,9 @@ namespace XEngine {
         
         static void ResetStats();
         static Statistics GetStats();
+
+        static uint32_t Width;
+        static uint32_t Height;
         
     private:
         static void FlushAndReset();
