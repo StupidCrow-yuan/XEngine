@@ -27,7 +27,6 @@ private:
     //temp
     XEngine::Ref<XEngine::VertexArray> m_SquareVA;
     XEngine::Ref<XEngine::Shader> m_FlatColorShader;
-    XEngine::Ref<XEngine::Framebuffer> m_Framebuffer;
 
     XEngine::Ref<XEngine::Texture2D> m_CheckboardTexture;
 

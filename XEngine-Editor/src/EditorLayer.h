@@ -1,0 +1,39 @@
+//
+// Created by yuan on 9/4/22.
+//
+
+#ifndef XENGINEMAIN_EDITORLAYER_H
+#define XENGINEMAIN_EDITORLAYER_H
+
+#include "XEngine.h"
+#include "Xengine/Renderer/Framebuffer.h"
+
+namespace XEngine
+{
+    class EditorLayer : public Layer
+    {
+    public:
+        EditorLayer();
+        virtual ~EditorLayer() = default;
+
+        virtual void OnAttach() override;
+        virtual void OnDetach() override;
+
+        void OnUpdate(Timestep ts) override;
+        virtual void OnImGuiRender() override;
+        void OnEvent(Event& e) override;
+
+    private:
+        XEngine::OrthographicCameraController m_CameraController;
+
+        //temp
+        Ref<VertexArray> m_SquareVA;
+        Ref<Shader> m_FlatColorShader;
+        Ref<Framebuffer> m_Framebuffer;
+
+        Ref<Texture2D> m_CheckboardTexture;
+        glm::vec4 m_SquareColor = {0.2f ,0.3f, 0.8f, 1.0f};
+    };
+}
+
+#endif //XENGINEMAIN_EDITORLAYER_H
