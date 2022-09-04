@@ -10,7 +10,9 @@ set(EXE_NAME XEngineMain)
 
 add_executable(${EXE_NAME})
 
-add_subdirectory(Sandbox)
+#add_subdirectory(Sandbox)
+
+add_subdirectory(XEngineInput)
 
 add_subdirectory(Xengine)
 

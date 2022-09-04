@@ -8,20 +8,20 @@
 
 namespace XEngine
 {
-    class XEngineEditor : public Application
+    class XEngineInput : public Application
     {
     public:
-        XEngineEditor() : Application("XEngine Editor")
+        XEngineInput() : Application("XEngineInput")
         {
             PushLayer(new EditorLayer());
         }
-        ~XEngineEditor()
+        ~XEngineInput()
         {
         }
     };
 
     Application* CreateApplication()
     {
-        return new XEngineEditor();
+        return new XEngineInput();
     }
 }
