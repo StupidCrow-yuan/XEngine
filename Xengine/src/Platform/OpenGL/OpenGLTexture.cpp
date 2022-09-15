@@ -5,6 +5,7 @@
 #include "xepch.h"
 #include "OpenGLTexture.h"
 #include <stb_image.h>
+#include <stb_image_write.h>
 
 namespace XEngine {
 
@@ -32,6 +33,7 @@ namespace XEngine {
         {
             XE_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std:string&)");
             data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+//            stbi_write_jpg("/Users/user/Desktop/1234.png", width, height, 3, data, width * 3);
         }
         XE_CORE_ASSERT(data, "Failed to load image!");
         m_Width = width;
