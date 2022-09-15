@@ -19,6 +19,9 @@
 #include "Xengine/Renderer/OrthographicCameraController.h"
 
 #include "Xengine/ImGui/ImGuiLayer.h"
+#include "Xengine/Scene/Scene.h"
+#include "Xengine/Scene/Entity.h"
+#include "Xengine/Scene/Components.h"
 
 //--------Renderer---------
 #include "Renderer/Renderer.h"

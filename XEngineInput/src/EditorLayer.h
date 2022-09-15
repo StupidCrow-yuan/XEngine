@@ -7,7 +7,6 @@
 
 #include "XEngine.h"
 #include "Xengine/Renderer/Framebuffer.h"
-#include "Xengine/Scene/Scene.h"
 
 namespace XEngine
 {
@@ -36,7 +35,7 @@ namespace XEngine
         Ref<Framebuffer> m_Framebuffer;
 
         Ref<Scene> m_ActiveScene;
-        entt::entity m_SquareEntity;
+        Entity m_SquareEntity;
 
         Ref<Texture2D> m_CheckboardTexture;
         glm::vec4 m_SquareColor = {0.2f ,0.3f, 0.8f, 1.0f};
