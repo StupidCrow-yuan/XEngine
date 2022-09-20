@@ -7,6 +7,7 @@
 
 #include "OrthographicCamera.h"
 #include "Texture.h"
+#include "XEngine/Renderer/Camera.h"
 
 namespace XEngine {
 
@@ -16,7 +17,8 @@ namespace XEngine {
         static void Init(uint32_t width, uint32_t height);
         static void ShutDown();
 
-        static void BeginScene(const OrthographicCamera& camera);
+        static void BeginScene(const Camera& camera, const glm::mat4& transform);
+        static void BeginScene(const OrthographicCamera& camera);//todo: remove
         static void EndScene();
         static void Flush();
 

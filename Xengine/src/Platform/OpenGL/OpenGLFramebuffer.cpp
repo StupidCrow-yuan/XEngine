@@ -52,7 +52,7 @@ namespace XEngine
 //        glGenRenderbuffers(1, &m_DepthAttachment);
 //        glBindRenderbuffer(GL_RENDERBUFFER, m_DepthAttachment);
 //        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height);
-//
+
 //        //将渲染缓冲对象附加到帧缓冲的深度和模板附件上
 //        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_DepthAttachment);
 //        glBindRenderbuffer(GL_RENDERBUFFER, 0);

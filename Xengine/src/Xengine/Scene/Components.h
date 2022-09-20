@@ -6,6 +6,7 @@
 #define XENGINEMAIN_COMPONENTS_H
 
 #include <glm/glm.hpp>
+#include "Xengine/Renderer/Camera.h"
 
 namespace XEngine {
 
@@ -37,6 +38,16 @@ namespace XEngine {
         SpriteRendererComponent() = default;
         SpriteRendererComponent(const SpriteRendererComponent&) = default;
         SpriteRendererComponent(const glm::vec4& color) : Color(color) {}
+    };
+
+    struct CameraComponent
+    {
+        XEngine::Camera Camera;
+        bool Primary = true; //todo: think about moving to Scene
+
+        CameraComponent() = default;
+        CameraComponent(const CameraComponent&) = default;
+        CameraComponent(const glm::mat4& projection) : Camera(projection) {}
     };
 }
 
