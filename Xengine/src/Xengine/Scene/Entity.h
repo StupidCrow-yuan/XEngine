@@ -46,7 +46,7 @@ namespace XEngine {
         operator bool() const { return static_cast<int>(m_EntityHandle) != 0; }
 
     private:
-        entt::entity m_EntityHandle{0};
+        entt::entity m_EntityHandle{0}; //entt::entity 实际上为uint32_t类型的数据
         Scene* m_Scene = nullptr;
     };
 }
