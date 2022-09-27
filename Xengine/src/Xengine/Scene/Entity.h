@@ -43,10 +43,10 @@ namespace XEngine {
             m_Scene->m_Registry.remove<T>(m_EntityHandle);
         }
 
-        operator bool() const { return static_cast<int>(m_EntityHandle) != 0; }
+        operator bool() const { return (uint32_t)(m_EntityHandle) != 0; }
 
     private:
-        entt::entity m_EntityHandle{0}; //entt::entity 实际上为uint32_t类型的数据
+        entt::entity m_EntityHandle{ 0 }; //entt::entity 实际上为uint32_t类型的数据
         Scene* m_Scene = nullptr;
     };
 }
