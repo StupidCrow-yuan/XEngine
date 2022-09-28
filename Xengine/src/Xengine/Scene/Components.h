@@ -55,22 +55,16 @@ namespace XEngine {
     {
         ScriptableEntity* Instance = nullptr;
 
-        std::function<void()> InstantiateFunction;//std::function是一个函数模板类，是一个类;定义在头文件可以用其定义不同的对象，对象的类型可以是普通函数，静态函数以及Lambda表达式
-        std::function<void()> DestroyInstanceFunction;
+//        std::function<void()> InstantiateFunction;//std::function是一个函数模板类，是一个类;定义在头文件可以用其定义不同的对象，对象的类型可以是普通函数，静态函数以及Lambda表达式
 
-        std::function<void(ScriptableEntity(*))> OnCreateFunction;
-        std::function<void(ScriptableEntity(*))> OnDestroyFunction;
-        std::function<void(ScriptableEntity*, Timestep)> OnUpdateFunction;
+        ScriptableEntity*(*InstantiateScript)();//定义一个名为*InstantiateScript的函数指针，函数类型返回值为ScriptableEntity*，无入参的函数指针
+        void (*DestroyScript)(NativeScriptComponent*);//定义一个名为*DestroyScript的函数指针，参数类型为NativeScriptComponent*，返回值类型为void
 
         template<typename T>
         void Bind()
         {
-            InstantiateFunction = [&] () { Instance = new T(); };
-            DestroyInstanceFunction = [&] () { delete (T*)Instance; Instance = nullptr; };
-
-            OnCreateFunction = [this](ScriptableEntity* instance) { ((T*)Instance)->OnCreate(); };
-            OnDestroyFunction = [this](ScriptableEntity* instance) { ((T*)Instance)->OnDestroy(); };
-            OnUpdateFunction = [this](ScriptableEntity* instance, Timestep ts) { ((T*)Instance)->OnUpdate(ts); };
+            InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
+            DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
         }
     };
 }

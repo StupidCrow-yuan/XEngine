@@ -43,6 +43,8 @@ namespace XEngine
         public:
             void OnCreate()
             {
+                auto& transform = GetComponent<TransformComponent>().Transform;
+                transform[3][0] = rand() % 10 - 5.0f;
             }
 
             void OnDestroy()
@@ -66,6 +68,7 @@ namespace XEngine
         };
 
         m_CameraEntity.AdddComponent<NativeScriptComponent>().Bind<CameraController>();//绑定ScriptComponent中的函数
+        m_SecondCamera.AdddComponent<NativeScriptComponent>().Bind<CameraController>();
     };
 
     void EditorLayer::OnDetach()
