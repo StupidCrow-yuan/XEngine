@@ -5,6 +5,15 @@
 #ifndef XENGINEMAIN_XEPCH_H
 #define XENGINEMAIN_XEPCH_H
 
+#include "Xengine/Core/PlatformDetection.h"
+
+#ifdef XE_PLATFORM_WINDOWS
+#ifndef NOMINMAX
+		// See github.com/skypjack/entt/wiki/Frequently-Asked-Questions#warning-c4003-the-min-the-max-and-the-macro
+		#define NOMINMAX
+	#endif
+#endif
+
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -17,6 +26,8 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+
+#include "Xengine/Core/Base.h"
 
 #include "Xengine/Core/Log.h"
 

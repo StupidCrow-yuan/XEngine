@@ -6,13 +6,13 @@
 #define XENGINEMAIN_MOUSEEVENT_H
 
 #include "Event.h"
-#include "Xengine/Core/Input.h"
+#include "Xengine/Core/MouseCodes.h"
 
 namespace XEngine {
     class MouseMovedEvent : public Event
     {
     public:
-        MouseMovedEvent(float x, float y) : m_MouseX(x), m_MouseY(y) {}
+        MouseMovedEvent(const float x, const float y) : m_MouseX(x), m_MouseY(y) {}
 
         float GetX() const { return m_MouseX; }
         float GetY() const { return m_MouseY; }
@@ -34,7 +34,7 @@ namespace XEngine {
     class MouseScrolledEvent : public Event
     {
     public:
-        MouseScrolledEvent(float xOffset, float yOffset) : m_XOffset(xOffset) , m_YOffset(m_YOffset) {}
+        MouseScrolledEvent(const float xOffset, const float yOffset) : m_XOffset(xOffset) , m_YOffset(m_YOffset) {}
 
         float GetXOffset() const { return m_XOffset; }
         float GetYOffset() const { return m_YOffset; }
@@ -55,12 +55,12 @@ namespace XEngine {
     class MouseButtonEvent : public Event
     {
     public:
-        inline MouseCode GetMouseButton() const { return m_Button; }
+        MouseCode GetMouseButton() const { return m_Button; }
 
         EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
     protected:
-    MouseButtonEvent(MouseCode button) : m_Button(button) {}
+    MouseButtonEvent(const MouseCode button) : m_Button(button) {}
 
     MouseCode m_Button;
     };
@@ -68,7 +68,7 @@ namespace XEngine {
     class MouseButtonPressedEvent : public MouseButtonEvent
     {
     public:
-        MouseButtonPressedEvent(MouseCode button) : MouseButtonEvent(button) {}
+        MouseButtonPressedEvent(const MouseCode button) : MouseButtonEvent(button) {}
 
         std::string ToString() const override
         {
@@ -83,7 +83,7 @@ namespace XEngine {
     class MouseButtonReleasedEvent : public MouseButtonEvent
     {
     public:
-        MouseButtonReleasedEvent(MouseCode button) : MouseButtonEvent(button) {}
+        MouseButtonReleasedEvent(const MouseCode button) : MouseButtonEvent(button) {}
 
         std::string ToString() const override
         {

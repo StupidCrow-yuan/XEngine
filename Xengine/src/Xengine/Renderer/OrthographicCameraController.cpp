@@ -18,21 +18,21 @@ namespace XEngine {
     void OrthographicCameraController::OnUpdate(Timestep ts)
     {
         XE_PROFILE_FUNCTION();
-        if (Input::IsKeyPressed(XE_KEY_A))
+        if (Input::IsKeyPressed(Key::A))
         {
             m_CameraPostion.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
             m_CameraPostion.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
-        } else if (Input::IsKeyPressed(XE_KEY_D))
+        } else if (Input::IsKeyPressed(Key::D))
         {
             m_CameraPostion.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
             m_CameraPostion.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
         }
 
-        if (Input::IsKeyPressed(XE_KEY_W))
+        if (Input::IsKeyPressed(Key::W))
         {
             m_CameraPostion.x -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
             m_CameraPostion.y -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
-        } else if (Input::IsKeyPressed(XE_KEY_S))
+        } else if (Input::IsKeyPressed(Key::S))
         {
             m_CameraPostion.x += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
             m_CameraPostion.y += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
@@ -40,11 +40,11 @@ namespace XEngine {
 
         if (m_Rotation)
         {
-            if (Input::IsKeyPressed(XE_KEY_Q))
+            if (Input::IsKeyPressed(Key::Q))
             {
                 m_CameraRotation -= m_CameraTranslationSpeed * ts;
             }
-            if (Input::IsKeyPressed(XE_KEY_E))
+            if (Input::IsKeyPressed(Key::E))
             {
                 m_CameraRotation += m_CameraTranslationSpeed * ts;
             }

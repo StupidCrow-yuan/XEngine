@@ -6,7 +6,7 @@
 #define XENGINEMAIN_INPUT_H
 
 #include "xepch.h"
-#include "Xengine/Core/Base.h"
+#include <glm/glm.hpp>
 #include "Xengine/Core/KeyCodes.h"
 #include "Xengine/Core/MouseCodes.h"
 
@@ -16,7 +16,7 @@ namespace XEngine {
     public:
         static bool IsKeyPressed(KeyCode key);
         static bool IsMouseButtonPressed(MouseCode button);
-        static std::pair<float, float> GetMousePosition();
+        static glm::vec2 GetMousePosition();
         static float GetMouseX();
         static float GetMouseY();
     };

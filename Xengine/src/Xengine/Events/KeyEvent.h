@@ -6,7 +6,7 @@
 #define XENGINEMAIN_KEYEVENT_H
 
 #include "Event.h"
-#include "Xengine/Core/Input.h"
+#include "Xengine/Core/KeyCodes.h"
 
 namespace XEngine {
     class KeyEvent : public Event
@@ -16,7 +16,7 @@ namespace XEngine {
 
         EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
     protected:
-        KeyEvent(KeyCode keycode) : m_KeyCode(keycode) {}
+        KeyEvent(const KeyCode keycode) : m_KeyCode(keycode) {}
 
         KeyCode m_KeyCode;
     };
@@ -24,9 +24,9 @@ namespace XEngine {
     class KeyPressedEvent : public KeyEvent
     {
     public:
-        KeyPressedEvent(KeyCode keycode, int repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+        KeyPressedEvent(const KeyCode keycode, const uint16_t repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
-        int GetRepeatCount() const { return m_RepeatCount; }
+        uint16_t GetRepeatCount() const { return m_RepeatCount; }
 
         std::string ToString() const override
         {
@@ -37,13 +37,13 @@ namespace XEngine {
 
         EVENT_CLASS_TYPE(KeyPressed)
     private:
-        int m_RepeatCount;
+        uint16_t m_RepeatCount;
     };
 
     class KeyReleasedEvent : public KeyEvent
     {
     public:
-        KeyReleasedEvent(KeyCode keycode) : KeyEvent(keycode) {}
+        KeyReleasedEvent(const KeyCode keycode) : KeyEvent(keycode) {}
 
         std::string ToString() const override
         {
@@ -58,7 +58,7 @@ namespace XEngine {
     class KeyTypedEvent : public KeyEvent
     {
     public:
-        KeyTypedEvent(KeyCode keycode) : KeyEvent(keycode) {}
+        KeyTypedEvent(const KeyCode keycode) : KeyEvent(keycode) {}
 
         std::string ToString() const override
         {

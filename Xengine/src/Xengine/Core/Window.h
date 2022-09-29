@@ -5,7 +5,7 @@
 #ifndef XENGINEMAIN_WINDOW_H
 #define XENGINEMAIN_WINDOW_H
 
-#include "xepch.h"
+#include <sstream>
 #include "Xengine/Core/Base.h"
 #include "Xengine/Events/Event.h"
 

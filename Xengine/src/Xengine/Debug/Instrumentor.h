@@ -11,6 +11,10 @@
 #include <iomanip>
 #include <string>
 #include <thread>
+#include <mutex>
+#include <sstream>
+
+#include "Xengine/Core/Log.h"
 
 namespace XEngine {
 
