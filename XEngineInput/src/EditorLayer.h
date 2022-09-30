@@ -7,6 +7,7 @@
 
 #include "XEngine.h"
 #include "Xengine/Renderer/Framebuffer.h"
+#include "SceneHierarchyPanel.h"
 
 namespace XEngine
 {
@@ -43,6 +44,9 @@ namespace XEngine
 
         Ref<Texture2D> m_CheckboardTexture;
         glm::vec4 m_SquareColor = {0.2f ,0.3f, 0.8f, 1.0f};
+
+        //Panels
+        SceneHierarchyPanel m_SceneHierachyPanel;
     };
 }
 

@@ -69,6 +69,8 @@ namespace XEngine
 
         m_CameraEntity.AdddComponent<NativeScriptComponent>().Bind<CameraController>();//绑定ScriptComponent中的函数
         m_SecondCamera.AdddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+        m_SceneHierachyPanel.SetContext(m_ActiveScene);
     };
 
     void EditorLayer::OnDetach()
@@ -172,6 +174,8 @@ namespace XEngine
 
             ImGui::EndMenuBar();
         }
+
+        m_SceneHierachyPanel.OnImGuiRender();
 
         ImGui::Begin("Settings");
 
