@@ -39,7 +39,7 @@ namespace XEngine {
         }
 
         template<typename T>
-        void RevomeComponent()
+        void RemoveComponent()
         {
             XE_CORE_ASSERT(HasComponent<T>(), "Entity does not have component!");
             m_Scene->m_Registry.remove<T>(m_EntityHandle);
