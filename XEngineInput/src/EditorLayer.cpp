@@ -7,6 +7,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Xengine/Scene/SceneSerializer.h"
+
 namespace XEngine
 {
     EditorLayer::EditorLayer() : Layer("EditorLayer"), m_CameraController(1280.0f/ 720.0f), m_SquareColor({0.2f, 0.3f, 0.8f, 1.0f})
@@ -25,21 +27,22 @@ namespace XEngine
 
         m_ActiveScene = CreateRef<Scene>();
 
+#if 1
         //Entity
         auto square = m_ActiveScene->CreateEntity("Green Square");
-        square.AdddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+        square.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
         auto redSquare = m_ActiveScene->CreateEntity("Red Square");
-        redSquare.AdddComponent<SpriteRendererComponent>(glm::vec4{1.0f, 0.0f, 0.0f, 1.0f});
+        redSquare.AddComponent<SpriteRendererComponent>(glm::vec4{1.0f, 0.0f, 0.0f, 1.0f});
 
 
         m_SquareEntity = square;
 
         m_CameraEntity = m_ActiveScene->CreateEntity("Camera A");
-        m_CameraEntity.AdddComponent<CameraComponent>();
+        m_CameraEntity.AddComponent<CameraComponent>();
 
         m_SecondCamera = m_ActiveScene->CreateEntity("Camera B");
-        auto& cc = m_SecondCamera.AdddComponent<CameraComponent>();
+        auto& cc = m_SecondCamera.AddComponent<CameraComponent>();
         cc.Primary = false;
 
         class CameraController : public ScriptableEntity
@@ -71,8 +74,9 @@ namespace XEngine
             }
         };
 
-        m_CameraEntity.AdddComponent<NativeScriptComponent>().Bind<CameraController>();//绑定ScriptComponent中的函数
-        m_SecondCamera.AdddComponent<NativeScriptComponent>().Bind<CameraController>();
+        m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();//绑定ScriptComponent中的函数
+        m_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+#endif
 
         m_SceneHierachyPanel.SetContext(m_ActiveScene);
     };
@@ -178,7 +182,22 @@ namespace XEngine
                 // which we can't undo at the moment without finer window depth/z control.
                 //ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-                if (ImGui::MenuItem("Exit")) Application::Get().Close();
+                if (ImGui::MenuItem("Serialize"))
+                {
+                    SceneSerializer serializer(m_ActiveScene);
+                    serializer.Serialize(CPP_SRC_DIR"XEngineInput/assets/scenes/Example.Xengine");
+                }
+
+                if (ImGui::MenuItem("Deserialize"))
+                {
+                    SceneSerializer serializer(m_ActiveScene);
+                    serializer.Deserialize(CPP_SRC_DIR"XEngineInput/assets/scenes/Example.Xengine");
+                }
+
+                if (ImGui::MenuItem("Exit"))
+                {
+                    Application::Get().Close();
+                }
                 ImGui::EndMenu();
             }
 

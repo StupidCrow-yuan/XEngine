@@ -13,7 +13,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ../thirdparty/imgui
         ../thirdparty/glm
         ../thirdparty/stb_image
-        ../thirdparty/entt)
+        ../thirdparty/entt
+        ../thirdparty/yaml-cpp)
 
 target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARY} glfw)
 
@@ -22,3 +23,5 @@ target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 target_link_libraries(${PROJECT_NAME} ${IMGUI_LIBRARY} imgui)
 
 target_link_libraries(${PROJECT_NAME} ${GLM_LIBRARY} glm)
+
+target_link_libraries(${PROJECT_NAME} ${Yaml_LIBRARY} yaml-cpp)

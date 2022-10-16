@@ -232,13 +232,13 @@ namespace XEngine {
         {
             if (ImGui::MenuItem("Camera"))
             {
-                m_SelectionContext.AdddComponent<CameraComponent>();
+                m_SelectionContext.AddComponent<CameraComponent>();
                 ImGui::CloseCurrentPopup();
             }
 
             if (ImGui::MenuItem("Sprite Renderer"))
             {
-                m_SelectionContext.AdddComponent<SpriteRendererComponent>();
+                m_SelectionContext.AddComponent<SpriteRendererComponent>();//存在的情况下再添加会导致崩溃
                 ImGui::CloseCurrentPopup();
             }
 

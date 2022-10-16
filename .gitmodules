@@ -14,3 +14,6 @@
 	path = Xengine/thirdparty/glm
 	url = git@github.com:g-truc/glm.git
 	branch = master
+[submodule "Xengine/thirdparty/yaml-cpp"]
+	path = Xengine/thirdparty/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git

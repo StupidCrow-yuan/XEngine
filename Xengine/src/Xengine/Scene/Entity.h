@@ -17,7 +17,7 @@ namespace XEngine {
         Entity(const Entity& other) = default;
 
         template<typename T, typename... Args>
-        T& AdddComponent(Args&&... args)
+        T& AddComponent(Args&&... args)
         {
             XE_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
             T& component = m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
