@@ -18,6 +18,7 @@ namespace XEngine {
     void SceneHierarchyPanel::SetContext(const Ref<Scene>& context)
     {
         m_Context = context;
+        m_SelectionContext = {};
     }
 
     void SceneHierarchyPanel::OnImGuiRender()
@@ -206,6 +207,10 @@ namespace XEngine {
 
     void SceneHierarchyPanel::DrawComponents(Entity entity)
     {
+        if (!entity.GetScene())
+        {
+            return;//todo
+        }
         if (entity.HasComponent<TagComponent>())
         {
             auto& tag = entity.GetComponent<TagComponent>().Tag;

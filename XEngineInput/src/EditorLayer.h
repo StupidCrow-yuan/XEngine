@@ -25,6 +25,12 @@ namespace XEngine
         void OnEvent(Event& e) override;
 
     private:
+        bool OnKeyPressed(KeyPressedEvent& e);
+
+        void NewScene();
+        void OpenScene();
+        void SaveSceneAs();
+    private:
         XEngine::OrthographicCameraController m_CameraController;
 
         bool m_ViewportFocused = false;

@@ -59,6 +59,8 @@ namespace XEngine {
         {
             return !(*this == other);
         }
+
+        Scene* GetScene() { return m_Scene; }
     private:
         entt::entity m_EntityHandle{ 0 }; //entt::entity 实际上为uint32_t类型的数据
         Scene* m_Scene = nullptr;

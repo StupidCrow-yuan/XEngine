@@ -14,7 +14,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ../thirdparty/glm
         ../thirdparty/stb_image
         ../thirdparty/entt
-        ../thirdparty/yaml-cpp)
+        ../thirdparty/yaml-cpp
+        ../thirdparty/portable-file-dialogs)
 
 target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARY} glfw)
 
