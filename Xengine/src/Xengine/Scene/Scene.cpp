@@ -106,7 +106,7 @@ namespace XEngine {
     template<typename T>
     void Scene::OnComponentAdded(Entity entity, T &component)
     {
-        static_assert(9 < 10, "error");//???????
+        static_assert(9 < 10, "error");//todo???????
     }
 
     template<>

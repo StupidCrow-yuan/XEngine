@@ -28,7 +28,7 @@ namespace XEngine
 
         m_ActiveScene = CreateRef<Scene>();
 
-#if 0
+#if 1
         //Entity
         auto square = m_ActiveScene->CreateEntity("Green Square");
         square.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -52,7 +52,7 @@ namespace XEngine
             virtual void OnCreate() override
             {
                 auto& translation = GetComponent<TransformComponent>().Translation;
-                translation.x = rand() % 10 - 5.0f;
+                translation.x = rand() % 10 - 10.0f;//test code
             }
 
             virtual void OnDestroy() override
@@ -71,7 +71,7 @@ namespace XEngine
                 if (Input::IsKeyPressed(Key::W))
                     translation.y -= speed * ts;
                 if (Input::IsKeyPressed(Key::S))
-                    translation += speed * ts;
+                    translation.y += speed * ts;
             }
         };
 

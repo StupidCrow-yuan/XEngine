@@ -23,6 +23,7 @@ namespace XEngine {
 
     void SceneHierarchyPanel::OnImGuiRender()
     {
+        //Scene Hierarchy 属性面板
         ImGui::Begin("Scene Hierarchy");
 
         m_Context->m_Registry.each([&](auto entityID)
@@ -31,8 +32,11 @@ namespace XEngine {
             DrawEntityNode(entity);
         });
 
-        if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered() && ImGui::IsItemClicked())
+        //鼠标处于Scene Hierarchy面板空白处且按下左鼠标，则将m_SelectionContext置空，即Properties为空
+        if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+        {
             m_SelectionContext = {};
+        }
 
         //Right-click on black space
         if (ImGui::BeginPopupContextWindow(0, 1, false))
@@ -45,12 +49,12 @@ namespace XEngine {
 
         ImGui::End();
 
+        //Properties属性面板
         ImGui::Begin("Properties");
         if (m_SelectionContext)
         {
             DrawComponents(m_SelectionContext);
         }
-
         ImGui::End();
     }
 
@@ -61,7 +65,7 @@ namespace XEngine {
         ImGuiTreeNodeFlags flags = ((m_SelectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
         flags |= ImGuiTreeNodeFlags_SpanAvailWidth;
         bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
-        if (!ImGui::IsItemClicked())
+        if (ImGui::IsItemClicked())
         {
             m_SelectionContext = entity;
         }
@@ -83,7 +87,7 @@ namespace XEngine {
             bool opened = ImGui::TreeNodeEx((void*)9817239, flags, tag.c_str());
             if (opened)
                 ImGui::TreePop();
-            ImGui::TreePop();
+            ImGui::TreePop();//树节点结束
         }
 
         if (entityDeleted)
@@ -337,8 +341,5 @@ namespace XEngine {
         {
             ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
         });
-
-
-
     }
 }
