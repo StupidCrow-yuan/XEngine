@@ -12,6 +12,8 @@
 #include <glad/glad.h>
 #include "GLFW/glfw3.h"
 
+#include "ImGuizmo.h"
+
 namespace XEngine {
 
     ImGuiLayer::ImGuiLayer()
@@ -32,8 +34,8 @@ namespace XEngine {
         //io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
         //io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
-        io.Fonts->AddFontFromFileTTF(CPP_SRC_DIR"XEngineInput/assets/fonts/opensans/OpenSans-Bold.ttf", 18.0f);
-        io.FontDefault = io.Fonts->AddFontFromFileTTF(CPP_SRC_DIR"XEngineInput/assets/fonts/opensans/OpenSans-Regular.ttf", 18.0f);
+        io.Fonts->AddFontFromFileTTF(CPP_SRC_DIR"XEngineInput/assets/fonts/opensans/OpenSans-Bold.ttf", 18.0f);//第1个字体为粗体
+        io.FontDefault = io.Fonts->AddFontFromFileTTF(CPP_SRC_DIR"XEngineInput/assets/fonts/opensans/OpenSans-Regular.ttf", 18.0f);//第2个字体为默认题
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();
         //ImGui::StyleColorsClassic();
@@ -80,6 +82,7 @@ namespace XEngine {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+        ImGuizmo::BeginFrame();
     }
 
     void ImGuiLayer::End()

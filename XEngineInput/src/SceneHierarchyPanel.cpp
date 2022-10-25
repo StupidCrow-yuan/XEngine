@@ -230,7 +230,7 @@ namespace XEngine {
         }
 
         ImGui::SameLine();
-        ImGui::PushItemWidth(-1);
+        ImGui::PushItemWidth(-1);//确保即使窗口变小，当前弹出选项也可以在右侧窗口之上显示
 
         if (ImGui::Button("Add Component"))
         {

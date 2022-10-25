@@ -165,7 +165,7 @@ namespace XEngine
         ImGuiIO& io = ImGui::GetIO();
         ImGuiStyle& style = ImGui::GetStyle();
         float minWinSizeX = style.WindowMinSize.x;
-        style.WindowMinSize.x = 370.0f;
+        style.WindowMinSize.x = 370.0f;//指定当前DockSpace的窗口最小值
 
         if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
         {

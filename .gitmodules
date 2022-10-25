@@ -20,3 +20,6 @@
 [submodule "Xengine/thirdparty/portable-file-dialogs"]
 	path = Xengine/thirdparty/portable-file-dialogs
 	url = https://github.com/samhocevar/portable-file-dialogs.git
+[submodule "Xengine/thirdparty/ImGuizmo"]
+	path = Xengine/thirdparty/ImGuizmo
+	url = https://github.com/CedricGuillemet/ImGuizmo.git
