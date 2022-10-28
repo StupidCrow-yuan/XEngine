@@ -7,6 +7,8 @@
 
 #include "entt.hpp"
 #include "Xengine/Core/Timestep.h"
+#include "Xengine/Renderer/EditorCamera.h"
+#include "entt.hpp"
 
 namespace XEngine {
 
@@ -21,10 +23,12 @@ namespace XEngine {
         Entity CreateEntity(const std::string& name = std::string());
         void DestroyEntity(Entity entity);
 
-        void OnUpdate(Timestep ts);
+        void OnUpdateRuntime(Timestep ts);
+        void OnUpdateEditor(Timestep ts, EditorCamera& camera);
 
         void OnViewportResize(uint32_t width, uint32_t height);
 
+        Entity GetPrimaryCameraEntity();
     private:
         template<typename T>
         void OnComponentAdded(Entity entity, T& component);

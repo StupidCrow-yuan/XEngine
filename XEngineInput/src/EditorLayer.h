@@ -8,6 +8,7 @@
 #include "XEngine.h"
 #include "Xengine/Renderer/Framebuffer.h"
 #include "SceneHierarchyPanel.h"
+#include "Xengine/Renderer/EditorCamera.h"
 
 namespace XEngine
 {
@@ -45,12 +46,14 @@ namespace XEngine
         Entity m_SquareEntity;
         Entity m_CameraEntity;
         Entity m_SecondCamera;
+        EditorCamera m_EditorCamera;
 
         bool m_PrimaryCamera = true;
 
         Ref<Texture2D> m_CheckboardTexture;
         glm::vec4 m_SquareColor = {0.2f ,0.3f, 0.8f, 1.0f};
 
+        int m_GizmoType = -1;
         //Panels
         SceneHierarchyPanel m_SceneHierachyPanel;
     };

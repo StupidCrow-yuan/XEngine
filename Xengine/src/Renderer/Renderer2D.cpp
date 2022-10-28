@@ -120,6 +120,20 @@ namespace XEngine {
         delete [] s_Data.QuadVertexBufferBase;
     }
 
+    void Renderer2D::StartBatch()
+    {
+        s_Data.QuadIndexCount = 0;
+        s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+//        s_Data.CircleIndexCount = 0;
+//        s_Data.CircleVertexBufferPtr = s_Data.CircleVertexBufferBase;
+//
+//        s_Data.LineVertexCount = 0;
+//        s_Data.LineVertexBufferPtr = s_Data.LineVertexBufferBase;
+
+        s_Data.TextureSlotIndex = 1;
+    }
+
     void Renderer2D::BeginScene(const Camera &camera, const glm::mat4 &transform)
     {
         XE_PROFILE_FUNCTION();
@@ -128,11 +142,7 @@ namespace XEngine {
 
         s_Data.TextureShader->Bind();
         s_Data.TextureShader->SetMat4("u_ViewProjection", viewProj);
-
-        s_Data.QuadIndexCount = 0;
-        s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
-
-        s_Data.TextureSlotIndex = 1;
+        StartBatch();
     }
 
     void Renderer2D::BeginScene(const OrthographicCamera &camera)
@@ -140,11 +150,18 @@ namespace XEngine {
         XE_PROFILE_FUNCTION();
         s_Data.TextureShader->Bind();
         s_Data.TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+        StartBatch();
+    }
 
-        s_Data.QuadIndexCount = 0;
-        s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+    void Renderer2D::BeginScene(const EditorCamera &camera)
+    {
+        XE_PROFILE_FUNCTION();
 
-        s_Data.TextureSlotIndex = 1;
+        glm::mat4 viewProj = camera.GetViewProjection();
+
+        s_Data.TextureShader->Bind();
+        s_Data.TextureShader->SetMat4("u_ViewProjection", viewProj);
+        StartBatch();
     }
 
     void Renderer2D::EndScene()
@@ -155,6 +172,12 @@ namespace XEngine {
         s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
 
         Flush();
+    }
+
+    void Renderer2D::NextBatch()
+    {
+        Flush();
+        StartBatch();
     }
 
     void Renderer2D::Flush()
