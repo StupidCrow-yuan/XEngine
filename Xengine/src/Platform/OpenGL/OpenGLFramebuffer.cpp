@@ -22,7 +22,8 @@ namespace XEngine
 
         static void CreateTextures(bool multisampled, uint32_t* outID, uint32_t count)
         {
-            glCreateTextures(TextureTarget(multisampled), count, outID);
+//            glCreateTextures(TextureTarget(multisampled), count, outID);//opengl 4.0+ 支持
+            glGenTextures(count, outID);
         }
 
         static void BindTexture(bool multisampled, uint32_t id)
@@ -60,7 +61,8 @@ namespace XEngine
             }
             else
             {
-                glTexStorage2D(GL_TEXTURE_2D, 1, format, width, height);
+//                glTexStorage2D(GL_TEXTURE_2D, 1, format, width, height);
+                glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -143,14 +145,14 @@ namespace XEngine
 
         if (m_DepthAttachmentSpecification.TextureFormat != FramebufferTextureFormat::None)
         {
-            Utils::CreateTextures(multisample, &m_DepthAttachment, 1);
-            Utils::BindTexture(multisample, m_DepthAttachment);
-            switch (m_DepthAttachmentSpecification.TextureFormat)
-            {
-                case FramebufferTextureFormat::DEPTH24STENCIL8:
-                    Utils::AttachDepthTexture(m_DepthAttachment, m_Specification.Samples, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT, m_Specification.Width, m_Specification.Height);
-                    break;
-            }
+//            Utils::CreateTextures(multisample, &m_DepthAttachment, 1);
+//            Utils::BindTexture(multisample, m_DepthAttachment);
+//            switch (m_DepthAttachmentSpecification.TextureFormat)
+//            {
+//                case FramebufferTextureFormat::DEPTH24STENCIL8:
+//                    Utils::AttachDepthTexture(m_DepthAttachment, m_Specification.Samples, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT, m_Specification.Width, m_Specification.Height);
+//                    break;
+//            }
         }
 
         if (m_ColorAttachments.size() > 1)

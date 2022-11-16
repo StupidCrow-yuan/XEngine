@@ -25,6 +25,7 @@ namespace XEngine
         m_CheckboardTexture = Texture2D::Create(CPP_SRC_DIR"XEngineInput/assets/textures/1-1_000.png");
 
         FramebufferSpecification fbSpec;
+        fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
         fbSpec.Width = 1280.0;
         fbSpec.Height = 720.0;
         m_Framebuffer = Framebuffer::Create(fbSpec);
@@ -239,6 +240,10 @@ namespace XEngine
 
         uint64_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
         ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+        std::string path = "/Users/user/Desktop/xxw1.png";
+        m_Framebuffer->ReadPixel(path);//readPixels操作，测试缓存纹理是否正确绘制
+        printf("\n");
 
         //Gizmos
         Entity selectedEntity = m_SceneHierachyPanel.GetSelectedEntity();
