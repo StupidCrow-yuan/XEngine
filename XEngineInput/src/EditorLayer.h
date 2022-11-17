@@ -37,6 +37,7 @@ namespace XEngine
         bool m_ViewportFocused = false;
         bool m_ViewportHovered = false;
         glm::vec2 m_ViewportSize = {0.0f, 0.0f};
+        glm::vec2 m_ViewportBounds[2];
         //temp
         Ref<VertexArray> m_SquareVA;
         Ref<Shader> m_FlatColorShader;

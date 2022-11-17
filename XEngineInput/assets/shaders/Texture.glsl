@@ -29,6 +29,7 @@ void main()
 #version 330 core
 
 layout(location = 0) out vec4 color;
+layout(location = 1) out int color2;
 
 in vec4 v_Color;
 in vec2 v_TexCoord;
@@ -40,9 +41,8 @@ uniform sampler2D u_Textures[16];
 
 void main()
 {
-	//color = texture(u_Texture, v_TexCoord * u_TilingFactor) * u_Color;
-//	color = texture(u_Textures[int(v_TexIndex)], v_TexCoord * v_TilingFactor) * v_Color;
 	vec4 texColor = v_Color;
+
 	switch(int(v_TexIndex))
 	{
 		case 0: texColor *= texture(u_Textures[0], v_TexCoord * v_TilingFactor); break;
@@ -63,5 +63,6 @@ void main()
 		case 15: texColor *= texture(u_Textures[15], v_TexCoord * v_TilingFactor); break;
 	}
 	color = texColor;
-	color = mix(texColor, vec4(1.0, 0.0, 0.0, 1.0), 0.0);
+//	color = mix(texColor, vec4(1.0, 0.0, 0.0, 1.0), 0.0);
+	color2 = 50;// placeholder for our entity ID
 }
