@@ -48,7 +48,7 @@ namespace XEngine
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             }
-
+            //绑定多个渲染目标，将framebuffer绑定到对应的color attachment index上
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index, TextureTarget(multisampled), id, 0);
         }
 
@@ -70,7 +70,7 @@ namespace XEngine
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             }
-
+            //attach texture to framebuffer
             glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, TextureTarget(multisampled), id, 0);
         }
 
@@ -81,6 +81,18 @@ namespace XEngine
                 case FramebufferTextureFormat::DEPTH24STENCIL8: return true;
             }
             return false;
+        }
+
+        static GLenum XEFBTextureFormatToGL(FramebufferTextureFormat format)
+        {
+            switch (format)
+            {
+                case FramebufferTextureFormat::RGBA8:       return GL_RGBA8;
+                case FramebufferTextureFormat::RED_INTEGER: return GL_RED_INTEGER;
+            }
+
+            XE_CORE_ASSERT(false);
+            return 0;
         }
     }
 
@@ -160,9 +172,10 @@ namespace XEngine
 
         if (m_ColorAttachments.size() > 1)
         {
-            XE_CORE_ASSERT(m_ColorAttachments.size() <= 4);//todo: why the size must more than 4
+            XE_CORE_ASSERT(m_ColorAttachments.size() <= 4);//because we need to render 4 color attachments
+            //我们需要显式告知OpenGL我们正在通过glDrawBuffers渲染到多个颜色缓冲，否则OpenGL只会渲染到帧缓冲的第一个颜色附件，而忽略所有其他的。我们可以通过传递多个颜色附件的枚举来做这件事
             GLenum buffers[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
-            glDrawBuffers(m_ColorAttachments.size(), buffers);
+            glDrawBuffers(m_ColorAttachments.size(), buffers);//MRT 多渲染目标，告诉opengl用于承载渲染的buffer是哪些
         }
         else if (m_ColorAttachments.empty())
         {
@@ -222,9 +235,19 @@ namespace XEngine
     {
         XE_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size());
 
-        glReadBuffer(GL_COLOR_ATTACHMENT0 + attachmentIndex);
+        glReadBuffer(GL_COLOR_ATTACHMENT0 + attachmentIndex);//读取当前绑定的frame buffer
         int pixelData;
         glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
         return pixelData;
     }
+
+    void OpenGLFramebuffer::ClearAttachment(uint32_t attachmentIndex, int value)
+    {
+        XE_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size());
+
+        auto& spec = m_ColorAttachmentSpecifications[attachmentIndex];
+//        glClearTexImage(m_ColorAttachments[attachmentIndex], 0, Utils::XEFBTextureFormatToGL(spec.TextureFormat), GL_INT, &value);//opengl 4..4+
+        glClearBufferiv(GL_COLOR, attachmentIndex, &value);
+    }
+
 }

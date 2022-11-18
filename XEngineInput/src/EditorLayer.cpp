@@ -114,10 +114,13 @@ namespace XEngine
         m_EditorCamera.OnUpdate(ts);
 
         //Render
-        XEngine::Renderer2D::ResetStats();
+        Renderer2D::ResetStats();
         m_Framebuffer->Bind();
-        XEngine::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
-        XEngine::RenderCommand::Clear();
+        RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+        RenderCommand::Clear();
+
+        //clear our entity ID attachment to -1
+        m_Framebuffer->ClearAttachment(1, -1);
 
         //update scene
         m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
@@ -134,7 +137,7 @@ namespace XEngine
         if (mouseX >= 0 && mouseY >=0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
         {
             int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-            XE_CORE_WARN("Pixel data = {0}", pixelData);
+            XE_CORE_WARN("Pixel data = {0}", pixelData);//该返回值wei color attachment 1 绑定的buffer缓冲对象输出的值，即Texture.glsl中的location = 1的输出值
         }
 
         m_Framebuffer->Unbind();

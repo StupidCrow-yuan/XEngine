@@ -25,6 +25,8 @@ namespace XEngine
 
         virtual void ReadPixel(const std::string& path) override;
 
+        virtual void ClearAttachment(uint32_t attachmentIndex, int value) override;
+
         virtual uint32_t GetColorAttachmentRendererID(uint32_t index = 0) const override { XE_CORE_ASSERT(index < m_ColorAttachments.size()); return m_ColorAttachments.size() > 0 ? m_ColorAttachments[index] : 0; };
 
         virtual const FramebufferSpecification& GetSpecification() const override { return m_Specification; }
