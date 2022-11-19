@@ -80,7 +80,8 @@ namespace XEngine {
             {
                 const auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-                Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+//                Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+                Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
             }
             Renderer2D::EndScene();
         }
@@ -95,7 +96,8 @@ namespace XEngine {
         {
             auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-            Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+//            Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+            Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
         }
 
         Renderer2D::EndScene();
