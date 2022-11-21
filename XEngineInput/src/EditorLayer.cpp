@@ -137,7 +137,7 @@ namespace XEngine
         if (mouseX >= 0 && mouseY >=0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
         {
             int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-            m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
+            m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());//entity ID 必须是一个有效的id，而不是随意的一个数据
             XE_CORE_WARN("Pixel data = {0}", pixelData);//该返回值wei color attachment 1 绑定的buffer缓冲对象输出的值，即Texture.glsl中的location = 1的输出值
         }
 
@@ -241,7 +241,9 @@ namespace XEngine
 
         std::string name = "None";
         if (m_HoveredEntity && m_HoveredEntity.GetScene())
+        {
             name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+        }
         ImGui::Text("Hovered Entity: %s", name.c_str());
 
         auto stats = Renderer2D::GetStats();

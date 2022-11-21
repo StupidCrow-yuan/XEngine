@@ -68,5 +68,5 @@ void main()
 	}
 	color = texColor;
 //	color = mix(texColor, vec4(1.0, 0.0, 0.0, 1.0), 0.0);
-	color2 = 50;// placeholder for our entity ID
+	color2 = v_EntityID;// placeholder for our entity ID
 }
