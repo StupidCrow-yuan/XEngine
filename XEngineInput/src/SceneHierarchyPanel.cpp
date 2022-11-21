@@ -209,6 +209,11 @@ namespace XEngine {
 
     }
 
+    void SceneHierarchyPanel::SetSelectedEntity(Entity entity)
+    {
+        m_SelectionContext = entity;
+    }
+
     void SceneHierarchyPanel::DrawComponents(Entity entity)
     {
         if (!entity.GetScene())
