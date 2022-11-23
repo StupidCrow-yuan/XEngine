@@ -1,0 +1,153 @@
+//shadertoy
+in vec2 v_texcoord;
+out vec4 fragColor;
+uniform sampler2D inputTexture;
+uniform float image_width;
+uniform float image_height;
+uniform float adjustable_intensity;
+uniform float adjustable_size;//调整星星大小
+
+const bool apply_vignetting = true;
+const bool apply_tonemap = false;
+const bool apply_gamma = false;
+const bool apply_crushedshadows = false;
+const float vignet = 0.491;//暗角程度
+const float gamma = 0.87;//gamma值
+const float exposure = 1.44;//曝光度
+const float bevel_size = 0.1;//星星直接的间距
+const float spokes = 5.0;
+const float highlights = 3.0;//高光点个数
+const vec2 light_dir = vec2(0.1, 1.0);
+
+const float bevelMul = 1.8760002;
+
+const float lineMul = 1.06;//十字绣的大小
+const float line1Mul = -1.0;//十字星星中横向的拉伸度
+const float line2Mul = -1.0;//十字星星中纵向向的拉伸度
+
+const float bevelExp = 0.772;//调整星星矩形框亮度
+const float lineExp = 8.776;//调整星星矩形框大小
+
+const float glareMul = 0.736;//调整星星亮度
+const float sparkleMul = -2.0;//调整星星内角大小
+const float PI = 3.1415926535897932384626433832795;
+
+float spin0 = 0.4;
+
+mat2 rot2(float T) {
+	mat2 R = mat2(vec2(cos(T), sin(T)), vec2( -sin(T), cos(T)));
+	return R;
+}
+float udLine(vec2 p, vec2 a, vec2 b) {
+	vec2 pa = p- a, ba = b- a;
+	return length(pa- ba* dot(pa, ba)/ dot(ba, ba));
+}
+// Subpixel dithering by CeeJayDK
+vec3 dither() {
+	float px = 1.0/ 255.0;
+	float fpx = px* fract(dot(gl_FragCoord.xy- .5, vec2(5./ 16., 19./ 36.)));
+	return vec3(px- fpx, fpx, px- fpx);
+}
+// Post Effects by P_Malin
+vec3 ApplyVignetting(const in vec2 vUV, const in vec3 vInput) {
+	vec2 vOffset = (vUV- 0.5)* sqrt(2.0);
+	float fDist = dot(vOffset, vOffset);
+	const float kStrength = vignet;
+	float fShade = mix(1.0, 1.0- kStrength, fDist);
+	return vInput* fShade;
+}
+vec3 ApplyTonemap(const in vec3 vLinear) {
+	const float kExposure = exposure;
+	return 1.0- exp2(vLinear* -kExposure);
+}
+
+vec3 ApplyGamma(const in vec3 vLinear) {
+	const float kGamma = gamma;
+	return pow(vLinear, vec3(1.0/ kGamma));
+}
+
+vec3 ApplyPostFX(const in vec2 vUV, const in vec3 vInput) {
+	vec3 vFinal = vInput;
+	if(apply_vignetting) vFinal = ApplyVignetting(vUV, vFinal);
+	if(apply_tonemap) vFinal = ApplyTonemap(vFinal);
+	if(apply_gamma) vFinal = ApplyGamma(vFinal);
+	if(apply_crushedshadows) vFinal = vFinal* 1.1- 0.1;
+	return vFinal;
+}
+
+float glyph_dist2(in vec2 pt, float angle) {
+	float len = length(pt);
+	float rad = 1.0- len;
+	return rad- abs(sin(angle* spokes/ 2.0))* 0.6;
+}
+
+float glyph_dist(in vec2 pt) {
+	float angle = atan(pt.y, pt.x)- spin0 * 2.0 * PI;
+	return glyph_dist2(pt, angle);
+}
+
+vec2 sparklyPosition(float progress) {
+	vec2 pt = vec2(1, 0);
+	float angle = 2.0* PI* progress;
+	float glyph = glyph_dist2(pt, angle);
+	vec2 adjust = vec2(1.0- 0.5* bevel_size, 0);
+	vec2 trace = pt* glyph+ adjust;
+	vec2 pos = trace* rot2( -angle+ -2.0* PI* spin0);
+	return pos;
+}
+
+vec2 gradient(vec2 pt, float dist) {
+	float dfdu = glyph_dist(pt+ vec2(0.01, 0.0))- dist/ 1.01;
+	float dfdv = glyph_dist(pt+ vec2(0.0, 0.01))- dist/ 1.01;
+	vec2 grad = normalize(vec2(dfdu, -dfdv));
+	return grad;
+}
+
+float bevelShade(vec2 pt) {
+	return clamp(1.0* dot(gradient(pt, glyph_dist(pt)), light_dir)* 0.5+ 0.5, 0.0,
+			1.0);
+}
+
+void main()
+{
+    vec3 color = texture2D(inputTexture, v_texcoord).rgb;
+    // color = vec3(0.0);
+
+    spin0 = 0.2;//iTime* 0.2;//控制高亮点的位置
+	vec2 uv = v_texcoord;
+	float aspect = image_width / image_height;
+	vec2 pt = (uv * 2.0 - 1.0) * vec2(aspect, 1.0) * adjustable_size;//adjustable_size 默认星星大小和分布位置
+
+	float dist = glyph_dist(pt);//五角星的形状和大小
+
+	// --- bevel highlights ---
+	for(float i = 0.0; i< highlights; i++) {
+		vec2 glintPos = sparklyPosition((i+ 1.0)/ highlights);
+		float dist = distance(pt, glintPos);
+		float sparkle = dist * 2.0;
+        // color = vec3(sparkle);
+		if(sparkle < 1.0) {
+			float line1 = udLine(pt, glintPos, glintPos+ vec2(1, +1))* line1Mul;
+			float line2 = udLine(pt, glintPos, glintPos+ vec2(1, -1))* line2Mul;
+			float bevel = bevelShade(glintPos)* bevelMul;
+			float lines = 1.0 + (line1+ line2)* lineMul;
+			float glare = pow(bevel, bevelExp)* pow(lines, lineExp);
+			color = color + glare* glareMul* (1.0- sparkle* sparkleMul);
+            // color = starColor.rgb + glare* glareMul* (1.0- sparkle* sparkleMul);
+
+            // color = mix(color, vec3(1.0, 0.0, 0.0), 0.5);
+            // vec3 minStar = starColor.rgb * starColor.a;
+            // color = vec3(glare* glareMul* (1.0- sparkle* sparkleMul));
+            // if (color.r > 0.1 && color.g > 0.1 && color.b > 0.2)
+            // {
+            //     // color = vec3(1.0, 0.0, 0.0);
+            //     color = starColor.rgb;
+            // }
+            // color = starColor.rgb;
+		}
+	}
+	color += dither();
+	color = ApplyPostFX(uv, color);
+	fragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
+}
+

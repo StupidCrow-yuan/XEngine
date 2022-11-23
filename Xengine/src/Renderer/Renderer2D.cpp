@@ -6,8 +6,11 @@
 #include "Renderer2D.h"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Renderer/UniformBuffer.h"
 #include "RenderCommand.h"
+
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace XEngine {
 
@@ -45,6 +48,13 @@ namespace XEngine {
         glm::vec4 QuadVertexPositions[4];
         
         Renderer2D::Statistics Stats;
+
+        struct CameraData
+        {
+            glm::mat4 ViewProjection;
+        };
+        CameraData CameraBuffer;
+        Ref<UniformBuffer> CameraUniformBuffer;
     };
 
     static Renderer2DData s_Data;
@@ -109,12 +119,14 @@ namespace XEngine {
         s_Data.TextureShader->SetIntArray("u_Textures", samples, s_Data.MaxTextureSlots);
 
         //Set first texture slot to 0
-        s_Data.TextureSlots[0] = s_Data.WhiteTexture;
+        s_Data.TextureSlots[0] = s_Data.WhiteTexture;//todo: set 0 is unloadable
         
         s_Data.QuadVertexPositions[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
         s_Data.QuadVertexPositions[1] = {0.5f, -0.5f, 0.0f, 1.0f};
         s_Data.QuadVertexPositions[2] = {0.5f, 0.5f, 0.0f, 1.0f};
         s_Data.QuadVertexPositions[3] = {-0.5f, 0.5f, 0.0f, 1.0f};
+
+        s_Data.CameraUniformBuffer = UniformBuffer::Create(sizeof(Renderer2DData::CameraData), 0);
     }
 
     void Renderer2D::ShutDown()
@@ -142,18 +154,25 @@ namespace XEngine {
     {
         XE_PROFILE_FUNCTION();
 
-        glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);
+//        glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);
+//
+//        s_Data.TextureShader->Bind();
+//        s_Data.TextureShader->SetMat4("u_ViewProjection", viewProj);
 
-        s_Data.TextureShader->Bind();
-        s_Data.TextureShader->SetMat4("u_ViewProjection", viewProj);
+        s_Data.CameraBuffer.ViewProjection = camera.GetProjection() * glm::inverse(transform);
+        s_Data.CameraUniformBuffer->SetData(&s_Data.CameraBuffer, sizeof(Renderer2DData::CameraData));
+
         StartBatch();
     }
 
     void Renderer2D::BeginScene(const OrthographicCamera &camera)
     {
         XE_PROFILE_FUNCTION();
-        s_Data.TextureShader->Bind();
-        s_Data.TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+//        s_Data.TextureShader->Bind();
+//        s_Data.TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+        s_Data.CameraBuffer.ViewProjection = camera.GetViewProjectionMatrix();
+        s_Data.CameraUniformBuffer->SetData(&s_Data.CameraBuffer, sizeof(Renderer2DData::CameraData));
+
         StartBatch();
     }
 
@@ -194,6 +213,7 @@ namespace XEngine {
         for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
             s_Data.TextureSlots[i]->Bind(i);
 
+        s_Data.TextureShader->Bind();
 //        RenderCommand::SetViewport(0, 0, Width, Height);//在不同的窗口上绘制之前的都需要手动调用一次viewport，否则会导致画面比例不对，只能绘制一部分内容
         RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
         s_Data.Stats.DrawCalls++;
