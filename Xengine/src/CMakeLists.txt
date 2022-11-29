@@ -28,3 +28,15 @@ target_link_libraries(${PROJECT_NAME} ${IMGUI_LIBRARY} imgui)
 target_link_libraries(${PROJECT_NAME} ${GLM_LIBRARY} glm)
 
 target_link_libraries(${PROJECT_NAME} ${Yaml_LIBRARY} yaml-cpp)
+
+#配置 vulkan 环境
+find_package(Vulkan REQUIRED FATAL_ERROR)
+target_include_directories(${PROJECT_NAME} PRIVATE /Users/user/VulkanSDK/1.3.231.1/macOS/include)
+
+set(VULKAN_LIB_FILES_LIST)
+foreach(DIR /Users/user/VulkanSDK/1.3.231.1/macOS/lib)
+    message(STATUS ${CMAKE_CURRENT_LIST_DIR})
+    file(GLOB_RECURSE TEMP_FILES ${DIR}/*.a)
+    list(APPEND VULKAN_LIB_FILES_LIST ${TEMP_FILES})
+endforeach()
+target_link_libraries(${PROJECT_NAME}  ${VULKAN_LIB_FILES_LIST})
