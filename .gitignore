@@ -4,3 +4,8 @@ cmake-build-debug
 build
 *.log
 Sandbox/*.json
+
+#Directories
+Xengine/thirdparty/VulkanSDK
+XEngineInput/assets/cache
+scripts/__pycache__
