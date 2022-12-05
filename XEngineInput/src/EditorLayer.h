@@ -9,6 +9,7 @@
 #include "Xengine/Renderer/Framebuffer.h"
 #include "SceneHierarchyPanel.h"
 #include "Xengine/Renderer/EditorCamera.h"
+#include "Panels/ContentBrowserPanel.h"
 
 namespace XEngine
 {
@@ -59,6 +60,7 @@ namespace XEngine
         int m_GizmoType = -1;
         //Panels
         SceneHierarchyPanel m_SceneHierachyPanel;
+        ContentBrowserPanel m_ContentBrowserPanel;
     };
 }
 

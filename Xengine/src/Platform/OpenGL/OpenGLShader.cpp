@@ -434,22 +434,15 @@ namespace XEngine {
             GLuint shaderId = glCreateShader(type);
             shaderIDs.emplace_back(shaderId);
             const GLchar* sourceCStr = source.c_str();
-            auto err0 = glGetError();
             glShaderSource(shaderId, 1, &sourceCStr, 0);
-            auto err1 = glGetError();
             glCompileShader(shaderId);
-            auto err2 = glGetError();
             glAttachShader(program, shaderId);
-            auto err3 = glGetError();
-            auto err4 = 0;
         }
 
         glLinkProgram(program);
-        auto err5 = glGetError();
 
         GLint isLinked;
         glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
-        auto err6 = glGetError();
         if (isLinked == GL_FALSE)
         {
             GLint maxLength;

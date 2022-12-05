@@ -244,6 +244,7 @@ namespace XEngine
         }
 
         m_SceneHierachyPanel.OnImGuiRender();
+        m_ContentBrowserPanel.OnImGuiRender();
 
         ImGui::Begin("Stats");
 
