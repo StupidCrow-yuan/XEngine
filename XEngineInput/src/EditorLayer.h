@@ -32,6 +32,7 @@ namespace XEngine
 
         void NewScene();
         void OpenScene();
+        void OpenScene(const std::filesystem::path& path);
         void SaveSceneAs();
     private:
         XEngine::OrthographicCameraController m_CameraController;

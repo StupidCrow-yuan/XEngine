@@ -15,6 +15,8 @@
 
 namespace XEngine
 {
+    extern const std::filesystem::path g_AssetPath;
+
     EditorLayer::EditorLayer() : Layer("EditorLayer"), m_CameraController(1280.0f/ 720.0f), m_SquareColor({0.2f, 0.3f, 0.8f, 1.0f})
     {
     }
@@ -277,6 +279,17 @@ namespace XEngine
         uint64_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
         ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+            {
+                const char* fileName = static_cast<const char *>(payload->Data);
+                auto filePath = std::filesystem::path(g_AssetPath) / fileName;
+                OpenScene(filePath);
+            }
+            ImGui::EndDragDropTarget();
+        }
+
         auto windowSize = ImGui::GetWindowSize();
         ImVec2 minBound = ImGui::GetWindowPos();
         minBound.x += viewportOffset.x;
@@ -429,15 +442,17 @@ namespace XEngine
     void EditorLayer::OpenScene()
     {
         std::string  filepath = FileDialogs::OpenFile("Xengigne scene(.xengine)\0*.xengine\0");
-        if (!filepath.empty())
-        {
-            m_ActiveScene = CreateRef<Scene>();
-            m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-            m_SceneHierachyPanel.SetContext(m_ActiveScene);
+        OpenScene(filepath);
+    }
 
-            SceneSerializer serializer(m_ActiveScene);
-            serializer.Deserialize(filepath);
-        }
+    void EditorLayer::OpenScene(const std::filesystem::path& path)
+    {
+        m_ActiveScene = CreateRef<Scene>();
+        m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+        m_SceneHierachyPanel.SetContext(m_ActiveScene);
+
+        SceneSerializer serializer(m_ActiveScene);
+        serializer.Deserialize(path.c_str());
     }
 
     void EditorLayer::SaveSceneAs()
