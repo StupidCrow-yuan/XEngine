@@ -6,6 +6,7 @@
 #define XENGINEMAIN_CONTENTBROWSERPANEL_H
 
 #include <filesystem>
+#include "Renderer/Texture.h"
 
 namespace XEngine {
     class ContentBrowserPanel
@@ -16,6 +17,9 @@ namespace XEngine {
         void OnImGuiRender();
     private:
         std::filesystem::path m_CurrentDirectory;
+
+        Ref<Texture2D> m_DirectoryIcon;
+        Ref<Texture2D> m_FileIcon;
     };
 }
 

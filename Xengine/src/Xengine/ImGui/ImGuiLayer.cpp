@@ -32,10 +32,9 @@ namespace XEngine {
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
         //io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-        //io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
-
-        io.Fonts->AddFontFromFileTTF(CPP_SRC_DIR"XEngineInput/assets/fonts/opensans/OpenSans-Bold.ttf", 18.0f);//第1个字体为粗体
-        io.FontDefault = io.Fonts->AddFontFromFileTTF(CPP_SRC_DIR"XEngineInput/assets/fonts/opensans/OpenSans-Regular.ttf", 18.0f);//第2个字体为默认题
+        float fontSize = 18.0;
+        io.Fonts->AddFontFromFileTTF(CPP_SRC_DIR"XEngineInput/assets/fonts/opensans/OpenSans-Bold.ttf", fontSize);//第1个字体为粗体
+        io.FontDefault = io.Fonts->AddFontFromFileTTF(CPP_SRC_DIR"XEngineInput/assets/fonts/opensans/OpenSans-Regular.ttf", fontSize);//第2个字体为默认体
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();
         //ImGui::StyleColorsClassic();
