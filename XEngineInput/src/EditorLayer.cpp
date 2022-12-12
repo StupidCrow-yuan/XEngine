@@ -283,8 +283,9 @@ namespace XEngine
         {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
             {
-                const char* fileName = static_cast<const char *>(payload->Data);
-                auto filePath = std::filesystem::path(g_AssetPath) / fileName;
+                const char* path = (const char*)payload->Data;
+                auto filePath = std::filesystem::path(g_AssetPath) / path;
+                XE_CORE_ERROR("path: filePath: {0}, {1}", filePath.string(), strlen(path));
                 OpenScene(filePath);
             }
             ImGui::EndDragDropTarget();

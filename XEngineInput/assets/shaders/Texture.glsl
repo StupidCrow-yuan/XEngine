@@ -42,7 +42,6 @@ flat in int v_EntityID;
 
 uniform sampler2D u_Textures[16];
 
-
 void main()
 {
 	vec4 texColor = v_Color;
@@ -66,6 +65,7 @@ void main()
 		case 14: texColor *= texture(u_Textures[14], v_TexCoord * v_TilingFactor); break;
 		case 15: texColor *= texture(u_Textures[15], v_TexCoord * v_TilingFactor); break;
 	}
+
 	color = texColor;
 //	color = mix(texColor, vec4(1.0, 0.0, 0.0, 1.0), 0.0);
 	color2 = v_EntityID;// placeholder for our entity ID

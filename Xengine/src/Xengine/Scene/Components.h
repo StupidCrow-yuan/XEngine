@@ -9,6 +9,7 @@
 #include "SceneCamera.h"
 #include "ScriptableEntity.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include "Renderer/Texture.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
@@ -44,6 +45,8 @@ namespace XEngine {
     struct SpriteRendererComponent
     {
         glm::vec4 Color{1.0f, 1.0f, 1.0f, 1.0f};
+        Ref<Texture2D> Texture;
+        float TilingFactor;
 
         SpriteRendererComponent() = default;
         SpriteRendererComponent(const SpriteRendererComponent&) = default;
