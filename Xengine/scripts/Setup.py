@@ -18,3 +18,6 @@ if (not Vulkan.CheckVulkanSDKDebugLibs()):
 
 print("Running premake...")
 subprocess.call(["vendor/premake/bin/premake5.exe", "vs2019"])
+
+print("\nUpdating submodules...")
+subprocess.call(["git", "submodule", "update", "--init", "--recursive"])
