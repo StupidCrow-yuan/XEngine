@@ -11,6 +11,12 @@
 #include <glm/glm.hpp>
 #include "Entity.h"
 
+//Box2D
+#include "box2d/b2_world.h"
+#include "box2d/b2_body.h"
+#include "box2d/b2_fixture.h"
+#include "box2d/b2_polygon_shape.h"
+
 namespace XEngine {
 
     Scene::Scene()

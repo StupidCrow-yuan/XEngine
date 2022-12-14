@@ -23,3 +23,6 @@
 [submodule "Xengine/thirdparty/ImGuizmo"]
 	path = Xengine/thirdparty/ImGuizmo
 	url = git@github.com:StupidCrow-yuan/ImGuizmo.git
+[submodule "Xengine/thirdparty/box2d"]
+	path = Xengine/thirdparty/box2d
+	url = git@github.com:StupidCrow-yuan/box2d.git
