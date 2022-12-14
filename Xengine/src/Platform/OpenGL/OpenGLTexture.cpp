@@ -33,40 +33,43 @@ namespace XEngine {
         {
             XE_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std:string&)");
             data = stbi_load(path.c_str(), &width, &height, &channels, 0);
-//            stbi_write_jpg("/Users/user/Desktop/1234.png", width, height, 3, data, width * 3);
         }
-        XE_CORE_ASSERT(data, "Failed to load image!");
-        m_Width = width;
-        m_Height = height;
 
-        GLenum internalFormat = 0, dataFormat = 0;
-        if (channels == 4)
+        if (data)
         {
-            internalFormat = GL_RGBA8;
-            dataFormat = GL_RGBA;
-        }
-        else if (channels == 3)
-        {
-            internalFormat = GL_RGB8;
-            dataFormat = GL_RGB;
-        }
+            m_IsLoaded = true;
+            m_Width = width;
+            m_Height = height;
 
-        m_InternalFormat = internalFormat;
-        m_DataFormat = dataFormat;
-        XE_CORE_ASSERT(internalFormat &dataFormat, "Format not supported!");
+            GLenum internalFormat = 0, dataFormat = 0;
+            if (channels == 4)
+            {
+                internalFormat = GL_RGBA8;
+                dataFormat = GL_RGBA;
+            }
+            else if (channels == 3)
+            {
+                internalFormat = GL_RGB8;
+                dataFormat = GL_RGB;
+            }
 
-        glGenTextures(1, &m_RendererID);
+            m_InternalFormat = internalFormat;
+            m_DataFormat = dataFormat;
 
-        glBindTexture(GL_TEXTURE_2D, m_RendererID);
+            XE_CORE_ASSERT(internalFormat &dataFormat, "Format not supported!");
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            glGenTextures(1, &m_RendererID);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_UNSIGNED_BYTE, data);
+            glBindTexture(GL_TEXTURE_2D, m_RendererID);
 
-        glBindTexture(GL_TEXTURE_2D, 0);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+            glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_UNSIGNED_BYTE, data);
+
+            glBindTexture(GL_TEXTURE_2D, 0);
 
 //        glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);// glCreateTextures是OpenGL 4.5+ 的规范定义的API
 //        glTextureStorage2D(m_RendererID, 1, GL_RGB8, m_Width, m_Height);
@@ -74,7 +77,8 @@ namespace XEngine {
 //        glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 //        glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE, data);
 
-        stbi_image_free(data);
+            stbi_image_free(data);
+        }
     }
 
     OpenGLTexture2D::~OpenGLTexture2D()

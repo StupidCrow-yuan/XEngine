@@ -464,12 +464,20 @@ namespace XEngine
 
     void EditorLayer::OpenScene(const std::filesystem::path& path)
     {
-        m_ActiveScene = CreateRef<Scene>();
-        m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-        m_SceneHierachyPanel.SetContext(m_ActiveScene);
+        if (path.extension().string() != ".Xengine")
+        {
+            XE_WARN("Could not load {0} - not a scene file", path.filename().string());
+            return;
+        }
 
-        SceneSerializer serializer(m_ActiveScene);
-        serializer.Deserialize(path.c_str());
+        Ref<Scene> newScene = CreateRef<Scene>();
+        SceneSerializer serializer(newScene);
+        if (serializer.Deserialize(path.string()))
+        {
+            m_ActiveScene = newScene;
+            m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+            m_SceneHierachyPanel.SetContext(m_ActiveScene);
+        }
     }
 
     void EditorLayer::SaveSceneAs()
