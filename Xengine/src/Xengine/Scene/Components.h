@@ -79,6 +79,41 @@ namespace XEngine {
             DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
         }
     };
+
+    struct Rigidbody2DComponent
+    {
+        //Static：静态类型； 不受力的影响，物理系统不会对该物体进行计算、性能消耗最低的类型；不可通过MovePosition、MoveRotation来移动，不可通过velocity来改变速度，用来模拟从不移动的物体
+        //Dynamic: 动态类型； 受重力和付佳丽的影响，进而改变速度，性能消耗最高的类型，可通过MovePostion、MoveRotation来移动; 可通过velocity来改变速度，用来模拟移动的物体
+        //Kinematic： 运动学类型；不受力的影响，性能消耗比Dynamic少，比Static多；可通过MovePostion、MoveRotation来移动；可通过velocity来改变速度，用来模拟大多数时候不动的物体，极少数时候需要移动，比如门
+        //请注意，尽管经常将 2D 刚体表述为相互碰撞，但实际上发生碰撞的是每个刚体所连接的 2D 碰撞体。如果没有碰撞体，2D 刚体不能相互碰撞
+        enum class BodyType { Static = 0, Dynamic, Kinematic };
+        BodyType Type = BodyType::Static;
+        bool FixedRotation = false;//固定旋转
+
+        //Storage for runtime
+        void* RuntimeBody = nullptr;
+
+        Rigidbody2DComponent() = default;
+        Rigidbody2DComponent(const Rigidbody2DComponent&) = default;
+    };
+
+    struct BoxCollider2DComponent
+    {
+        glm::vec2 Offset = {0.0f, 0.0f};
+        glm::vec2 Size = {0.5f, 0.5f};
+
+        //TODO(Yan): move into physics material in the future maybe
+        float Density = 1.0f;//密度，决定刚体的质量 = 密度 * 体积
+        float Friction = 0.5f;//摩擦力，0代表无摩擦，1代表大摩擦
+        float Restitution = 0.0f;//弹性系数，0代表完全吸收，1代表完全反弹
+        float RestitutionThreshold = 0.5f;
+
+        //Storage for runtime
+        void* RuntimeFixture = nullptr;
+
+        BoxCollider2DComponent() = default;
+        BoxCollider2DComponent(const BoxCollider2DComponent&) = default;
+    };
 }
 
 #endif //XENGINEMAIN_COMPONENTS_H
