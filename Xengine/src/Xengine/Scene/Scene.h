@@ -7,6 +7,7 @@
 
 #include "entt.hpp"
 #include "Xengine/Core/Timestep.h"
+#include "Xengine/Core/UUID.h"
 #include "Xengine/Renderer/EditorCamera.h"
 #include "entt.hpp"
 
@@ -23,6 +24,7 @@ namespace XEngine {
         ~Scene();
 
         Entity CreateEntity(const std::string& name = std::string());
+        Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
         void DestroyEntity(Entity entity);
 
         void OnRuntimeStart();

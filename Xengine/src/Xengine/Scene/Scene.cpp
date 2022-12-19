@@ -4,6 +4,7 @@
 
 #include "xepch.h"
 #include "Scene.h"
+#include "ScriptableEntity.h"
 
 #include "Components.h"
 #include "Renderer/Renderer2D.h"
@@ -39,9 +40,15 @@ namespace XEngine {
     {
     }
 
-    Entity Scene::CreateEntity(const std::string& name)
+    Entity Scene::CreateEntity(const std::string &name)
+    {
+        return CreateEntityWithUUID(UUID(), name);
+    }
+
+    Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string &name)
     {
         Entity entity = { m_Registry.create(), this };
+        entity.AddComponent<IDComponent>(uuid);
         entity.AddComponent<TransformComponent>();
         auto& tag = entity.AddComponent<TagComponent>();
         tag.Tag = name.empty() ? "Entity" : name;
@@ -142,7 +149,6 @@ namespace XEngine {
             {
                 const auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-//                Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
                 Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
             }
             Renderer2D::EndScene();
@@ -158,7 +164,6 @@ namespace XEngine {
         {
             auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-//            Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
             Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
         }
 
@@ -199,7 +204,11 @@ namespace XEngine {
     template<typename T>
     void Scene::OnComponentAdded(Entity entity, T &component)
     {
-        static_assert(9 < 10, "error");//todo???????
+    }
+
+    template<>
+    void Scene::OnComponentAdded(Entity entity, IDComponent& component)
+    {
     }
 
     template<>

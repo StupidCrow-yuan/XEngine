@@ -7,6 +7,9 @@
 
 #include "Scene.h"
 #include "entt.hpp"
+#include "Xengine/Core/UUID.h"
+#include "Components.h"
+#include "Xengine/Core/UUID.h"
 
 namespace XEngine {
     class Entity
@@ -61,6 +64,9 @@ namespace XEngine {
         }
 
         Scene* GetScene() { return m_Scene; }
+
+        UUID GetUUID() { return GetComponent<IDComponent>().ID; }
+
     private:
         entt::entity m_EntityHandle{ 0 }; //entt::entity 实际上为uint32_t类型的数据
         Scene* m_Scene = nullptr;

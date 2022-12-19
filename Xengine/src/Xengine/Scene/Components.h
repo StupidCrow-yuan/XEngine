@@ -7,14 +7,22 @@
 
 #include <glm/glm.hpp>
 #include "SceneCamera.h"
-#include "ScriptableEntity.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Renderer/Texture.h"
+#include "Xengine/Core/UUID.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
 namespace XEngine {
+
+    struct IDComponent
+    {
+        UUID ID;
+
+        IDComponent() = default;
+        IDComponent(const IDComponent&) = default;
+    };
 
     struct TagComponent
     {
@@ -62,6 +70,9 @@ namespace XEngine {
         CameraComponent() = default;
         CameraComponent(const CameraComponent&) = default;
     };
+
+    //forward delaration
+    class ScriptableEntity;
 
     struct NativeScriptComponent
     {
