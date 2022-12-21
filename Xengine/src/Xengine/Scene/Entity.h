@@ -28,6 +28,14 @@ namespace XEngine {
             return component;
         }
 
+        template<typename T, typename... Args>
+        T& AddOrReplaceComponent(Args&&... args)
+        {
+            T& compnent = m_Scene->m_Registry.emplace_or_replace<T>(m_EntityHandle, std::forward<Args>(args)...);
+            m_Scene->OnComponentAdded<T>(*this, compnent);
+            return compnent;
+        }
+
         template<typename T>
         T& GetComponent()
         {
@@ -66,6 +74,8 @@ namespace XEngine {
         Scene* GetScene() { return m_Scene; }
 
         UUID GetUUID() { return GetComponent<IDComponent>().ID; }
+
+        const std::string& GetName() { return GetComponent<TagComponent>().Tag; }
 
     private:
         entt::entity m_EntityHandle{ 0 }; //entt::entity 实际上为uint32_t类型的数据

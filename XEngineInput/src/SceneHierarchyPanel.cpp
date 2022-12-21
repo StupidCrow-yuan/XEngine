@@ -20,7 +20,7 @@ namespace XEngine {
     void SceneHierarchyPanel::SetContext(const Ref<Scene>& context)
     {
         m_Context = context;
-//        m_SelectionContext = {};
+        m_SelectionContext = {};
     }
 
     void SceneHierarchyPanel::OnImGuiRender()
@@ -28,25 +28,28 @@ namespace XEngine {
         //Scene Hierarchy 属性面板
         ImGui::Begin("Scene Hierarchy");
 
-        m_Context->m_Registry.each([&](auto entityID)
+        if (m_Context)
         {
-            Entity entity{ entityID, m_Context.get() };
-            DrawEntityNode(entity);
-        });
+            m_Context->m_Registry.each([&](auto entityID)
+                                       {
+                                           Entity entity{ entityID, m_Context.get() };
+                                           DrawEntityNode(entity);
+                                       });
 
-        //鼠标处于Scene Hierarchy面板空白处且按下左鼠标，则将m_SelectionContext置空，即Properties为空
-        if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
-        {
-            m_SelectionContext = {};
-        }
+            //鼠标处于Scene Hierarchy面板空白处且按下左鼠标，则将m_SelectionContext置空，即Properties为空
+            if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+            {
+                m_SelectionContext = {};
+            }
 
-        //Right-click on black space
-        if (ImGui::BeginPopupContextWindow(0, 1, false))
-        {
-            if (ImGui::MenuItem("Create Empty Entity"))
-                m_Context->CreateEntity("Empty Entity");
+            //Right-click on black space
+            if (ImGui::BeginPopupContextWindow(0, 1, false))
+            {
+                if (ImGui::MenuItem("Create Empty Entity"))
+                    m_Context->CreateEntity("Empty Entity");
 
-            ImGui::EndPopup();
+                ImGui::EndPopup();
+            }
         }
 
         ImGui::End();
