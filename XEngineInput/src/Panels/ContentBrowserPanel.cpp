@@ -54,7 +54,7 @@ namespace XEngine {
             if (ImGui::BeginDragDropSource())
             {
                 const char* itemPath = reinterpret_cast<const char*>(relativePath.c_str());
-                XE_CORE_INFO("path relativePath: filePath: {0}, {1}", relativePath.string(), strlen(itemPath));
+//                XE_CORE_INFO("path relativePath: filePath: {0}, {1}", relativePath.string(), strlen(itemPath));
                 ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", itemPath, (strlen(itemPath) + 1));
                 ImGui::EndDragDropSource();
             }

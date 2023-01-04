@@ -88,6 +88,7 @@ namespace XEngine {
         //Copy components (except IDComponent and TagComponent)
         CopyComponent<TransformComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
         CopyComponent<SpriteRendererComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
+        CopyComponent<CircleRendererComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
         CopyComponent<CameraComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
         CopyComponent<NativeScriptComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
         CopyComponent<Rigidbody2DComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
@@ -103,6 +104,7 @@ namespace XEngine {
 
         CopyComponentIfExists<TransformComponent>(newEntity, entity);
         CopyComponentIfExists<SpriteRendererComponent>(newEntity, entity);
+        CopyComponentIfExists<CircleRendererComponent>(newEntity, entity);
         CopyComponentIfExists<CameraComponent>(newEntity, entity);
         CopyComponentIfExists<NativeScriptComponent>(newEntity, entity);
         CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
@@ -213,13 +215,28 @@ namespace XEngine {
         {
             Renderer2D::BeginScene(*mainCamera, cameraTransform);
 
-            auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-            for (auto entity : group)
+            //draw sprites
             {
-                const auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+                auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+                for (auto entity : group)
+                {
+                    const auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-                Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
+                    Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
+                }
             }
+
+            //draw circles
+            {
+                auto view = m_Registry.view<TransformComponent, CircleRendererComponent>();
+                for (auto entity : view)
+                {
+                    auto [transform, circle] = view.get<TransformComponent, CircleRendererComponent>(entity);
+
+                    Renderer2D::DrawCircle(transform.GetTransform(), circle.Color, circle.Thickness, circle.Fade, (int)entity);
+                }
+            }
+
             Renderer2D::EndScene();
         }
     }
@@ -228,12 +245,26 @@ namespace XEngine {
     {
         Renderer2D::BeginScene(camera);
 
-        auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-        for (auto entity : group)
+        //Draw sprites
         {
-            auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+            auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+            for (auto entity : group)
+            {
+                auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-            Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
+                Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
+            }
+        }
+
+        //Draw circles
+        {
+            auto view = m_Registry.view<TransformComponent, CircleRendererComponent>();
+            for (auto entity : view)
+            {
+                auto [transform, circle] = view.get<TransformComponent, CircleRendererComponent>(entity);
+
+                Renderer2D::DrawCircle(transform.GetTransform(), circle.Color, circle.Thickness, circle.Fade, (int)entity);
+            }
         }
 
         Renderer2D::EndScene();
@@ -271,7 +302,7 @@ namespace XEngine {
     }
 
     template<typename T>
-    void Scene::OnComponentAdded(Entity entity, T &component)
+    void Scene::OnComponentAdded(Entity entity, T& component)
     {
     }
 
@@ -281,12 +312,12 @@ namespace XEngine {
     }
 
     template<>
-    void Scene::OnComponentAdded(Entity entity, TransformComponent &component)
+    void Scene::OnComponentAdded(Entity entity, TransformComponent& component)
     {
     }
 
     template<>
-    void Scene::OnComponentAdded(Entity entity, CameraComponent &component)
+    void Scene::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component)
     {
         if (m_ViewportWidth > 0 && m_ViewportHeight > 0)
         {
@@ -295,17 +326,22 @@ namespace XEngine {
     }
 
     template<>
-    void Scene::OnComponentAdded(Entity entity, SpriteRendererComponent &component)
+    void Scene::OnComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component)
     {
     }
 
     template<>
-    void Scene::OnComponentAdded(Entity entity, TagComponent &component)
+    void Scene::OnComponentAdded<CircleRendererComponent>(Entity entity, CircleRendererComponent& component)
     {
     }
 
     template<>
-    void Scene::OnComponentAdded(Entity entity, NativeScriptComponent &component)
+    void Scene::OnComponentAdded<TagComponent>(Entity entity, TagComponent& component)
+    {
+    }
+
+    template<>
+    void Scene::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent &component)
     {
     }
 
