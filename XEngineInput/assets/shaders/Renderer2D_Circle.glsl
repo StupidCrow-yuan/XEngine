@@ -13,7 +13,7 @@ layout(location = 3) in float a_Thickness;
 layout(location = 4) in float a_Fade;
 layout(location = 5) in int a_EntityID;
 
-uniform	mat4 u_ViewProjection;
+uniform mat4 u_ViewProjection;
 
 out VertexOutput
 {
@@ -76,5 +76,5 @@ void main()
 	o_Color.a *= circle;
 
 	o_EntityID = Input.v_EntityID;
-	o_Color = vec4(1.0, 1.0, 0.0, 1.0);
+//	o_Color = vec4(1.0, 1.0, 0.0, 1.0);
 }
