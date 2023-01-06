@@ -54,6 +54,7 @@ namespace XEngine {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         glDisable(GL_DEPTH_TEST);//关闭深度测试，确保绘制方式是按画家算法即先画不透明物体，且由近到远开始绘制；在画透明物体，又远到近绘制
+        glEnable(GL_LINE_SMOOTH);
     }
 
     void OpenGLRendererAPI::SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
@@ -76,5 +77,16 @@ namespace XEngine {
         vertexArray->Bind();
         uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
         glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+    }
+
+    void OpenGLRendererAPI::DrawLines(const Ref<VertexArray> &vertexArray, uint32_t vertexCount)
+    {
+        vertexArray->Bind();
+        glDrawArrays(GL_LINE, 0, vertexCount);
+    }
+
+    void OpenGLRendererAPI::SetLineWidth(float width)
+    {
+        glLineWidth(width);
     }
 }
