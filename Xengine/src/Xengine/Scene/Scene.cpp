@@ -89,6 +89,8 @@ namespace XEngine {
         CopyComponent<TransformComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
         CopyComponent<SpriteRendererComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
         CopyComponent<CircleRendererComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
+        CopyComponent<LineRendererComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
+
         CopyComponent<CameraComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
         CopyComponent<NativeScriptComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
         CopyComponent<Rigidbody2DComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
@@ -105,6 +107,8 @@ namespace XEngine {
         CopyComponentIfExists<TransformComponent>(newEntity, entity);
         CopyComponentIfExists<SpriteRendererComponent>(newEntity, entity);
         CopyComponentIfExists<CircleRendererComponent>(newEntity, entity);
+        CopyComponentIfExists<LineRendererComponent>(newEntity, entity);
+
         CopyComponentIfExists<CameraComponent>(newEntity, entity);
         CopyComponentIfExists<NativeScriptComponent>(newEntity, entity);
         CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
@@ -267,6 +271,18 @@ namespace XEngine {
             }
         }
 
+        //Draw Lines
+        {
+            auto view = m_Registry.view<TransformComponent, LineRendererComponent>();
+            for (auto entity : view)
+            {
+                auto [transform, line] = view.get<TransformComponent, LineRendererComponent>(entity);
+                glm::vec3 p1 = glm::vec3(1.0, 1.0, 1.0);
+                Renderer2D::SetLineWidth(line.width);
+                Renderer2D::DrawLine(glm::vec3(0.1, 0.1, 1.0), p1, line.Color, (int)entity);
+            }
+        }
+
         Renderer2D::EndScene();
     }
 
@@ -356,4 +372,11 @@ namespace XEngine {
     {
 
     }
+
+    template<>
+    void Scene::OnComponentAdded<LineRendererComponent>(Entity entity, LineRendererComponent& component)
+    {
+
+    }
+
 }

@@ -295,6 +295,15 @@ namespace XEngine {
                 }
             }
 
+            if (!m_SelectionContext.HasComponent<LineRendererComponent>())
+            {
+                if (ImGui::MenuItem("Line 2D"))
+                {
+                    m_SelectionContext.AddComponent<LineRendererComponent>();
+                    ImGui::CloseCurrentPopup();
+                }
+            }
+
             if(ImGui::MenuItem("empty"))
             {
                 //nothing
@@ -452,6 +461,11 @@ namespace XEngine {
             ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
             ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
             ImGui::DragFloat("Restitution Threshold", &component.RestitutionThreshold, 0.01f, 0.0f);
+        });
+
+        DrawComponent<LineRendererComponent>("Line Renderer", entity, [](auto& component){
+            ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
+            ImGui::DragFloat("width", &component.width, 0.1f, 0.0, 100.0f);
         });
     }
 }

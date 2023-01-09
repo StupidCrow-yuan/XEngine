@@ -222,6 +222,18 @@ namespace XEngine {
             out << YAML::EndMap; // CircleRendererComponent
         }
 
+        if (entity.HasComponent<LineRendererComponent>())
+        {
+            out << YAML::Key << "LineRendererComponent";
+            out << YAML::BeginMap; //LineRendererComponent
+
+            auto& lineRendererComponent = entity.GetComponent<LineRendererComponent>();
+            out << YAML::Key << "Color" << YAML::Value << lineRendererComponent.Color;
+            out << YAML::Key << "width" << YAML::Value << lineRendererComponent.width;
+
+            out << YAML::EndMap; // LineRendererComponent
+        }
+
         if (entity.HasComponent<Rigidbody2DComponent>())
         {
             out << YAML::Key << "Rigidbody2DComponent";

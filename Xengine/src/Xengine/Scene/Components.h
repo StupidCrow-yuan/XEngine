@@ -71,6 +71,15 @@ namespace XEngine {
         CircleRendererComponent(const CircleRendererComponent&) = default;
     };
 
+    struct LineRendererComponent
+    {
+        glm::vec4 Color{1.0f, 0.0f, 1.0f, 1.0f};
+        float width = 1.0f;
+
+        LineRendererComponent() = default;
+        LineRendererComponent(const LineRendererComponent&) = default;
+    };
+
     struct CameraComponent
     {
        SceneCamera Camera;

@@ -54,7 +54,7 @@ namespace XEngine {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         glDisable(GL_DEPTH_TEST);//关闭深度测试，确保绘制方式是按画家算法即先画不透明物体，且由近到远开始绘制；在画透明物体，又远到近绘制
-        glEnable(GL_LINE_SMOOTH);
+        glEnable(GL_LINE_SMOOTH);//启用线抗锯齿
     }
 
     void OpenGLRendererAPI::SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
@@ -82,11 +82,13 @@ namespace XEngine {
     void OpenGLRendererAPI::DrawLines(const Ref<VertexArray> &vertexArray, uint32_t vertexCount)
     {
         vertexArray->Bind();
-        glDrawArrays(GL_LINE, 0, vertexCount);
+        glDrawArrays(GL_LINE_STRIP, 0, vertexCount);//绘制线，需要设置为GL_LINE_STRIP, GL_LINE模式无效
     }
 
     void OpenGLRendererAPI::SetLineWidth(float width)
     {
-        glLineWidth(width);
+        GLfloat lineWidthRange[2] = {0.0f, 0.0f};
+        glGetFloatv(GL_ALIASED_LINE_WIDTH_RANGE, lineWidthRange);
+        glLineWidth(width);//line 宽度设置范围为0.0~1.0
     }
 }
