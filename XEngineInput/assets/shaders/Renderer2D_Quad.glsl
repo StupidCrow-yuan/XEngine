@@ -66,6 +66,10 @@ void main()
 		case 15: texColor *= texture(u_Textures[15], v_TexCoord * v_TilingFactor); break;
 	}
 
+	if (texColor.a == 0.0)
+	{
+		discard;
+	}
 	o_color = texColor;
 //	color = mix(texColor, vec4(1.0, 0.0, 0.0, 1.0), 0.0);
 	o_EntityID = v_EntityID;// placeholder for our entity ID
