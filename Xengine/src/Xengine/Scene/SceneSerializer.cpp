@@ -320,6 +320,7 @@ namespace XEngine {
         }
         catch (YAML::ParserException e)
         {
+            XE_CORE_ERROR("Failed to load .hazel file '{0}'\n     {1}", filepath, e.what());
             return false;
         }
 
