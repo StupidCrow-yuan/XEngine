@@ -13,7 +13,7 @@
 class Sandbox : public XEngine::Application
 {
 public:
-    Sandbox()
+    Sandbox(const XEngine::ApplicationSpecification& specification) : XEngine::Application(specification)
     {
         PushLayer(new Sandbox2D());
     }
@@ -23,7 +23,11 @@ public:
     }
 };
 
-XEngine::Application* XEngine::CreateApplication()
+XEngine::Application* XEngine::CreateApplication(XEngine::ApplicationCommandLineArgs args)
 {
-    return new Sandbox();
+    ApplicationSpecification spec;
+    spec.Name = "Sandbox";
+    spec.WorkingDirectory = "../XEngineInput";
+    spec.CommandLineArgs = args;
+    return new Sandbox(spec);
 }

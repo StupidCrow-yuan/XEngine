@@ -11,7 +11,7 @@ namespace XEngine
     class XEngineInput : public Application
     {
     public:
-        XEngineInput(ApplicationCommandLineArgs args) : Application("XEngineInput", args)
+        XEngineInput(ApplicationSpecification& specification) : Application(specification)
         {
             PushLayer(new EditorLayer());
         }
@@ -22,6 +22,9 @@ namespace XEngine
 
     Application* CreateApplication(ApplicationCommandLineArgs args)
     {
-        return new XEngineInput(args);
+        ApplicationSpecification spec;
+        spec.Name = "XEngineInput";
+        spec.CommandLineArgs = args;
+        return new XEngineInput(spec);
     }
 }
