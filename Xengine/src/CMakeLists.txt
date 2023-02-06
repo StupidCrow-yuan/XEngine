@@ -20,7 +20,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ../thirdparty/box2d/include
         )
 
-target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARY} glfw)
+target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARY} glfw)
 
 target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 

@@ -267,7 +267,7 @@ namespace XEngine
             {
                 const char* path = (const char*)payload->Data;
                 auto filePath = std::filesystem::path(g_AssetPath) / path;
-                XE_CORE_ERROR("path: filePath: {0}, {1}", filePath.string(), strlen(path));
+                XE_CORE_INFO("xengine filePath: {0}, {1}", filePath.string(), strlen(path));
                 OpenScene(filePath);
             }
             ImGui::EndDragDropTarget();

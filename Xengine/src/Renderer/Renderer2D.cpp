@@ -188,7 +188,7 @@ namespace XEngine {
 
         //Set first texture slot to 0
         s_Data.TextureSlots[0] = s_Data.WhiteTexture;//todo: set 0 is unloadable
-        
+
         s_Data.QuadVertexPositions[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
         s_Data.QuadVertexPositions[1] = {0.5f, -0.5f, 0.0f, 1.0f};
         s_Data.QuadVertexPositions[2] = {0.5f, 0.5f, 0.0f, 1.0f};
@@ -404,7 +404,8 @@ namespace XEngine {
             if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
                 FlushAndReset();
             textureIndex = (float)s_Data.TextureSlotIndex;
-            s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
+            auto texture0 = Texture2D::Create("/Users/xhs/XEngine/XEngineInput/assets/textures/ChernoLogo.png");
+            s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture0;//todo: 单独设置纹理无效果？？？
             s_Data.TextureSlotIndex++;
         }
 
