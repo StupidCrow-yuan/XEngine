@@ -42,8 +42,15 @@ namespace XEngine {
         void OnViewportResize(uint32_t width, uint32_t height);
 
         void DuplicateEntity(Entity entity);
+        Entity GetEntityByUUID(UUID uuid);
+        Entity FindEntityByName(std::string_view name);
 
         Entity GetPrimaryCameraEntity();
+
+        bool IsPaused() { return m_IsPaused; }
+        void SetPaused(bool paused) { m_IsPaused = paused; }
+
+        void Step(int frames = 1);
 
         template<typename... Components>
         auto GetAllEntitiesWith()
@@ -62,9 +69,12 @@ namespace XEngine {
     private:
         entt::registry m_Registry;
         uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;
+        bool m_IsPaused = false;
+        int m_StepFrames = 0;
 
         b2World* m_PhysicsWorld = nullptr;
 
+        std::unordered_map<UUID, entt::entity> m_EntityMap;
         friend class Entity;
         friend class SceneSerializer;
         friend class SceneHierarchyPanel;

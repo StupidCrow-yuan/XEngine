@@ -24,10 +24,12 @@ namespace XEngine
     void EditorLayer::OnAttach()
     {
         XE_PROFILE_FUNCTION();
-        m_CheckboardTexture = Texture2D::Create(CPP_SRC_DIR"XEngineInput/assets/textures/1-1_000.png");
+        m_CheckboardTexture = Texture2D::Create(CPP_SRC_DIR"XEngineInput/assets/textures/Checkerboard.png");
         m_IconPlay = Texture2D::Create(CPP_SRC_DIR"XEngineInput/Resources/Icons/PlayButton.png");
         m_IconStop = Texture2D::Create(CPP_SRC_DIR"XEngineInput/Resources/Icons/StopButton.png");
         m_IconSimulate = Texture2D::Create(CPP_SRC_DIR"XEngineInput/Resources/Icons/SimulateButton.png");
+        m_IconPause = Texture2D::Create(CPP_SRC_DIR"XEngineInput/Resources/Icons/PauseButton.png");
+        m_IconStep = Texture2D::Create(CPP_SRC_DIR"XEngineInput/Resources/Icons/StepButton.png");
 
         FramebufferSpecification fbSpec;
         fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
@@ -59,7 +61,7 @@ namespace XEngine
     void EditorLayer::OnUpdate(Timestep ts)
     {
         XE_PROFILE_FUNCTION();
-
+        m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
         //reisze
         if (FramebufferSpecification spec = m_Framebuffer->GetSpecification();
             m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f &&
@@ -68,7 +70,6 @@ namespace XEngine
             m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
             m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
             m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
-            m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
         }
 
         //Render
@@ -125,10 +126,6 @@ namespace XEngine
         OnOverlayRender();
 
         m_Framebuffer->Unbind();
-
-//        std::string path = "/Users/user/Desktop/xxw.png";
-//        m_Framebuffer->ReadPixel(path);//readPixels操作，测试缓存纹理是否正确绘制
-//        printf("\n");
     }
 
     void EditorLayer::OnImGuiRender()
@@ -495,7 +492,6 @@ namespace XEngine
     void EditorLayer::NewScene()
     {
         m_ActiveScene = CreateRef<Scene>();
-        m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
         m_SceneHierachyPanel.SetContext(m_ActiveScene);
 
         m_EditorScenePath = std::filesystem::path();
@@ -525,7 +521,7 @@ namespace XEngine
         if (serializer.Deserialize(path.string()))
         {
             m_EditorScene = newScene;
-            m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+//            m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
             m_SceneHierachyPanel.SetContext(m_EditorScene);
 
             m_ActiveScene = m_EditorScene;
@@ -607,6 +603,15 @@ namespace XEngine
         m_SceneHierachyPanel.SetContext(m_ActiveScene);
     }
 
+    void EditorLayer::OnScenePause()
+    {
+        if (m_SceneState == SceneState::Edit)
+        {
+            return;
+        }
+        m_ActiveScene->SetPaused(true);
+    }
+
     void EditorLayer::OnDuplicateEntity()
     {
         if (m_SceneState != SceneState::Edit)
@@ -643,9 +648,14 @@ namespace XEngine
         }
 
         float size = ImGui::GetWindowHeight() - 4.0f;
+        ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+
+        bool hasPlayButton = m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play;
+        bool hasSimulateButton = m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate;
+        bool hasPauseButton = m_SceneState != SceneState::Edit;
+        if (hasPlayButton)
         {
             Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate) ? m_IconPlay : m_IconStop;
-            ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
             if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
             {
                 if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate)
@@ -658,8 +668,13 @@ namespace XEngine
                 }
             }
         }
-        ImGui::SameLine();
+
+        if (hasSimulateButton)
         {
+            if (hasPlayButton)
+            {
+                ImGui::SameLine();
+            }
             Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play) ? m_IconSimulate : m_IconStop;
             ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f));//show simulate icon
             auto clickButton = ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(255.0f, 0.0f, 0.0f, 0.0f), tintColor);
@@ -667,7 +682,6 @@ namespace XEngine
             {
                 XE_CORE_ERROR("click simulation button");
             }
-            //            ImGui::Image((ImTextureID)icon->GetRendererID(), ImGui::GetContentRegionAvail(), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0), ImVec4(0, 0, 255, 1), ImVec4(0, 255, 255, 1));
             if (clickButton && toolbarEnabled)
             {
                 if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play)
@@ -677,6 +691,32 @@ namespace XEngine
             }
         }
 
+        if (hasPauseButton)
+        {
+            bool isPaused = m_ActiveScene->IsPaused();
+            ImGui::SameLine();
+            {
+                Ref<Texture2D> icon = m_IconPause;
+                if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+                {
+                    m_ActiveScene->SetPaused(!isPaused);
+                }
+            }
+
+            //step button
+            if (isPaused)
+            {
+                ImGui::SameLine();
+                {
+                    Ref<Texture2D> icon = m_IconStep;
+                    bool isPaused = m_ActiveScene->IsPaused();
+                    if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+                    {
+                        m_ActiveScene->Step();
+                    }
+                }
+            }
+        }
         ImGui::PopStyleVar(2);
         ImGui::PopStyleColor(3);
         ImGui::End();

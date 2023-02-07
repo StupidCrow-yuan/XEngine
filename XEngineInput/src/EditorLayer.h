@@ -43,6 +43,7 @@ namespace XEngine
         void OnScenePlay();
         void OnSceneStop();
         void OnSceneSimulate();
+        void OnScenePause();
 
         void OnDuplicateEntity();
 
@@ -91,7 +92,7 @@ namespace XEngine
         ContentBrowserPanel m_ContentBrowserPanel;
 
         //Editor resources
-        Ref<Texture2D> m_IconPlay, m_IconStop, m_IconSimulate;
+        Ref<Texture2D> m_IconPlay, m_IconStop, m_IconSimulate, m_IconPause, m_IconStep;
     };
 }
 
