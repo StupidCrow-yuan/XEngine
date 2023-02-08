@@ -1,0 +1,92 @@
+//
+// Created by yuan on 2/7/23.
+//
+
+#ifndef XENGINEMAIN_BUFFER_H
+#define XENGINEMAIN_BUFFER_H
+
+#include <stdint.h>
+#include <cstring>
+
+namespace XEngine {
+    //Non-owning raw buffer class
+    struct Buffer
+    {
+        uint8_t* Data = nullptr;
+        uint64_t Size = 0;
+
+        Buffer() = default;
+
+        Buffer(uint64_t size)
+        {
+            Allocate(size);
+        }
+
+        Buffer(const Buffer&) = default;
+
+        static Buffer Copy(Buffer other)
+        {
+            Buffer result(other.Size);
+            memcpy(result.Data, other.Data, other.Size);
+            return  result;
+        }
+
+        void Allocate(uint64_t size)
+        {
+            Release();
+
+            Data = new uint8_t[size];
+            Size = size;
+        }
+
+        void Release()
+        {
+            delete [] Data;
+            Data = nullptr;
+            Size = 0;
+        }
+
+        template<typename  T>
+        T* As()
+        {
+            return (T*)Data;
+        }
+
+        operator bool() const
+        {
+            return (bool)Data;
+        }
+    };
+
+    struct ScopeBuffer
+    {
+        ScopeBuffer(Buffer buffer) : m_Buffer(buffer)
+        {
+        }
+
+        ScopeBuffer(uint64_t size) : m_Buffer(size)
+        {
+        }
+
+        ~ScopeBuffer()
+        {
+            m_Buffer.Release();
+        }
+
+        uint8_t* Data() { return m_Buffer.Data; }
+        uint64_t  Size() { return m_Buffer.Size; }
+
+        template<typename T>
+        T* As()
+        {
+            return  m_Buffer.As<T>();
+        }
+
+        operator bool()  const { return m_Buffer; }
+
+    private:
+        Buffer m_Buffer;
+    };
+}
+
+#endif //XENGINEMAIN_BUFFER_H
