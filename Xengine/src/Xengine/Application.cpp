@@ -63,10 +63,11 @@ namespace XEngine {
     void Application::OnEvent(Event &e)
     {
         XE_PROFILE_FUNCTION();
-        EventDispatcher dispatcher(e);
+        EventDispatcher dispatcher(e);//EventDispatcher里面村里处理event的函数，在event类型跟模板T匹配时，才响应事件
         dispatcher.DisPatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
         dispatcher.DisPatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
+        //layer来处理事件，逆序遍历是为了让ImGuiLayer最先收到Event
         for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
         {
             if (e.Handled)

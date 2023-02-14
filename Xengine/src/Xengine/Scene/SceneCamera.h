@@ -11,7 +11,7 @@ namespace XEngine {
     class SceneCamera : public Camera
     {
     public:
-        enum class ProjectionType { Perspective = 0, Orthographic = 1 };
+        enum class ProjectionType { Perspective = 0, Orthographic = 1 };//相机投影类型：透视投影和正交投影
     public:
         SceneCamera();
         virtual ~SceneCamera() = default;

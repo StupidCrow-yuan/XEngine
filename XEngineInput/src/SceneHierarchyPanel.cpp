@@ -67,9 +67,11 @@ namespace XEngine {
     {
         auto& tag = entity.GetComponent<TagComponent>().Tag;
 
+        //每个node都自带OpenOnArrow的flag，如果当前entity正好被选中，那么还会多一个selected flag
         ImGuiTreeNodeFlags flags = ((m_SelectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
         flags |= ImGuiTreeNodeFlags_SpanAvailWidth;
         bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
+        //如果鼠标悬浮在item上，且点击了鼠标左键，则返回true
         if (ImGui::IsItemClicked())
         {
             m_SelectionContext = entity;
@@ -86,6 +88,7 @@ namespace XEngine {
             ImGui::EndPopup();
         }
 
+        //如果此节点是expended状态，则需要继续展开
         if (opened)
         {
             ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
@@ -110,13 +113,17 @@ namespace XEngine {
         ImGuiIO& io = ImGui::GetIO();
         auto boldFont = io.Fonts->Fonts[0];
 
+        //Translation、scale都会有相同的类似DragFloat("###Y"的函数，而ImGui是根据输入的"###Y"来作为identifier的
+        //为了让不同组件的相同名字的值可以各自通过UI读写，这里需要绘制最开始加入ID, 绘制结束后PopID
         ImGui::PushID(label.c_str());
 
-        ImGui::Columns(2);
+        //先在最左边绘制vector代表的label
+        ImGui::Columns(2);//label占两列空间
         ImGui::SetColumnWidth(0, columnWidth);
         ImGui::Text(label.c_str());
         ImGui::NextColumn();
 
+        //参考ImGui::DragScalarN函数，意思是在当前行绘制3个Item
         ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{0, 0});
 
@@ -339,14 +346,14 @@ namespace XEngine {
 
             ImGui::Checkbox("Primary", &component.Primary);
 
-            const char* projectionTypeStrings[] = { "Perspective", "Orthographic"};
-            const char* currentProjectionTypeString = projectionTypeStrings[(int)camera.GetProjectionType()];
-            if (ImGui::BeginCombo("Projection", currentProjectionTypeString))
+            const char* projectionTypeStrings[] = { "Perspective", "Orthographic"};//绘制camera的两种选项，根据不同选项展示不同参数
+            const char* currentProjectionTypeString = projectionTypeStrings[(int)camera.GetProjectionType()];//当前选项从数组中找
+            if (ImGui::BeginCombo("Projection", currentProjectionTypeString))//BeginCombo是ImGui绘制EnumPopup的方法
             {
                 for (int i = 0; i < 2; i++)
                 {
                     bool isSelected = currentProjectionTypeString == projectionTypeStrings[i];
-                    if (ImGui::Selectable(projectionTypeStrings[i], isSelected))
+                    if (ImGui::Selectable(projectionTypeStrings[i], isSelected))//ImGui::Selectable()显示可选择的选项
                     {
                         currentProjectionTypeString = projectionTypeStrings[i];
                         camera.SetProjectionType((SceneCamera::ProjectionType)i);
@@ -354,7 +361,7 @@ namespace XEngine {
 
                     if (isSelected)
                     {
-                        ImGui::SetItemDefaultFocus();
+                        ImGui::SetItemDefaultFocus();//高亮当前已经选择的Item
                     }
                 }
                 ImGui::EndCombo();

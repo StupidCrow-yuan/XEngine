@@ -220,8 +220,8 @@ namespace XEngine
             ImGui::EndMenuBar();
         }
 
-        m_SceneHierachyPanel.OnImGuiRender();
-        m_ContentBrowserPanel.OnImGuiRender();
+        m_SceneHierachyPanel.OnImGuiRender();//绘制Scene Hierachy Panel
+        m_ContentBrowserPanel.OnImGuiRender();//绘制Content Browser Panel
 
         ImGui::Begin("Stats");
 

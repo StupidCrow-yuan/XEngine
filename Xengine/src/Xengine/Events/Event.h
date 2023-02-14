@@ -73,7 +73,7 @@ namespace XEngine {
             return false;
         }
     private:
-        Event& m_Event;
+        Event& m_Event;//必须是引用，不可以是Event的实例，因为Event带有纯虚函数
     };
 
     inline std::ostream& operator<<(std::ostream& os, const Event& e)

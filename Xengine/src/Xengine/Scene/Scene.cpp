@@ -131,7 +131,7 @@ namespace XEngine {
 
     Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string &name)
     {
-        Entity entity = { m_Registry.create(), this };
+        Entity entity = { m_Registry.create(), this };//创建一个entity，entt::entity其实是uint32_t类型
         entity.AddComponent<IDComponent>(uuid);
         entity.AddComponent<TransformComponent>();
         auto& tag = entity.AddComponent<TagComponent>();
@@ -208,6 +208,7 @@ namespace XEngine {
 
                 //draw sprites
                 {
+                    //group用来获取同时满足拥有多个component的Entity 数组，这里得到的group是m_Registry里所有既有TransformComponent，又有SpriteRendererComponent的数组
                     auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
                     for (auto entity : group)
                     {

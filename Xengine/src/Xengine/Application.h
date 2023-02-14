@@ -43,7 +43,7 @@ namespace XEngine {
         Application(const ApplicationSpecification& specification);
         virtual ~Application();
 
-        void OnEvent(Event& e);
+        void OnEvent(Event& e);//窗口产生Event事件时，会调用次函数
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* layer);
 
