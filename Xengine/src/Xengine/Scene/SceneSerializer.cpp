@@ -391,7 +391,9 @@ namespace XEngine {
                     src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
                     if (spriteRendererComponent["TexturePath"])
                     {
-                        src.Texture = Texture2D::Create(spriteRendererComponent["TexturePath"].as<std::string>());
+                        auto texPath = CPP_SRC_DIR + spriteRendererComponent["TexturePath"].as<std::string>();
+                        src.Texture = Texture2D::Create(texPath);
+                        src.Texture->SetPath(spriteRendererComponent["TexturePath"].as<std::string>());
                     }
                     if (spriteRendererComponent["TilingFactor"])
                     {

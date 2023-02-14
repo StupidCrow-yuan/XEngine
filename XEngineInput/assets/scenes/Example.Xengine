@@ -4,23 +4,23 @@ Entities:
     TagComponent:
       Tag: CheckerboardBG
     TransformComponent:
-      Translation: [2.4000001, 0, -12.255374]
+      Translation: [6.80000019, 0, -12.255374]
       Rotation: [0, 0, 0]
-      Scale: [20, 20, 20]
+      Scale: [10, 10, 10]
     SpriteRendererComponent:
       Color: [0.999989986, 1, 0.999989986, 1]
+      TexturePath: XEngineInput/assets/textures/ChernoLogo.png
       TilingFactor: 2
-      TexturePath: assets\textures\ChernoLogo.png
   - Entity: 17154294327283940743
     TagComponent:
       Tag: Cherno Square
     TransformComponent:
-      Translation: [-10, 1.10000002, 0]
+      Translation: [-5.5999999, 1.10000002, 0]
       Rotation: [0, 0, 0]
       Scale: [4.40999985, 4.40999985, 4.40999985]
     SpriteRendererComponent:
       Color: [1, 0.999989986, 0.999989986, 1]
-      TexturePath: assets\textures\Checkerboard.png
+      TexturePath: XEngineInput/assets/textures/Checkerboard.png
       TilingFactor: 1
   - Entity: 3503638098362915787
     TagComponent:
