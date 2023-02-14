@@ -9,7 +9,8 @@ Entities:
       Scale: [20, 20, 20]
     SpriteRendererComponent:
       Color: [0.999989986, 1, 0.999989986, 1]
-      TilingFactor: 10
+      TilingFactor: 2
+      TexturePath: assets\textures\ChernoLogo.png
   - Entity: 17154294327283940743
     TagComponent:
       Tag: Cherno Square
@@ -19,7 +20,7 @@ Entities:
       Scale: [4.40999985, 4.40999985, 4.40999985]
     SpriteRendererComponent:
       Color: [1, 0.999989986, 0.999989986, 1]
-      TexturePath: ""
+      TexturePath: assets\textures\Checkerboard.png
       TilingFactor: 1
   - Entity: 3503638098362915787
     TagComponent:

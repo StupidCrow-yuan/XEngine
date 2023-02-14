@@ -73,19 +73,4 @@ void main()
 	o_color = texColor;
 //	color = mix(texColor, vec4(1.0, 0.0, 0.0, 1.0), 0.0);
 	o_EntityID = v_EntityID;// placeholder for our entity ID
-//	o_color = vec4(1.0, 0.0, 1.0, 1.0);
-//	o_color = texture(u_Textures[1], v_TexCoord);
-//	switch(int(v_TexIndex))
-//	{
-//		case 0: o_color = vec4(1.0, 0.0, 0.0, 1.0); break;
-//		case 1: o_color = vec4(0.0, 1.0, 0.0, 1.0); break;
-//		case 2: o_color = vec4(0.0, 0.0, 1.0, 1.0); break;
-//	}
-//	switch(int(v_TexIndex))
-//	{
-//		case 0: o_color = texture(u_Textures[0], v_TexCoord); break;
-//		case 1: o_color = texture(u_Textures[1], v_TexCoord); break;
-//		case 2: o_color = texture(u_Textures[2], v_TexCoord); break;
-//	}
-//	o_color = texture(u_Textures[1], v_TexCoord);
 }

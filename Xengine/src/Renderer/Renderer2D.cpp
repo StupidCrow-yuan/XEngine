@@ -172,22 +172,18 @@ namespace XEngine {
         s_Data.LineVertexArray->AddVertexBuffer(s_Data.LineVertexBuffer);
         s_Data.LineVertexBufferBase = new LineVertex[s_Data.MaxVertices];
 
+        //将第0张纹理默认设置为白色
         s_Data.WhiteTexture = Texture2D::Create(1, 1);
         uint32_t whiteTextureData = 0xffffffff;
         s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
-
-        int32_t samples[s_Data.MaxTextureSlots];
-        for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
-        {
-            samples[i] = i;
-        }
 
         s_Data.QuadShader = Shader::Create(CPP_SRC_DIR"XEngineInput/assets/shaders/Renderer2D_Quad.glsl");
         s_Data.CircleShader = Shader::Create(CPP_SRC_DIR"XEngineInput/assets/shaders/Renderer2D_Circle.glsl");
         s_Data.LineShader = Shader::Create(CPP_SRC_DIR"XEngineInput/assets/shaders/Renderer2D_Line.glsl");
 
+//        auto texture0 = Texture2D::Create("/Users/xhs/XEngine/XEngineInput/assets/textures/Checkerboard.png");
         //Set first texture slot to 0
-        s_Data.TextureSlots[0] = s_Data.WhiteTexture;//todo: set 0 is unloadable
+        s_Data.TextureSlots[0] = s_Data.WhiteTexture;
 
         s_Data.QuadVertexPositions[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
         s_Data.QuadVertexPositions[1] = {0.5f, -0.5f, 0.0f, 1.0f};
@@ -277,11 +273,15 @@ namespace XEngine {
             s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
 
             //Bind textures
+            int32_t samples[s_Data.MaxTextureSlots];
             for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
+            {
                 s_Data.TextureSlots[i]->Bind(i);
+                samples[i] = i;
+            }
+            s_Data.QuadShader->SetIntArray("u_Textures", samples, s_Data.TextureSlotIndex);//bind纹理并激活后还需要setUniformLocation即指定每张纹理的位置
 
             s_Data.QuadShader->Bind();
-//        RenderCommand::SetViewport(0, 0, Width, Height);//在不同的窗口上绘制之前的都需要手动调用一次viewport，否则会导致画面比例不对，只能绘制一部分内容
             RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
             s_Data.Stats.DrawCalls++;
         }
@@ -404,8 +404,8 @@ namespace XEngine {
             if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
                 FlushAndReset();
             textureIndex = (float)s_Data.TextureSlotIndex;
-            auto texture0 = Texture2D::Create("/Users/xhs/XEngine/XEngineInput/assets/textures/ChernoLogo.png");
-            s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture0;//todo: 单独设置纹理无效果？？？
+//            auto texture0 = Texture2D::Create("/Users/xhs/XEngine/XEngineInput/assets/textures/lut.png");
+            s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
             s_Data.TextureSlotIndex++;
         }
 
