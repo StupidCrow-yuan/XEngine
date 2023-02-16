@@ -26,13 +26,13 @@ namespace XEngine {
         {
             std::filesystem::current_path(m_Specification.WorkingDirectory);
         }
-        m_Window = Window::Create(WindowProps(m_Specification.Name));
-        m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+        m_Window = Window::Create(WindowProps(m_Specification.Name));//创建窗口
+        m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));//绑定一个事件函数作为glfw的通用回调
 
         Renderer::Init(m_Window.get()->GetWidth(), m_Window.get()->GetHeight());
 
         m_ImGuiLayer = new ImGuiLayer();
-        PushOverlay(m_ImGuiLayer);
+        PushOverlay(m_ImGuiLayer);//UI层
     }
 
     Application::~Application()
@@ -68,6 +68,7 @@ namespace XEngine {
         dispatcher.DisPatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
         //layer来处理事件，逆序遍历是为了让ImGuiLayer最先收到Event
+        //反向遍历LayerStack，依次查看事件是否被这个layer响应，然后如果这个过程中，事件被handle了，那么就停止往下层layer传递，否则继续遍历
         for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
         {
             if (e.Handled)
@@ -106,6 +107,7 @@ namespace XEngine {
             }
             m_ImGuiLayer->End();
 
+            //Render Logic
             m_Window->OnUpdate();
         }
     }

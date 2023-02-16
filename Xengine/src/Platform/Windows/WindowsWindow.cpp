@@ -68,6 +68,7 @@ namespace XEngine {
             ++s_GLFWWindowCount;
         }
 
+        //将glfwWindow设置为当前上下文，一个thread同时只能拥有一个上下文；这里省去了一些函数每次都指定window的麻烦，像glfwSwapInterval()这样的函数只操作当前Context
         m_context = GraphicsContext::Create(m_Window);
         m_context->Init();
 
@@ -180,7 +181,7 @@ namespace XEngine {
     {
         XE_PROFILE_FUNCTION();
         glfwPollEvents();
-        m_context->SwapBuffers();
+        m_context->SwapBuffers();//交换缓冲区
     }
 
     void WindowsWindow::SetVSync(bool enabled)
@@ -188,7 +189,7 @@ namespace XEngine {
         XE_PROFILE_FUNCTION();
         if (enabled)
         {
-            glfwSwapInterval(1);
+            glfwSwapInterval(1);//交换间隔表示交换缓冲区之前等待的帧数，通常称为vsync，即每帧更新一次
         }
         else
         {
