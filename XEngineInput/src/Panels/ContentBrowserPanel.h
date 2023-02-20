@@ -12,6 +12,7 @@ namespace XEngine {
     class ContentBrowserPanel
     {
     public:
+        //资源面板类，展示所有资源
         ContentBrowserPanel();
 
         void OnImGuiRender();

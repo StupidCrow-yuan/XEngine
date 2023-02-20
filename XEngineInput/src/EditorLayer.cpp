@@ -260,6 +260,7 @@ namespace XEngine
 
         if (ImGui::BeginDragDropTarget())
         {
+            //从ContentBrowserPanel中接收拖拽的.xengine文件，并打开该工程文件
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
             {
                 const char* path = (const char*)payload->Data;
@@ -267,7 +268,7 @@ namespace XEngine
                 XE_CORE_INFO("xengine filePath: {0}, {1}", filePath.string(), strlen(path));
                 OpenScene(filePath);
             }
-            ImGui::EndDragDropTarget();
+            ImGui::EndDragDropTarget();//配合ImGui::EndDragDropSource();使用
         }
 
         auto windowSize = ImGui::GetWindowSize();
@@ -521,7 +522,6 @@ namespace XEngine
         if (serializer.Deserialize(path.string()))
         {
             m_EditorScene = newScene;
-//            m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
             m_SceneHierachyPanel.SetContext(m_EditorScene);
 
             m_ActiveScene = m_EditorScene;

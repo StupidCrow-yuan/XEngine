@@ -28,6 +28,8 @@ namespace XEngine {
     };
 }
 
+//(...)代码里面omit参数，__VA_ARGS__会把这里面的内容传入到对应函数中
+//::双冒号是为了确保不论在哪里调用，都从Global Scope往下找
 // Core log macros
 #define XE_CORE_TRACE(...)          ::XEngine::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define XE_CORE_INFO(...)           ::XEngine::Log::GetCoreLogger()->info(__VA_ARGS__)

@@ -13,10 +13,10 @@ namespace XEngine {
     public:
         virtual ~GraphicsContext() = default;
 
-        virtual void Init() = 0;
-        virtual void SwapBuffers() = 0;
+        virtual void Init() = 0; //创建context，相当于把glfwSetCurrentContext封装到这里
+        virtual void SwapBuffers() = 0; //glfwSwapBuffer 封装到这里
 
-        static Scope<GraphicsContext> Create(void* window);
+        static Scope<GraphicsContext> Create(void* window); //根据不同的window类型创建对应的content，目前只支持opengl类型
     };
 }
 

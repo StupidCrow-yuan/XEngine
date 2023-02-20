@@ -17,6 +17,7 @@ namespace XEngine {
         logSinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
         logSinks.emplace_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>(CPP_SRC_DIR"Sandbox/XEngine.log", true));
 
+        //允许自由设置LOG的格式，类似spdlog::set_pattern("/变色开始 [当前时间] [当前Logger名]: [Log内容] /变色结束]")
         logSinks[0]->set_pattern("%^[%T] %n: %v%$");
         logSinks[1]->set_pattern("[%T] [%l] %n: %v");
 
