@@ -31,6 +31,8 @@ namespace XEngine {
     {
         //m_Yaw = m_Pitch = 0.0f; //lock the camera's rotation
         m_Position = CalculatePosition();
+        m_Position.z = std::min((float)m_Position.z, 100.0f);//m_Position.z的最大值取100
+        m_Position.z = std::max((float)m_Position.z, 1.0f);//m_Position.z的最小值取-100
 
         glm::quat orientation = GetOrientation();
         m_ViewMatrix = glm::translate(glm::mat4(1.0f), m_Position) * glm::toMat4(orientation);

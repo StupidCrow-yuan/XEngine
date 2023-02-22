@@ -43,6 +43,7 @@ namespace XEngine {
         {
             std::stringstream ss;
             ss << "MouseScrolledEvent: " << GetXOffset() << ", " << GetYOffset();
+            XE_CORE_ERROR("xoffset, yoffset {0}, {1}", GetXOffset(), GetYOffset());
             return ss.str();
         }
 
