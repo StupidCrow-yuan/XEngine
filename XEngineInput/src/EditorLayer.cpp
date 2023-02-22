@@ -84,7 +84,7 @@ namespace XEngine
         //update scene
         switch (m_SceneState)
         {
-            case SceneState::Edit:
+            case SceneState::Edit://图标默认处于编辑状态，点击play按钮后，图标变成暂停状态
             {
                 if (m_ViewportFocused)
                 {
