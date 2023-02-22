@@ -416,7 +416,8 @@ namespace XEngine {
         {
             ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
 
-            ImGui::Button("Texture", ImVec2(100.0f, 0.0f));
+            //支持将纹理拖拽到对应的component中
+            ImGui::Button("Texture", ImVec2(100.0f, 0.0f));//添加一个button按钮for Texture
             if (ImGui::BeginDragDropTarget())
             {
                 if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))

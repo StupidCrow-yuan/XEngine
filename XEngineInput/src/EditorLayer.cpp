@@ -327,7 +327,7 @@ namespace XEngine
         ImGui::End();
         ImGui::PopStyleVar();
 
-        UI_ToolBar();
+        UI_ToolBar();//绘制UI按钮，播放、暂停、模拟
 
         ImGui::End();
     }
@@ -630,7 +630,7 @@ namespace XEngine
     {
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1, 0, 0, 1));//设置button颜色
         auto& colors = ImGui::GetStyle().Colors;
         const auto& buttonHoverer = colors[ImGuiCol_ButtonHovered];
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(buttonHoverer.x, buttonHoverer.y, buttonHoverer.z, 0.5));
