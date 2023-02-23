@@ -480,7 +480,8 @@ namespace XEngine
             }
 
             //Draw selected entity outline
-            if (Entity selectEntityEntity = m_SceneHierachyPanel.GetSelectedEntity())
+            Entity selectEntityEntity = m_SceneHierachyPanel.GetSelectedEntity();
+            if (selectEntityEntity && selectEntityEntity.GetScene())
             {
                 const TransformComponent& transform = selectEntityEntity.GetComponent<TransformComponent>();
                 Renderer2D::DrawRect(transform.GetTransform(), glm::vec4(1.0, 0.5, 0.0, 1.0f));

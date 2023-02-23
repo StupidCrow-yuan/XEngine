@@ -114,6 +114,7 @@ namespace XEngine {
         return out;
     }
 
+    //序列化的时候将类型转成字符串
     static std::string RigidBody2DBodyTypeToString(Rigidbody2DComponent::BodyType bodyType)
     {
         switch (bodyType)
@@ -127,6 +128,7 @@ namespace XEngine {
         return {};
     }
 
+    //反序列化将对应的字符串转成对应的枚举类
     static Rigidbody2DComponent::BodyType RigidBody2DBodyTypeFromString(const std::string& bodyTypeString)
     {
         if (bodyTypeString == "Static")    return Rigidbody2DComponent::BodyType::Static;
