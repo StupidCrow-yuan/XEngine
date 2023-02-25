@@ -670,54 +670,54 @@ namespace XEngine
             }
         }
 
-        if (hasSimulateButton)
-        {
-            if (hasPlayButton)
-            {
-                ImGui::SameLine();
-            }
-            Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play) ? m_IconSimulate : m_IconStop;
-            ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f));//show simulate icon
-            auto clickButton = ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(255.0f, 0.0f, 0.0f, 0.0f), tintColor);
-            if (clickButton)
-            {
-                XE_CORE_ERROR("click simulation button");
-            }
-            if (clickButton && toolbarEnabled)
-            {
-                if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play)
-                    OnSceneSimulate();
-                else if (m_SceneState == SceneState::Simulate)
-                    OnSceneStop();
-            }
-        }
-
-        if (hasPauseButton)
-        {
-            bool isPaused = m_ActiveScene->IsPaused();
-            ImGui::SameLine();
-            {
-                Ref<Texture2D> icon = m_IconPause;
-                if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
-                {
-                    m_ActiveScene->SetPaused(!isPaused);
-                }
-            }
-
-            //step button
-            if (isPaused)
-            {
-                ImGui::SameLine();
-                {
-                    Ref<Texture2D> icon = m_IconStep;
-                    bool isPaused = m_ActiveScene->IsPaused();
-                    if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
-                    {
-                        m_ActiveScene->Step();
-                    }
-                }
-            }
-        }
+//        if (hasSimulateButton)
+//        {
+//            if (hasPlayButton)
+//            {
+//                ImGui::SameLine();
+//            }
+//            Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play) ? m_IconSimulate : m_IconStop;
+//            ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f));//show simulate icon
+//            auto clickButton = ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(255.0f, 0.0f, 0.0f, 0.0f), tintColor);
+//            if (clickButton)
+//            {
+//                XE_CORE_ERROR("click simulation button");
+//            }
+//            if (clickButton && toolbarEnabled)
+//            {
+//                if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play)
+//                    OnSceneSimulate();
+//                else if (m_SceneState == SceneState::Simulate)
+//                    OnSceneStop();
+//            }
+//        }
+//
+//        if (hasPauseButton)
+//        {
+//            bool isPaused = m_ActiveScene->IsPaused();
+//            ImGui::SameLine();
+//            {
+//                Ref<Texture2D> icon = m_IconPause;
+//                if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+//                {
+//                    m_ActiveScene->SetPaused(!isPaused);
+//                }
+//            }
+//
+//            //step button
+//            if (isPaused)
+//            {
+//                ImGui::SameLine();
+//                {
+//                    Ref<Texture2D> icon = m_IconStep;
+//                    bool isPaused = m_ActiveScene->IsPaused();
+//                    if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+//                    {
+//                        m_ActiveScene->Step();
+//                    }
+//                }
+//            }
+//        }
         ImGui::PopStyleVar(2);
         ImGui::PopStyleColor(3);
         ImGui::End();

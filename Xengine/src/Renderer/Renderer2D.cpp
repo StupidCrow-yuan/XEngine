@@ -221,7 +221,7 @@ namespace XEngine {
         glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);
 
         s_Data.QuadShader->Bind();
-        viewProj = glm::mat4(1.0f);//todo: 暂时使用单位矩阵解决点击播放时，部分sprite渲染没有效果，应该是mvp矩阵映射有问题
+//        viewProj = glm::mat4(1.0f);//todo: 暂时使用单位矩阵解决点击播放时，部分sprite渲染没有效果，应该是mvp矩阵映射有问题
         s_Data.QuadShader->SetMat4("u_ViewProjection", viewProj);
 
 //        s_Data.CameraBuffer.ViewProjection = camera.GetProjection() * glm::inverse(transform);

@@ -50,10 +50,10 @@ namespace XEngine {
         {
             UUID uuid = src.get<IDComponent>(e).ID;
             XE_CORE_ASSERT(enttMap.find(uuid) != enttMap.end());
-            entt::entity dstEnttID = enttMap.at(uuid);
+            entt::entity dstEnttID = enttMap.at(uuid);//通过uuid获取map中对应的entity
 
             auto& component = src.get<Component>(e);
-            dst.emplace_or_replace<Component>(dstEnttID, component);
+            dst.emplace_or_replace<Component>(dstEnttID, component);//将src中的component存入对应的entity中
         }
     }
 
@@ -84,7 +84,7 @@ namespace XEngine {
             UUID uuid = srcSceneRegisty.get<IDComponent>(e).ID;
             const auto& name = srcSceneRegisty.get<TagComponent>(e).Tag;
             Entity newEntity = newScene->CreateEntityWithUUID(uuid, name);
-            enttMap[uuid] = (entt::entity)newEntity;
+            enttMap[uuid] = (entt::entity)newEntity;//将新创建的entity按uuid为键值存入map中
         }
 
         //Copy components (except IDComponent and TagComponent)

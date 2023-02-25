@@ -148,7 +148,7 @@ namespace XEngine {
         XE_CORE_ASSERT(entity.HasComponent<IDComponent>());
 
         out << YAML::BeginMap; //Entity
-        out << YAML::Key << "Entity" << YAML::Value << entity.GetUUID();
+        out << YAML::Key << "Entity" << YAML::Value << entity.GetUUID();//每个entity生成一个uuid
 
         if (entity.HasComponent<TagComponent>())
         {
