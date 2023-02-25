@@ -226,7 +226,8 @@ namespace XEngine
         ImGui::Begin("Stats");
 
         std::string name = "None";
-        if (m_HoveredEntity && m_HoveredEntity.GetScene())
+        bool isEmptyEnt = (uint32_t)m_HoveredEntity !=(uint32_t){0};
+        if (m_HoveredEntity && m_HoveredEntity.GetScene() && isEmptyEnt)
         {
             name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
         }
@@ -431,7 +432,7 @@ namespace XEngine
         if (m_SceneState == SceneState::Play)
         {
             Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
-            if (!camera)
+            if (!camera || !camera.GetScene())
             {
                 return;
             }
@@ -657,7 +658,8 @@ namespace XEngine
         if (hasPlayButton)
         {
             Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate) ? m_IconPlay : m_IconStop;
-            if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+            bool iconClick = ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor);
+            if (iconClick  && toolbarEnabled)
             {
                 if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate)
                 {
