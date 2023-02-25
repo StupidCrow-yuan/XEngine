@@ -18,25 +18,27 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
-  - Entity: 12837192831273
+  - Entity: 12837192831274
     TagComponent:
       Tag: redEntity
     TransformComponent:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Scale: [0.100000001, 1, 1]
     SpriteRendererComponent:
       Color: [0.938223958, 0.0470923409, 0.0470923409, 1]
-  - Entity: 12837192831273
+      TilingFactor: 1
+  - Entity: 12837192831275
     TagComponent:
-      Tag: blurEntity
+      Tag: blueEntity
     TransformComponent:
       Translation: [-1.5, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     SpriteRendererComponent:
       Color: [0.163296312, 0.961389959, 0.0742386132, 1]
-  - Entity: 12837192831273
+      TilingFactor: 1
+  - Entity: 12837192831276
     TagComponent:
       Tag: greenEntity
     TransformComponent:
@@ -45,3 +47,4 @@ Entities:
       Scale: [1, 1, 1]
     SpriteRendererComponent:
       Color: [0.961747706, 0.964427173, 0.976833999, 1]
+      TilingFactor: 1
