@@ -123,7 +123,7 @@ namespace XEngine
 //            XE_CORE_INFO("Pixel data = {0}", pixelData);//该返回值wei color attachment 1 绑定的buffer缓冲对象输出的值，即Texture.glsl中的location = 1的输出值
         }
 
-        OnOverlayRender();
+        OnOverlayRender();//UI层渲染
 
         m_Framebuffer->Unbind();
     }

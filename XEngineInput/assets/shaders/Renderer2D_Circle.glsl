@@ -68,6 +68,7 @@ void main()
 	float circle = smoothstep(0.0, Input.Fade, distance);
 	circle *= smoothstep(Input.Thickness + Input.Fade, Input.Thickness, distance);
 
+	//将quad四角去掉，以免鼠标放到这四个角的时候会依然选中的是当前circle
 	if (circle == 0.0)
 		discard;
 

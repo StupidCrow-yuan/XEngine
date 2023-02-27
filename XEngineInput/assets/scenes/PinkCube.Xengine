@@ -4,8 +4,8 @@ Entities:
     TagComponent:
       Tag: Left
     TransformComponent:
-      Translation: [-0.355032414, -9.24402848e-05, 0.349878132]
-      Rotation: [0, -0.785398245, 0]
+      Translation: [0, -9.24402848e-05, 0]
+      Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     SpriteRendererComponent:
       Color: [1, 0, 0.949807167, 1]
@@ -24,12 +24,12 @@ Entities:
     TagComponent:
       Tag: Camera
     TransformComponent:
-      Translation: [-0.984802306, 1.0773176, 2.46649146]
-      Rotation: [-0.404916406, 0, 0]
-      Scale: [1, 1, 1]
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.99999994, 1, 0.999997854]
     CameraComponent:
       Camera:
-        ProjectionType: 0
+        ProjectionType: 1
         PerspectiveFOV: 0.52359879
         PerspectiveNear: 0.00999999978
         PerspectiveFar: 1000
@@ -42,9 +42,9 @@ Entities:
     TagComponent:
       Tag: Top
     TransformComponent:
-      Translation: [0, 0.5, 0]
-      Rotation: [1.57079637, 0.785398185, 0]
-      Scale: [1, 1, 1]
+      Translation: [-1.91704285, 5.8480854, 4.13789797]
+      Rotation: [1.57079649, 0.785398245, 4.21468513e-08]
+      Scale: [0.485670418, 0.225315168, 0.912446856]
     SpriteRendererComponent:
       Color: [0.876447856, 0, 0.834712803, 1]
       TilingFactor: 1

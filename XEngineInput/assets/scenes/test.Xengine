@@ -36,7 +36,7 @@ Entities:
       Scale: [1, 1, 1]
     SpriteRendererComponent:
       Color: [0.163296312, 0.961389959, 0.0742386132, 1]
-  - Entity: 12837192831273
+  - Entity: 12837192831277
     TagComponent:
       Tag: greenEntity
     TransformComponent:

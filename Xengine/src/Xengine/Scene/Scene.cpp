@@ -189,6 +189,7 @@ namespace XEngine {
             Camera* mainCamera = nullptr;
             glm::mat4 cameraTransform;
             {
+                //只有单个spriteComponent而没有CameraComponent的时候，返回为空
                 auto view = m_Registry.view<TransformComponent, CameraComponent>();
                 for (auto entity : view)
                 {
