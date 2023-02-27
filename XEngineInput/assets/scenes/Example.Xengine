@@ -4,7 +4,7 @@ Entities:
     TagComponent:
       Tag: CheckerboardBG
     TransformComponent:
-      Translation: [6.80000019, 0, -12.255374]
+      Translation: [6.80000019, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [10, 10, 10]
     SpriteRendererComponent:

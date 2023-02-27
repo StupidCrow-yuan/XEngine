@@ -569,7 +569,7 @@ namespace XEngine
         m_SceneState = SceneState::Play;
 
         m_ActiveScene = Scene::Copy(m_EditorScene);
-        m_ActiveScene->OnRuntimeStart();
+        m_ActiveScene->OnRuntimeStart();//2D 物理碰撞模拟
 
         m_SceneHierachyPanel.SetContext(m_ActiveScene);
     }
