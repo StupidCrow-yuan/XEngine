@@ -340,7 +340,6 @@ namespace XEngine {
     void Scene::RenderScene(EditorCamera &camera)
     {
         Renderer2D::BeginScene(camera);
-
         //Draw sprites
         {
             auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);

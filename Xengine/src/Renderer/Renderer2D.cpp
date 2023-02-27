@@ -181,7 +181,6 @@ namespace XEngine {
         s_Data.CircleShader = Shader::Create(CPP_SRC_DIR"XEngineInput/assets/shaders/Renderer2D_Circle.glsl");
         s_Data.LineShader = Shader::Create(CPP_SRC_DIR"XEngineInput/assets/shaders/Renderer2D_Line.glsl");
 
-//        auto texture0 = Texture2D::Create("/Users/xhs/XEngine/XEngineInput/assets/textures/Checkerboard.png");
         //Set first texture slot to 0
         s_Data.TextureSlots[0] = s_Data.WhiteTexture;
 
@@ -218,7 +217,7 @@ namespace XEngine {
     {
         XE_PROFILE_FUNCTION();
 
-        glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);
+        glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);//需使用正交投影矩阵
 
         s_Data.QuadShader->Bind();
 //        viewProj = glm::mat4(1.0f);//todo: 暂时使用单位矩阵解决点击播放时，部分sprite渲染没有效果，应该是mvp矩阵映射有问题
