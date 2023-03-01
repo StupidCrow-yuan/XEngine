@@ -404,7 +404,6 @@ namespace XEngine {
             if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
                 FlushAndReset();
             textureIndex = (float)s_Data.TextureSlotIndex;
-//            auto texture0 = Texture2D::Create("/Users/xhs/XEngine/XEngineInput/assets/textures/lut.png");
             s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
             s_Data.TextureSlotIndex++;
         }
