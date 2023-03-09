@@ -90,7 +90,7 @@ namespace XEngine
                 {
                     m_CameraController.OnUpdate(ts);
                 }
-                m_EditorCamera.OnUpdate(ts);
+                m_EditorCamera.OnUpdate(ts);//更新鼠标事件，vp矩阵
 
                 m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
                 break;
@@ -123,9 +123,14 @@ namespace XEngine
 //            XE_CORE_INFO("Pixel data = {0}", pixelData);//该返回值wei color attachment 1 绑定的buffer缓冲对象输出的值，即Texture.glsl中的location = 1的输出值
         }
 
-        OnOverlayRender();//UI层渲染
+        OnOverlayRender();//UI层渲染，绘制simulate状态下的碰撞体的轮廓线
+
+//        static int index = 0;
+//        auto path = "/Users/user/Desktop/test/test_" + std::to_string(index) + ".png";
+//        m_Framebuffer->ReadPixel(path);
 
         m_Framebuffer->Unbind();
+//        index++;
     }
 
     void EditorLayer::OnImGuiRender()
@@ -227,7 +232,7 @@ namespace XEngine
 
         std::string name = "None";
         bool isEmptyEnt = (uint32_t)m_HoveredEntity !=(uint32_t){0};
-        if (m_HoveredEntity && m_HoveredEntity.GetScene() && isEmptyEnt)
+        if (m_HoveredEntity && m_HoveredEntity.GetScene())
         {
             name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
         }
@@ -432,7 +437,7 @@ namespace XEngine
         if (m_SceneState == SceneState::Play)
         {
             Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
-            if (!camera || !camera.GetScene())
+            if (!camera || !camera.GetScene())//未加载scene的情况下，点击按钮camera等为空
             {
                 return;
             }
@@ -460,7 +465,7 @@ namespace XEngine
                             * glm::rotate(glm::mat4(1.0f), tc.Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f))
                             * glm::scale(glm::mat4(1.0f), scale);
 
-                    Renderer2D::DrawRect(transform, glm::vec4(0, 1, 0, 1));
+                    Renderer2D::DrawRect(transform, glm::vec4(1, 0, 1, 1));//绘制box colliders的矩形框
                 }
             }
 
@@ -477,16 +482,16 @@ namespace XEngine
                     glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
                             * glm::scale(glm::mat4(1.0f), scale);
 
-                    Renderer2D::DrawCircle(transform, glm::vec4(0, 1, 0, 1), 0.01f);
+                    Renderer2D::DrawCircle(transform, glm::vec4(0, 1, 0, 1), 0.01f);//绘制circle colliders的圆形框
                 }
             }
 
-            //Draw selected entity outline
+            //Draw selected entity outline 将鼠标选中的entity绘制成蓝色
             Entity selectEntityEntity = m_SceneHierachyPanel.GetSelectedEntity();
             if (selectEntityEntity && selectEntityEntity.GetScene())
             {
                 const TransformComponent& transform = selectEntityEntity.GetComponent<TransformComponent>();
-                Renderer2D::DrawRect(transform.GetTransform(), glm::vec4(1.0, 0.5, 0.0, 1.0f));
+                Renderer2D::DrawRect(transform.GetTransform(), glm::vec4(0.0, 0.0, 1.0, 1.0f));
             }
         }
 
@@ -633,7 +638,7 @@ namespace XEngine
     {
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1, 0, 0, 1));//设置button颜色
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1, 0, 0, 0));//设置button颜色
         auto& colors = ImGui::GetStyle().Colors;
         const auto& buttonHoverer = colors[ImGuiCol_ButtonHovered];
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(buttonHoverer.x, buttonHoverer.y, buttonHoverer.z, 0.5));
@@ -680,8 +685,8 @@ namespace XEngine
                 ImGui::SameLine();
             }
             Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play) ? m_IconSimulate : m_IconStop;
-            ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f));//show simulate icon
-            auto clickButton = ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(255.0f, 255.0f, 0.0f, 255.0f), tintColor);
+//            ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f));//show simulate icon
+            auto clickButton = ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(255.0f, 255.0f, 0.0f, 0.0f), tintColor);
             if (clickButton)
             {
                 XE_CORE_ERROR("click simulation button");
