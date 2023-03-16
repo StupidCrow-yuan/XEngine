@@ -84,9 +84,9 @@ namespace XEngine {
 
         std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
         uint32_t TextureSlotIndex = 1; // 0 = white texture
-        
+
         glm::vec4 QuadVertexPositions[4];
-        
+
         Renderer2D::Statistics Stats;
 
         struct CameraData
@@ -219,7 +219,7 @@ namespace XEngine {
 
         glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);//需使用正交投影矩阵
 
-        s_Data.QuadShader->Bind();
+//        s_Data.QuadShader->Bind();
 //        viewProj = glm::mat4(1.0f);//todo: 暂时使用单位矩阵解决点击播放时，部分sprite渲染没有效果，应该是mvp矩阵映射有问题
         s_Data.QuadShader->SetMat4("u_ViewProjection", viewProj);
 
@@ -253,8 +253,8 @@ namespace XEngine {
     {
         XE_PROFILE_FUNCTION();
 
-        uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase);
-        s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
+//        uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase);
+//        s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
 
         Flush();
     }
@@ -312,10 +312,10 @@ namespace XEngine {
     void Renderer2D::FlushAndReset()
     {
         EndScene();
-        
+
         s_Data.QuadIndexCount = 0;
         s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
-        
+
         s_Data.TextureSlotIndex = 1;
     }
 
@@ -448,7 +448,7 @@ namespace XEngine {
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
                 * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), {0.0f, 0.0f, 1.0f})
                 * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-        
+
         for(size_t i = 0; i < quadVertexCount; i++)
         {
             s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
@@ -458,9 +458,9 @@ namespace XEngine {
             s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
             s_Data.QuadVertexBufferPtr++;
         }
-        
+
         s_Data.QuadIndexCount += 6;
-        
+
         s_Data.Stats.QuadCount++;
     }
 
@@ -493,7 +493,7 @@ namespace XEngine {
                 break;
             }
         }
-        
+
         if (textureIndex == 0.0f)
         {
             if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
@@ -506,7 +506,7 @@ namespace XEngine {
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
                 * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), {0.0f, 0.0f, 1.0f})
                 * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-        
+
         for(size_t i = 0; i < quadVertexCount; i++)
         {
             s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
@@ -518,7 +518,7 @@ namespace XEngine {
         }
 
         s_Data.QuadIndexCount += 6;
-        
+
         s_Data.Stats.QuadCount++;
     }
 

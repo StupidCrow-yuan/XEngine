@@ -35,11 +35,11 @@ namespace XEngine {
 
     Scene::Scene()
     {
-        delete m_PhysicsWorld;
     }
 
     Scene::~Scene()
     {
+        delete m_PhysicsWorld;
     }
 
     template<typename Component>
@@ -164,6 +164,7 @@ namespace XEngine {
         OnPhysics2DStart();
     }
 
+    //runtime状态逻辑
     void Scene::OnUpdateRuntime(Timestep ts)
     {
         if (!m_IsPaused || m_StepFrames-- > 0)
@@ -171,18 +172,40 @@ namespace XEngine {
             //update scripts
             {
                 m_Registry.view<NativeScriptComponent>().each([=] (auto entity, auto& nsc)
-                                                              {
-                                                                  //todo: move to Scene::OnScenePlay
-                                                                  if (!nsc.Instance)
-                                                                  {
-                                                                      nsc.Instance = nsc.InstantiateScript();
-                                                                      nsc.Instance->m_Entity = Entity{ entity, this };
+                {
+                  //todo: move to Scene::OnScenePlay
+                  if (!nsc.Instance)
+                  {
+                      nsc.Instance = nsc.InstantiateScript();
+                      nsc.Instance->m_Entity = Entity{ entity, this };
 
-                                                                      nsc.Instance->OnCreate();
-                                                                  }
+                      nsc.Instance->OnCreate();
+                  }
 
-                                                                  nsc.Instance->OnUpdate(ts);
-                                                              });
+                  nsc.Instance->OnUpdate(ts);
+                });
+            }
+
+            // Physics
+            {
+                const int32_t velocityIterations = 6;
+                const int32_t positionIterations = 2;
+                m_PhysicsWorld->Step(ts, velocityIterations, positionIterations);
+
+                // Retrieve transform from Box2D
+                auto view = m_Registry.view<Rigidbody2DComponent>();
+                for (auto e : view)
+                {
+                    Entity entity = { e, this };
+                    auto& transform = entity.GetComponent<TransformComponent>();
+                    auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+
+                    b2Body* body = (b2Body*)rb2d.RuntimeBody;
+                    const auto& position = body->GetPosition();
+                    transform.Translation.x = position.x;
+                    transform.Translation.y = position.y;
+                    transform.Rotation.z = body->GetAngle();
+                }
             }
 
             //Render2D
@@ -235,6 +258,14 @@ namespace XEngine {
         }
     }
 
+    //editor状态逻辑
+    void Scene::OnUpdateEditor(Timestep ts, EditorCamera &camera)
+    {
+        //Render
+        RenderScene(camera);
+    }
+
+    //simulation状态逻辑
     void Scene::OnUpdateSimulation(Timestep ts, EditorCamera &camera)
     {
         if (!m_IsPaused || m_StepFrames-- > 0)
@@ -268,12 +299,6 @@ namespace XEngine {
             //Render
             RenderScene(camera);
         }
-    }
-
-    void Scene::OnUpdateEditor(Timestep ts, EditorCamera &camera)
-    {
-        //Render
-        RenderScene(camera);
     }
 
     void Scene::OnPhysics2DStart()
@@ -345,20 +370,20 @@ namespace XEngine {
             auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
             for (auto entity : group)
             {
-                auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+                const auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
                 Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
             }
         }
 
-        //Draw circles
+        //Draw circles todo: 首次拖拽Physics2D.Xengine的时候只绘制circle，其它的不可见，待排查
         {
             auto view = m_Registry.view<TransformComponent, CircleRendererComponent>();
             for (auto entity : view)
             {
-                auto [transform, circle] = view.get<TransformComponent, CircleRendererComponent>(entity);
+                const auto [transform, circle] = view.get<TransformComponent, CircleRendererComponent>(entity);
 
-                Renderer2D::DrawCircle(transform.GetTransform(), circle.Color, circle.Thickness, circle.Fade);
+                Renderer2D::DrawCircle(transform.GetTransform(), circle.Color, circle.Thickness, circle.Fade, (int)entity);
             }
         }
 
@@ -424,15 +449,16 @@ namespace XEngine {
     template<typename T>
     void Scene::OnComponentAdded(Entity entity, T& component)
     {
+        static_assert(sizeof(T) == 0);
     }
 
     template<>
-    void Scene::OnComponentAdded(Entity entity, IDComponent& component)
+    void Scene::OnComponentAdded<IDComponent>(Entity entity, IDComponent& component)
     {
     }
 
     template<>
-    void Scene::OnComponentAdded(Entity entity, TransformComponent& component)
+    void Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component)
     {
     }
 
