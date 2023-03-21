@@ -42,28 +42,44 @@ namespace XEngine {
         delete m_PhysicsWorld;
     }
 
-    template<typename Component>
+    template<typename... Component>
     static void CopyComponent(entt::registry& dst, entt::registry& src, const std::unordered_map<UUID, entt::entity>& enttMap)
     {
-        auto view = src.view<Component>();
-        for (auto e : view)
+        ([&]()
         {
-            UUID uuid = src.get<IDComponent>(e).ID;
-            XE_CORE_ASSERT(enttMap.find(uuid) != enttMap.end());
-            entt::entity dstEnttID = enttMap.at(uuid);//通过uuid获取map中对应的entity
+            auto view = src.view<Component>();
+            for (auto srcEntity : view)
+            {
+                entt::entity dstEntity = enttMap.at(src.get<IDComponent>(srcEntity).ID);//通过uuid获取map中对应的entity
 
-            auto& component = src.get<Component>(e);
-            dst.emplace_or_replace<Component>(dstEnttID, component);//将src中的component存入对应的entity中
-        }
+                auto& srcComponent = src.get<Component>(srcEntity);
+                dst.emplace_or_replace<Component>(dstEntity, srcComponent);//将src中的component存入对应的entity中
+            }
+        }(), ...);//模板展开参数包
     }
 
-    template<typename Component>
+    template<typename... Component>
+    static void CopyComponent(ComponentGroup<Component...>, entt::registry& dst, entt::registry& src, const std::unordered_map<UUID, entt::entity>& enttMap)
+    {
+        CopyComponent<Component...>(dst, src, enttMap);
+    }
+
+    template<typename... Component>
     static void CopyComponentIfExists(Entity dst, Entity src)
     {
-        if (src.HasComponent<Component>())
+        ([&]()
         {
-            dst.AddOrReplaceComponent<Component>(src.GetComponent<Component>());
-        }
+            if (src.HasComponent<Component>())
+            {
+                dst.AddOrReplaceComponent<Component>(src.GetComponent<Component>());
+            }
+        }(), ...);
+    }
+
+    template<typename... Component>
+    static void CopyComponentIfExists(ComponentGroup<Component...>, Entity dst, Entity src)
+    {
+        CopyComponentIfExists<Component...>(dst, src);
     }
 
     Ref<Scene> Scene::Copy(Ref<Scene> other)
@@ -88,17 +104,7 @@ namespace XEngine {
         }
 
         //Copy components (except IDComponent and TagComponent)
-        CopyComponent<TransformComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-        CopyComponent<SpriteRendererComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-        CopyComponent<CircleRendererComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-        CopyComponent<LineRendererComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-
-        CopyComponent<CameraComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-        CopyComponent<NativeScriptComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-        CopyComponent<Rigidbody2DComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-        CopyComponent<BoxCollider2DComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-        CopyComponent<CircleCollider2DComponent>(dstSceneRegisty, srcSceneRegisty, enttMap);
-
+        CopyComponent(AllComponents{}, dstSceneRegisty, srcSceneRegisty, enttMap);
         return newScene;
     }
 
@@ -109,19 +115,9 @@ namespace XEngine {
 
     void Scene::DuplicateEntity(Entity entity)
     {
-        std::string name = entity.GetName();
-        Entity newEntity = CreateEntity(name);
+        Entity newEntity = CreateEntity(entity.GetName());
 
-        CopyComponentIfExists<TransformComponent>(newEntity, entity);
-        CopyComponentIfExists<SpriteRendererComponent>(newEntity, entity);
-        CopyComponentIfExists<CircleRendererComponent>(newEntity, entity);
-        CopyComponentIfExists<LineRendererComponent>(newEntity, entity);
-
-        CopyComponentIfExists<CameraComponent>(newEntity, entity);
-        CopyComponentIfExists<NativeScriptComponent>(newEntity, entity);
-        CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
-        CopyComponentIfExists<BoxCollider2DComponent>(newEntity, entity);
-        CopyComponentIfExists<CircleCollider2DComponent>(newEntity, entity);
+        CopyComponentIfExists(AllComponents{}, newEntity, entity);
     }
 
     Entity Scene::CreateEntity(const std::string &name)
