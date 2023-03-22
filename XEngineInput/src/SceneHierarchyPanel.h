@@ -24,6 +24,9 @@ namespace XEngine {
         void SetSelectedEntity(Entity entity);
 
     private:
+        template<typename T>
+        void DisplayAddComponentEntity(const std::string& entityName);
+
         void DrawEntityNode(Entity entity);
         void DrawComponents(Entity entity);
 
