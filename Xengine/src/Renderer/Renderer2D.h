@@ -44,7 +44,7 @@ namespace XEngine {
 
         static void DrawLine(const glm::vec3& p0, glm::vec3& p1, const glm::vec4& color, int entityID = -1);
 
-        static void DrawRect(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, int entity = -1);
+        static void DrawRect(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, int entityID = -1);
 
         static void DrawRect(const glm::mat4& transform, const glm::vec4& color, int entityID = -1);
 
