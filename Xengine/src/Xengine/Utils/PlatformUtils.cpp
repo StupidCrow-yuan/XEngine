@@ -9,8 +9,14 @@
 //#include <commdlg.h>//This header is used by Dialog Boxes
 
 #include "portable-file-dialogs.h" //文件对话框
+#include <GLFW/glfw3.h>
 
 namespace XEngine {
+
+    float Time::GetTime()
+    {
+        return glfwGetTime();
+    }
 
     std::string FileDialogs::OpenFile(const char *filter)
     {

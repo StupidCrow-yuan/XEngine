@@ -7,7 +7,7 @@
 #include <glad/glad.h>
 #include "Xengine/Core/Input.h"
 #include "Renderer/Renderer.h"
-#include <GLFW/glfw3.h>
+#include "Utils/PlatformUtils.h"
 
 namespace XEngine {
 
@@ -86,7 +86,7 @@ namespace XEngine {
         while (m_Running)
         {
             XE_PROFILE_SCOPE("RunLoop");
-            float time = (float)glfwGetTime();
+            float time = Time::GetTime();
             Timestep timestep = time - m_LastFrameTime;
             m_LastFrameTime = time;
 
