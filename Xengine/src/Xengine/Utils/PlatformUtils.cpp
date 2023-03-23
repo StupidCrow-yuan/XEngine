@@ -4,12 +4,11 @@
 
 #include "xepch.h"
 #include "PlatformUtils.h"
+#include "Xengine/Application.h"
 
 //#include <commdlg.h>//This header is used by Dialog Boxes
 
 #include "portable-file-dialogs.h" //文件对话框
-
-#include "Xengine/Application.h"
 
 namespace XEngine {
 

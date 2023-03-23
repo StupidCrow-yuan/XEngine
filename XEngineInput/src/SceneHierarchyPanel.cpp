@@ -3,10 +3,10 @@
 //
 
 #include "SceneHierarchyPanel.h"
+#include "Xengine/Scene/Components.h"
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <glm/gtc/type_ptr.hpp>
-#include "Xengine/Scene/Components.h"
 
 namespace XEngine {
 

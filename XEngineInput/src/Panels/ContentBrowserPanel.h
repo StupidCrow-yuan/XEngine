@@ -5,8 +5,8 @@
 #ifndef XENGINEMAIN_CONTENTBROWSERPANEL_H
 #define XENGINEMAIN_CONTENTBROWSERPANEL_H
 
-#include <filesystem>
 #include "Renderer/Texture.h"
+#include <filesystem>
 
 namespace XEngine {
     class ContentBrowserPanel

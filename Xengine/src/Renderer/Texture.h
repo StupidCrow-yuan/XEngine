@@ -5,8 +5,8 @@
 #ifndef XENGINEMAIN_TEXTURE_H
 #define XENGINEMAIN_TEXTURE_H
 
-#include <string>
 #include "Xengine/Core/Base.h"
+#include <string>
 
 namespace XEngine {
     class Texture

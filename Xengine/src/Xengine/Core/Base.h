@@ -5,8 +5,8 @@
 #ifndef XENGINE_CORE_H
 #define XENGINE_CORE_H
 
-#include <memory>
 #include "Xengine/Core/PlatformDetection.h"
+#include <memory>
 
 // DLL support
 #ifdef XE_PLATFORM_WINDOWS

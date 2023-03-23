@@ -5,12 +5,10 @@
 #include "xepch.h"
 #include "Scene.h"
 #include "ScriptableEntity.h"
-
+#include "Entity.h"
 #include "Components.h"
 #include "Renderer/Renderer2D.h"
-
 #include <glm/glm.hpp>
-#include "Entity.h"
 
 //Box2D
 #include "box2d/b2_world.h"

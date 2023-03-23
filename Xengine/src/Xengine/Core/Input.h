@@ -6,9 +6,9 @@
 #define XENGINEMAIN_INPUT_H
 
 #include "xepch.h"
-#include <glm/glm.hpp>
 #include "Xengine/Core/KeyCodes.h"
 #include "Xengine/Core/MouseCodes.h"
+#include <glm/glm.hpp>
 
 namespace XEngine {
     class Input

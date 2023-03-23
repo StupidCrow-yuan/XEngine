@@ -5,8 +5,8 @@
 #ifndef XENGINEMAIN_VERTEXARRAY_H
 #define XENGINEMAIN_VERTEXARRAY_H
 
-#include <memory>
 #include "Renderer/Buffer.h"
+#include <memory>
 
 namespace XEngine {
     class VertexArray {

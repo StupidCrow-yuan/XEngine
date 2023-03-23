@@ -9,7 +9,6 @@
 #include "Xengine/Core/Timestep.h"
 #include "Xengine/Core/UUID.h"
 #include "Xengine/Renderer/EditorCamera.h"
-#include "entt.hpp"
 
 class b2World;
 

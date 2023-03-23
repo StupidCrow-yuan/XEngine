@@ -5,9 +5,9 @@
 #ifndef XENGINEMAIN_EVENT_H
 #define XENGINEMAIN_EVENT_H
 
-#include <functional>
 #include "Xengine/Debug/Instrumentor.h"
 #include "Xengine/Core/Base.h"
+#include <functional>
 
 namespace XEngine {
 

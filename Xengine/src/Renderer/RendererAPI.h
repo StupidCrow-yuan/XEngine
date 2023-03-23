@@ -5,8 +5,8 @@
 #ifndef XENGINEMAIN_RENDERERAPI_H
 #define XENGINEMAIN_RENDERERAPI_H
 
-#include <glm/glm.hpp>
 #include "VertexArray.h"
+#include <glm/glm.hpp>
 
 namespace XEngine {
     class RendererAPI

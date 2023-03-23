@@ -5,9 +5,9 @@
 #ifndef XENGINEMAIN_WINDOW_H
 #define XENGINEMAIN_WINDOW_H
 
-#include <sstream>
 #include "Xengine/Core/Base.h"
 #include "Xengine/Events/Event.h"
+#include <sstream>
 
 namespace XEngine {
     struct WindowProps

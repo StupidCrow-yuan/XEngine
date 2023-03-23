@@ -3,15 +3,16 @@
 //
 
 #include "EditorLayer.h"
+#include "Xengine/Scene/SceneSerializer.h"
+#include "Xengine/Utils/PlatformUtils.h"
+#include "Xengine/Math/Math.h"
+
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Xengine/Scene/SceneSerializer.h"
-#include "Xengine/Utils/PlatformUtils.h"
-
 #include "ImGuizmo.h"
-#include "Xengine/Math/Math.h"
+
 
 namespace XEngine
 {

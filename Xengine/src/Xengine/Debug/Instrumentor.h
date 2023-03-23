@@ -5,6 +5,8 @@
 #ifndef XENGINEMAIN_INSTRUMENTOR_H
 #define XENGINEMAIN_INSTRUMENTOR_H
 
+#include "Xengine/Core/Log.h"
+
 #include <algorithm>
 #include <chrono>
 #include <fstream>
@@ -13,8 +15,6 @@
 #include <thread>
 #include <mutex>
 #include <sstream>
-
-#include "Xengine/Core/Log.h"
 
 namespace XEngine {
 
