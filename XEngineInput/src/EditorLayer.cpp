@@ -504,7 +504,13 @@ namespace XEngine
 
     void EditorLayer::NewScene()
     {
-        m_ActiveScene = CreateRef<Scene>();
+        if (m_SceneState != SceneState::Edit)
+        {
+            return;
+        }
+
+        m_EditorScene = CreateRef<Scene>();
+        m_ActiveScene = m_EditorScene;
         m_SceneHierachyPanel.SetContext(m_ActiveScene);
 
         m_EditorScenePath = std::filesystem::path();
